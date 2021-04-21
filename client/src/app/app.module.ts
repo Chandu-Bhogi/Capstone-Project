@@ -5,22 +5,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { EmployeeComponent } from './employee/employee.component';
-import { AdmidComponent } from './admid/admid.component';
 import { AdminComponent } from './admin/admin.component';
 import { LoginComponent } from './login/login.component';
+import { EditProfileComponent } from './user/edit-profile/edit-profile.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
     EmployeeComponent,
-    AdmidComponent,
     AdminComponent,
-    LoginComponent
+    LoginComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
