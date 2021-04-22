@@ -1,0 +1,8 @@
+br {
+    content: '\A';
+    display: contents;
+    white-space: pre;
+  }
+
+.logoutArea{
+}
