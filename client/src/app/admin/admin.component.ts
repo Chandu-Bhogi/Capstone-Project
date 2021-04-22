@@ -17,8 +17,14 @@ export class AdminComponent implements OnInit {
     id:new FormControl()
   })
 
-  count = 1
+  custom = new FormGroup({
+    productID:new FormControl(),
+    customerID:new FormControl()
+  })
 
+  count = 1
+  reports:String[] = ['Report1', 'Report2', 'Report3', 'Report4']
+  report:String = ""
   constructor() { }
 
   ngOnInit(): void {
@@ -32,6 +38,32 @@ export class AdminComponent implements OnInit {
 
   deleteEmployee() {
     console.log(this.employeeID.value)
+  }
+
+  selectReport(report:String) {
+    console.log(report)
+    this.report = report
+  }
+
+  customize() {
+    console.log(this.custom.value)
+  }
+
+  daily() {
+
+  }
+
+  weekly() {
+
+  }
+
+  monthly() {
+
+  }
+
+  resolve() {
+    let index = this.reports.indexOf(this.report)
+    this.reports.splice(index,1)
   }
 
   makePassword(email:String):String {
