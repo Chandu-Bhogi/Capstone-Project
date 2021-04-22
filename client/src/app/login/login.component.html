@@ -1,9 +1,56 @@
-<div>
-    <form action="">
-        Username: <input type="text"> <br>
-        Password: <input type="password"><br>
-        <input type="button" value="Sign In">
-        <input type="button" value="Sign Up">
-        <input type="button" value="Report">
-    </form>
-</div>
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <span class="navbar-text">
+        Login
+      </span>
+    </div>
+  </nav>
+  <div class="row align-items-center">
+    <div class="col">
+        <div class="container-md">
+            <form [formGroup]="login" (ngSubmit)="signiInUser()">
+                <div class="mb-3">
+                  <label class="form-label">User ID</label>
+                  <input type="text" class="form-control" formControlName="id">
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Password</label>
+                  <input type="password" class="form-control" formControlName="password">
+                </div>
+                <button type="submit" class="btn btn-success" id="signin">Sign In</button>
+                <button type="button" class="btn btn-primary" id="signUp" (click)="signUp()">Sign Up</button>
+                <button type="button" class="btn btn-warning" id="signUp" (click)="report()">Report</button>
+            </form>
+        </div>
+    </div>
+    <div class="col">
+        <div class="container-md">
+            <form [formGroup]="login" (ngSubmit)="signiInEmployee()">
+                <div class="mb-3">
+                  <label class="form-label">Employee ID</label>
+                  <input type="text" class="form-control" formControlName="id">
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Password</label>
+                  <input type="password" class="form-control" formControlName="password">
+                </div>
+                <button type="submit" class="btn btn-success" id="signin">Sign In</button>
+            </form>
+        </div>
+    </div>
+    <div class="col">
+        <div class="container-md">
+            <form [formGroup]="login" (ngSubmit)="signiInAdmin()">
+                <div class="mb-3">
+                  <label class="form-label">Admin ID</label>
+                  <input type="text" class="form-control" formControlName="id">
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Password</label>
+                  <input type="password" class="form-control" formControlName="password">
+                </div>
+                <button type="submit" class="btn btn-success" id="signin">Sign In</button>
+            </form>
+        </div>
+    </div>
+  </div>
