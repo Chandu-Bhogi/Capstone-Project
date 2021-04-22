@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
   }
 
   signiInAdmin() {
-
+    console.log(this.login.value)
+    this.router.navigate(["admin"])
   }
 }

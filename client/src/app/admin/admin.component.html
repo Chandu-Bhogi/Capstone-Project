@@ -1,1 +1,39 @@
-<p>admin works!</p>
+<h2>Edit Employees</h2>
+<hr>
+<div class="row align-items-center">
+    <div class="col">
+        <h4>Add Employee</h4>
+        <div class="container-md">
+            <form [formGroup]="employee" (ngSubmit)="addEmployee()">
+                <div class="mb-3">
+                  <label class="form-label">First Name</label>
+                  <input type="text" class="form-control" formControlName="fName">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" class="form-control" formControlName="lName">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" formControlName="email">
+                </div>
+                <button type="submit" class="btn btn-success" id="addEmployee">Add Employee</button>
+                <button type="reset" class="btn btn-link" id="reset">Reset</button>
+            </form>
+        </div>
+    </div>
+    <div class="col"></div>
+    <div class="col">
+        <h4>Delete Employee</h4>
+        <div class="container-md">
+            <form [formGroup]="employeeID" (ngSubmit)="deleteEmployee()">
+                <div class="mb-3">
+                  <label class="form-label">Employee ID</label>
+                  <input type="text" class="form-control" formControlName="id">
+                </div>
+                <button type="submit" class="btn btn-warning" id="deleteEmployee">Delete Employee</button>
+            </form>
+        </div>
+    </div>
+  </div>
+<hr>
