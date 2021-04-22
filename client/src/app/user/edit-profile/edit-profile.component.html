@@ -1,0 +1,86 @@
+<div>
+    <h2>Edit Profile</h2>
+
+    <div class="editProfileContent">
+        <form #editProfileRef="ngForm" (ngSubmit)="submitEdits(editProfileRef.value)">
+            <div class='row'>
+                <div class="col">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="f_fname" name="f_fname" ngModel>
+                                <label for="f_email">First Name</label>
+                            </div>
+        
+                        </div>
+                        <div class='col'>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="f_lname" name="f_lname" ngModel>
+                                <label for="f_email">Last Name</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="f_email" name="f_email" ngModel>
+                        <label for="f_email">E-mail</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="f_streetAddress" name="f_streetAddress" ngModel>
+                        <label for="f_streetAddress">Street Address</label>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="f_city" name="f_city" ngModel>
+                                <label for="f_city">City</label>
+                            </div>
+                        </div>
+                        <div class='col'>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="f_state" name="f_state" ngModel>
+                                <label for="f_state">State</label>
+                            </div>
+                        </div>
+                        <div class='col'>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="f_zip" name="f_zip" ngModel>
+                                <label for="f_zip">Zip Code</label>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="f_dob" name="f_dob" ngModel>
+                                <label for="f_dob">Date of Birth</label>
+                            </div>
+        
+                        </div>
+                        <div class='col'>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="f_phoneNum" name="f_phoneNum" ngModel>
+                                <label for="f_phoneNum">Phone Number</label>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <input type="submit" class="btn btn-primary formBtn" value="Done">
+                        </div>
+                        <div class="col">
+                            <input type="reset" class="btn btn-secondary formBtn" value="Reset">
+                        </div>
+
+                    </div>
+        
+                </div>
+            </div>
+        </form>
+
+    </div>
+    
+</div>
