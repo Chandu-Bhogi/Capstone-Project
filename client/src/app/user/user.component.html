@@ -1,6 +1,14 @@
 <div>
-    <h2>User Panel</h2>
+    <h2>Welcome to the User Panel!</h2>
 
     <a [routerLink]="['/editProfile']">Edit Profile</a>
+    
+
+    <hr>
+    <div class="logoutArea">
+        <h4>Ready to log out?</h4>
+        <input type="button" class="btn btn-danger" value="Logout!">
+    </div>
+
 </div>
 <router-outlet></router-outlet>

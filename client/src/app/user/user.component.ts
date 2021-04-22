@@ -12,4 +12,8 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  logout_user(){
+    // send a logout request
+  }
+
 }
