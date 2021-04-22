@@ -11,6 +11,7 @@ import { EditProfileComponent } from './user/edit-profile/edit-profile.component
 import { FormsModule } from '@angular/forms';
 import { UserSignupComponent } from './user-signup/user-signup.component';
 import {ReactiveFormsModule } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
