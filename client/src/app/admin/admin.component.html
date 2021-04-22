@@ -1,4 +1,45 @@
+<h2>Reports</h2>
+<hr>
+<div class="row align-items-center">
+    <div class="col">
+        <div class="container">
+            <div class="name" *ngFor= "let report of reports">
+                <div (click)= selectReport(report)>
+                    <span>
+                      {{report}}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <p>{{report}}</p>
+        <button type="button" class="btn btn-primary" id="resolve" (click)="resolve()">Resolve</button>
+    </div>
+    <div class="col">
+        <div class="container-md">
+            <form [formGroup]="custom" (ngSubmit)="customize()">
+                <button type="button" class="btn btn-primary" id="daily" (click)="daily()">Daily</button>
+                <button type="button" class="btn btn-primary" id="weekly" (click)="weekly()">Weekly</button>
+                <button type="button" class="btn btn-primary" id="monthly" (click)="monthly()">Monthly</button>
+                <div class="mb-3">
+                  <label class="form-label">Product ID</label>
+                  <input type="text" class="form-control" formControlName="productID">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Customer ID</label>
+                    <input type="text" class="form-control" formControlName="customerID">
+                </div>
+                <button type="submit" class="btn btn-primary" id="search">Search</button>
+                <button type="reset" class="btn btn-link" id="reset">Reset</button>
+            </form>
+        </div>
+    </div>
+  </div>
+<hr>
+
 <h2>Edit Employees</h2>
+
 <hr>
 <div class="row align-items-center">
     <div class="col">
