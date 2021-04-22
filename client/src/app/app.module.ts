@@ -7,6 +7,8 @@ import { UserComponent } from './user/user.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { AdminComponent } from './admin/admin.component';
 import { LoginComponent } from './login/login.component';
+import { EditProfileComponent } from './user/edit-profile/edit-profile.component';
+import { FormsModule } from '@angular/forms';
 import { UserSignupComponent } from './user-signup/user-signup.component';
 import {ReactiveFormsModule } from '@angular/forms';
 
@@ -17,11 +19,13 @@ import {ReactiveFormsModule } from '@angular/forms';
     EmployeeComponent,
     AdminComponent,
     LoginComponent,
+    EditProfileComponent,
     UserSignupComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     ReactiveFormsModule
   ],
   providers: [],
