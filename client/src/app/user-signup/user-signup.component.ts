@@ -25,7 +25,8 @@ export class UserSignupComponent implements OnInit {
 
   signUpUser() {
     console.log(this.signUp.value)
-    alert(this.userNameMaker(this.signUp.value.fName, this.signUp.value.lName, this.count))
+    alert("Your Username is: "+this.userNameMaker(this.signUp.value.fName, this.signUp.value.lName, this.count))
+    this.router.navigate(["user"])
   }
 
   userNameMaker(firstName:String, LastName:String, count:Number):String {

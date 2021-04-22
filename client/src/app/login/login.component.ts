@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   signiInUser() {
+    console.log(this.login.value)
     this.router.navigate(["user"])
   }
 
