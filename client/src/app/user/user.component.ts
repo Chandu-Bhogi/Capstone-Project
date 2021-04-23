@@ -26,13 +26,13 @@ export class UserComponent implements OnInit {
   }
 
   showCartBtn() {
-    this.showCart ? this.showCart = false : this.showCart = true
+    this.showCart = true
     this.showEdit = false
   }
 
   showEditBtn() {
-    this.showEdit ? this.showEdit = false : this.showEdit = true
     this.showCart = false
+    this.showEdit = true
   }
 
   homeBtn() {
