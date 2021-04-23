@@ -22,7 +22,7 @@ var socketio = require("socket.io")(webSocketServer, {
 });
 
 app.use(cors());
-
+app.use(bodyParser.urlencoded({extended:true}))
 app.use(
   bodyParser.json({ limit: "50mb", extended: true, parameterLimit: 50000 })
 );
@@ -30,6 +30,8 @@ app.use(cookieParser());
 if (process.env.NODE_ENV == "development") {
   app.use(morgan("dev"));
 }
+
+app.use(express.static(__dirname + '/public'));
 
 // require("./sockets/index")(socketio);
 require("./routes/index")(app);
@@ -47,4 +49,4 @@ connect.then(
   (err) => {
     console.log(err);
   }
-);
+);  

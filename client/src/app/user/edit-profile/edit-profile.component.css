@@ -1,6 +1,19 @@
+h2{
+    margin: auto
+}
+
+h3{
+    text-align: center;
+}
+
 .editProfileContent{
     width:50%;
     margin: auto;
+}
+
+.updatePasswordContent{
+    width: 25%;
+    margin:auto;
 }
 
 .formBtn{
