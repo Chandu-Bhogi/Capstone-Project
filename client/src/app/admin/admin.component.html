@@ -1,1 +1,90 @@
-<p>admin works!</p>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand">CapStone</a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <button class="btn btn-outline-primary" type="button" (click)="homeBtn()">Home</button>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-outline-primary" type="button" (click)="showReportBtn()">Reports</button>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-outline-primary" type="button" (click)="showEditBtn()">Edit Employees</button>
+          </li>
+        </ul>
+        <button class="btn btn-danger" type="button">Log Out</button>
+      </div>
+    </div>
+  </nav>
+<div class="row align-items-center" *ngIf="showReport">
+    <div class="col">
+        <div class="container">
+            <div class="name" *ngFor= "let report of reports">
+                <div (click)= selectReport(report)>
+                    <span>
+                      {{report}}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <p>{{report}}</p>
+        <button type="button" class="btn btn-primary" id="resolve" (click)="resolve()">Resolve</button>
+    </div>
+    <div class="col">
+        <div class="container-md">
+            <form [formGroup]="custom" (ngSubmit)="customize()">
+                <button type="button" class="btn btn-primary" id="daily" (click)="daily()">Daily</button>
+                <button type="button" class="btn btn-primary" id="weekly" (click)="weekly()">Weekly</button>
+                <button type="button" class="btn btn-primary" id="monthly" (click)="monthly()">Monthly</button>
+                <div class="mb-3">
+                  <label class="form-label">Product ID</label>
+                  <input type="text" class="form-control" formControlName="productID">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Customer ID</label>
+                    <input type="text" class="form-control" formControlName="customerID">
+                </div>
+                <button type="submit" class="btn btn-primary" id="search">Search</button>
+                <button type="reset" class="btn btn-link" id="reset">Reset</button>
+            </form>
+        </div>
+    </div>
+  </div>
+
+<div class="row align-items-center" *ngIf="showEdit">
+    <div class="col">
+        <div class="container-md">
+            <form [formGroup]="employee" (ngSubmit)="addEmployee()">
+                <div class="mb-3">
+                  <label class="form-label">First Name</label>
+                  <input type="text" class="form-control" formControlName="fName">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" class="form-control" formControlName="lName">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" formControlName="email">
+                </div>
+                <button type="submit" class="btn btn-success" id="addEmployee">Add Employee</button>
+                <button type="reset" class="btn btn-link" id="reset">Reset</button>
+            </form>
+        </div>
+    </div>
+    <div class="col"></div>
+    <div class="col">
+        <div class="container-md">
+            <form [formGroup]="employeeID" (ngSubmit)="deleteEmployee()">
+                <div class="mb-3">
+                  <label class="form-label">Employee ID</label>
+                  <input type="text" class="form-control" formControlName="id">
+                </div>
+                <button type="submit" class="btn btn-warning" id="deleteEmployee">Delete Employee</button>
+            </form>
+        </div>
+    </div>
+  </div>
