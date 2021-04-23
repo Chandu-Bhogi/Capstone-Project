@@ -4,13 +4,14 @@ const Orders = require("../../controllers/orders");
 
 const router = express.Router();
 
-router.get("/getallOrders", Orders.getAllOrders);
+router.get("/getallorders", Orders.getAllOrders);
+// get all orders by given status using req.query
 router.get("/getorder", Orders.getOrder);
 
 router.post("/createorder", Orders.createOrder);
 
-router.put("/update", Orders.updateOrder);
+router.put("/updateorder/:id", Orders.updateOrder);
 
-router.delete("/deletetorder", Orders.deleteOrder);
+router.delete("/deletetorder/;id", Orders.deleteOrder);
 
 module.exports = router;

@@ -4,6 +4,7 @@ const employees = require("../../controllers/employees");
 const router = express.Router();
 
 router.get("/getallemplyees", employees.getAllEmployees);
+router.get("/getemployee", employees.getEmployeeByQuery);
 
 router.post("/addemployee", employees.addEmployee);
 

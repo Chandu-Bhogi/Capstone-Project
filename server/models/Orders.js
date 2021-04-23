@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
-  tracking_id: String,
+  id: String,
   recipient: {
     type: Schema.Types.Mixed,
     ref: "Users",
