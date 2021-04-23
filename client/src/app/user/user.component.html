@@ -1,14 +1,32 @@
-<div>
-    <h2>Welcome to the User Panel!</h2>
-
-    <a [routerLink]="['/editProfile']">Edit Profile</a>
-    
-
-    <hr>
-    <div class="logoutArea">
-        <h4>Ready to log out?</h4>
-        <input type="button" class="btn btn-danger" value="Logout!">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand">CapStone</a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" [routerLink]="['/editProfile']">Edit Profile</a>
+          </li>
+        </ul>
+        <button class="btn btn-outline-primary" type="button" (click)="showCart()">Cart</button>
+        <button class="btn btn-danger" type="button" (click)="logout_user()">Log Out</button>
+      </div>
     </div>
+</nav>
 
+<div class="container" *ngIf="checkCart">
+    <h3>Cart</h3>
+    <div class="name" *ngFor= "let item of cart">
+        {{item}}
+        <button class="btn btn-outline-danger" type="button" (click)="removeFromCart(item)">Remove</button>
+        <hr>
+    </div>
 </div>
-<router-outlet></router-outlet>
+
+<div class="container">
+    <h3>Items</h3>
+    <div class="name" *ngFor= "let item of items">
+        {{item}}
+        <button class="btn btn-outline-primary" type="button" (click)="addToCart(item)">Add</button>
+        <hr>
+    </div>
+</div>
