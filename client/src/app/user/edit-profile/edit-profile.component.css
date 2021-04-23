@@ -12,8 +12,18 @@ h3{
 }
 
 .updatePasswordContent{
-    width: 25%;
-    margin:auto;
+    /* width: fit-content; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.passInput{
+    width:100%;
+    /* border: 5px solid red; */
+}
+
+.passTextBox{
 }
 
 .formBtn{

@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditProfileComponent implements OnInit {
 
-  password1Res?:string;
-  password2Res?:string;
+  password1Res?:string
+  password2Res?:string 
 
   constructor() { }
 
