@@ -4,7 +4,7 @@ const tickets = require("../../controllers/tickets");
 
 const router = express.Router();
 
-router.get("/getalltickets", tickets.getAlltickets);
+router.get("/getalltickets", tickets.getAllTickets);
 router.get("/getticket", tickets.getTicket);
 
 router.post("/createticket", tickets.createTicket);

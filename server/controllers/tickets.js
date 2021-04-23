@@ -9,6 +9,10 @@ exports.createTicket = asyncHandler(async (req, res, next) => {
   
 });
 
+exports.updateTicket = asyncHandler(async (req, res, next) => {
+  
+});
+
 exports.getAllTickets = asyncHandler(async (req, res, next) => {
   
 });

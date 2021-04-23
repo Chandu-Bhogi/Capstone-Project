@@ -49,23 +49,24 @@ exports.login = asyncHandler(async (req, res, next) => {
       res.status(400).json({ status: false, message: "Email or Password is incorrect." });
     }
   } else {
-    res.status(422).json({status: false, message: "Account does not exist with this email address.",
-    });
+    res.status(422).json({ status: false, message: "Account does not exist with this email address." });
   }
 });
 
 exports.signup = asyncHandler(async (req, res, next) => {
   const { email } = req.body;
 
+  if (!email) return res.status(500).json({ status: false, message: "Wrong Request"});
+
   let [check] = await Users.find({email});
-  if (check.email == email) {
+  if (check && check.email == email) {
     res.status(422).json({ status: false, message: `Duplicate Email.!! ${email} already exists`});
   }
   else{
     let [user] = await Users.insertMany(req.body);
 
     if (user && user.id) {
-      res.status(200).json({ status: false, message: `${user.name}'s account is created with Email ${user.email}.` });
+      res.status(200).json({ status: true, message: `${user.name}'s account is created with Email ${user.email}.` });
     } else {
       res.status(422).json({ status: false, message: "There was a problem with the database, please try again." });
     }

@@ -15,6 +15,11 @@ exports.getOrder = asyncHandler(async (req, res, next) => {
   
 });
 
+
+exports.updateOrder = asyncHandler(async (req, res, next) => {
+  
+});
+
 exports.deleteOrder = asyncHandler(async (req, res, next) => {
   
 });

@@ -7,9 +7,9 @@ router.get("/getallemplyees", employees.getAllEmployees);
 
 router.post("/addemployee", employees.addEmployee);
 
-router.put("/updateemployee", employees.updateEmployee);
+router.put("/updateemployee/:id", employees.updateEmployee);
 
-router.delete("/deleteemployee", employees.deleteEmployee);
+router.delete("/deleteemployee/:id", employees.deleteEmployee);
 
 
 
