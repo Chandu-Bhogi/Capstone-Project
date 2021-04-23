@@ -3,17 +3,22 @@
       <a class="navbar-brand">CapStone</a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <button class="btn btn-outline-primary" type="button" (click)="homeBtn()">Home</button>
+            </li>
           <li class="nav-item">
-            <a class="nav-link active" [routerLink]="['/editProfile']">Edit Profile</a>
+            <button class="btn btn-outline-primary" type="button" (click)="showEditBtn()">Edit Profile</button>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-outline-primary" type="button" (click)="showCartBtn()">Cart</button>
           </li>
         </ul>
-        <button class="btn btn-outline-primary" type="button" (click)="showCart()">Cart</button>
         <button class="btn btn-danger" type="button" (click)="logout_user()">Log Out</button>
       </div>
     </div>
 </nav>
 
-<div class="container" *ngIf="checkCart">
+<div class="container" *ngIf="showCart">
     <h3>Cart</h3>
     <div class="name" *ngFor= "let item of cart">
         {{item}}
@@ -21,8 +26,8 @@
         <hr>
     </div>
 </div>
-
-<div class="container">
+<app-edit-profile *ngIf="showEdit"></app-edit-profile>
+<div class="container" *ngIf="!showEdit && !showCart">
     <h3>Items</h3>
     <div class="name" *ngFor= "let item of items">
         {{item}}
