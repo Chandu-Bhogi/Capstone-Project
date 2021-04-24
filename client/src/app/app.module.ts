@@ -11,7 +11,8 @@ import { EditProfileComponent } from './user/edit-profile/edit-profile.component
 import { FormsModule } from '@angular/forms';
 import { UserSignupComponent } from './user-signup/user-signup.component';
 import {ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule} from '@angular/common/http';
+import { FundsComponent } from './user/funds/funds.component'
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {HttpClientModule} from '@angular/common/http'
     AdminComponent,
     LoginComponent,
     EditProfileComponent,
-    UserSignupComponent
+    UserSignupComponent,
+    FundsComponent
   ],
   imports: [
     BrowserModule,
