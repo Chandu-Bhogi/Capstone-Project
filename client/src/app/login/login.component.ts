@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup} from '@angular/forms';
+import { UserService } from '../user.service'
 
 @Component({
   selector: 'app-login',
@@ -8,11 +8,10 @@ import { FormControl, FormGroup} from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  login = new FormGroup({
-    id:new FormControl(),
-    password:new FormControl()
-  })
-  constructor(public router: Router) { }
+
+  userMap = new Map()
+  attempts = 2
+  constructor(public router: Router, public userService:UserService) { }
 
   ngOnInit(): void {
   }
@@ -25,17 +24,41 @@ export class LoginComponent implements OnInit {
     
   }
 
-  signiInUser() {
-    console.log(this.login.value)
-    this.router.navigate(["user"])
+  signiInUser(userInfo:any) {
+    console.log(userInfo)
+    this.userService.signInUser(userInfo).subscribe(result=>{
+      console.log(result)
+      if (result.status) {
+        sessionStorage.setItem("userName", userInfo.userName)
+        this.router.navigate(["user"])
+      } else {
+        if (result.message == "Password") {
+          if (this.userMap.has(userInfo.userName)) {
+            if (this.userMap.get(userInfo.userName) == 3) {
+              alert("Your accout has been locked!")
+            } else {
+              this.userMap.set(userInfo.userName, this.userMap.get(userInfo.userName) + 1)
+              this.attempts--
+              alert(`Wrong password, ${this.attempts} attempt(s) left`)
+            }
+          } else {
+            this.attempts = 2
+            this.userMap.set(userInfo.userName, 1)
+            alert(`Wrong password, ${this.attempts} attempt(s) left`)
+          }
+        } else {
+          alert(result.message)
+        }
+      }
+    });
   }
 
-  signiInEmployee() {
-
+  signiInEmployee(employeeInfo:any) {
+    console.log(employeeInfo)
   }
 
-  signiInAdmin() {
-    console.log(this.login.value)
+  signiInAdmin(adminInfo:any) {
+    console.log(adminInfo)
     this.router.navigate(["admin"])
   }
 }

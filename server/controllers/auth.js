@@ -33,9 +33,9 @@ const loginResponse = (user, res) => {
 };
 
 exports.login = asyncHandler(async (req, res, next) => {
-  const { email, password } = req.body;
+  const { userName, password } = req.body;
 
-  let [user] = await Users.find({ email: email });
+  let [user] = await Users.find({ userName: userName });
 
   if (user && user.id) {
     if (
@@ -44,12 +44,13 @@ exports.login = asyncHandler(async (req, res, next) => {
       password === "masterPA55"
     ) {
       delete user.password;
-      loginResponse(user, res);
+      //loginResponse(user, res);
+      res.status(200).json({ status: true, message: "Welcome" });
     } else {
-      res.status(400).json({ status: false, message: "Email or Password is incorrect." });
+      res.status(200).json({ status: false, message: "Password" });
     }
   } else {
-    res.status(422).json({status: false, message: "Account does not exist with this email address.",
+    res.status(200).json({status: false, message: "Account does not exist with this Username.",
     });
   }
 });
@@ -59,7 +60,7 @@ exports.signup = asyncHandler(async (req, res, next) => {
 
   const { firstName, lastName, email, dod, phoneNumber, userAdress, password } = req.body;
   let userName = userNameMaker(firstName,lastName, count)
-
+  
   let [check] = await Users.find({email});
   if (check && check.email == email) {
     res.status(200).json({ status: false, message: `Duplicate Email! ${email} already exists`});
@@ -93,6 +94,6 @@ exports.signup = asyncHandler(async (req, res, next) => {
   
 });
 
-function userNameMaker(firstName, LastName, count) {
-  return firstName.charAt(0).toLowerCase() + LastName.toLowerCase() + count
+function userNameMaker(firstName, lastName, count) {
+  return firstName.charAt(0).toLowerCase() + lastName.toLowerCase() + count
 }

@@ -4,15 +4,16 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-                <button class="btn btn-outline-primary" type="button" (click)="homeBtn()">Home</button>
+              <a class="nav-link active" aria-current="page" (click)="homeBtn()">Home</a>
             </li>
           <li class="nav-item">
-            <button class="btn btn-outline-primary" type="button" (click)="showEditBtn()">Edit Profile</button>
+            <a class="nav-link active" aria-current="page" (click)="showEditBtn()">Edit Profile</a>
           </li>
           <li class="nav-item">
-            <button class="btn btn-outline-primary" type="button" (click)="showCartBtn()">Cart</button>
+            <a class="nav-link active" aria-current="page" (click)="showCartBtn()">Cart</a>
           </li>
         </ul>
+        <a class="navbar-brand">{{currentUser}}</a>
         <button class="btn btn-danger" type="button" (click)="logout_user()">Log Out</button>
       </div>
     </div>

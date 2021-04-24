@@ -11,6 +11,7 @@ export class UserComponent implements OnInit {
   cart:String[] = []
   showCart = false
   showEdit = false
+  currentUser = sessionStorage.getItem("userName")
 
   constructor() { }
 
