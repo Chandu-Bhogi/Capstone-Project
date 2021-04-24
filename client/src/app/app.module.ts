@@ -12,7 +12,11 @@ import { FormsModule } from '@angular/forms';
 import { UserSignupComponent } from './user-signup/user-signup.component';
 import {ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import { FundsComponent } from './user/funds/funds.component'
+import { FundsComponent } from './user/funds/funds.component';
+import { SendRequestComponent } from './employee/send-request/send-request.component';
+import { UpdateOrderStatusComponent } from './employee/update-order-status/update-order-status.component';
+import { UnlockUsersComponent } from './employee/unlock-users/unlock-users.component';
+import { EditEmployeeProfileComponent } from './employee/edit-employee-profile/edit-employee-profile.component'
 
 @NgModule({
   declarations: [
@@ -23,7 +27,11 @@ import { FundsComponent } from './user/funds/funds.component'
     LoginComponent,
     EditProfileComponent,
     UserSignupComponent,
-    FundsComponent
+    FundsComponent,
+    SendRequestComponent,
+    UpdateOrderStatusComponent,
+    UnlockUsersComponent,
+    EditEmployeeProfileComponent
   ],
   imports: [
     BrowserModule,
