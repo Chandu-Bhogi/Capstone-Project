@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup} from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from '../user.service'
+import { SignUp } from '../model.signup'
 
 @Component({
   selector: 'app-user-signup',
@@ -8,28 +9,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-signup.component.css']
 })
 export class UserSignupComponent implements OnInit {
-  signUp = new FormGroup({
-    fName:new FormControl(),
-    lName:new FormControl(),
-    email:new FormControl(),
-    dod:new FormControl(),
-    pNumber:new FormControl(),
-    address:new FormControl(),
-    password:new FormControl()
-  })
+
   count = 1
-  constructor(public router: Router) { }
+  serverResult?:SignUp
+  constructor(public router: Router, public userService:UserService) { }
 
   ngOnInit(): void {
   }
 
-  signUpUser() {
-    console.log(this.signUp.value)
-    alert("Your Username is: "+this.userNameMaker(this.signUp.value.fName, this.signUp.value.lName, this.count))
-    this.router.navigate(["user"])
-  }
-
-  userNameMaker(firstName:String, LastName:String, count:Number):String {
-    return firstName.charAt(0).toLowerCase() + LastName.toLowerCase() + count
+  signUpUser(userInfo:any) {
+    console.log(userInfo)
+    this.userService.signUpUser(userInfo).subscribe(result=>{
+      console.log(result)
+      if (result.status) {
+        alert(result.message)
+        sessionStorage.setItem("userName", result.userName)
+        this.router.navigate(["user"])
+      } else {
+        alert(result.message)
+      }
+    });
   }
 }

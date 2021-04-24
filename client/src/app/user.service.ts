@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { SignUp } from './model.signup'
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +26,8 @@ export class UserService {
     )
   }
 
+  signUpUser(user:any):Observable<SignUp>{
+    return this.http.post<SignUp>("http://localhost:4100/v1/auth/signup",user)
+  }
 
 }
