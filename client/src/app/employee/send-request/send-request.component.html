@@ -1,1 +1,68 @@
-<p>send-request works!</p>
+<div class="container">
+    <h2>Request more Product Inventory</h2>
+
+    <div class="SendRequestArea">
+
+
+        <form #productQuantityRef="ngForm" (ngSubmit)="sendRequest2(productQuantityRef.value)">
+            <div class="row" *ngFor="let product of temp_products['products']">
+                <div class="col">
+                    ** some picture here **
+                </div>
+                <div class="col">
+                    <span>{{product['pname']}}</span>
+                </div>
+                <div class="col">
+                    {{ product["quantity"] }}
+                </div>
+                <div class="col">
+                    <div class="form-floating mb-3 itemInput">
+                        <input type="text" value="1" class="form-control itemInputBox" id="f_item" [name]="'product_'+product['pname']" ngModel>
+                        <label for="f_newPassword1">Quantity</label>
+                    </div> 
+                </div>
+                <div class="col">
+                    <input type="button" value="+" class="btn btn-primary">
+                    <input type="button" value="-" class="btn btn-primary">
+                </div>
+                <hr>
+            </div>
+
+            <div class="row">
+                <input type="submit" value="Send Quantity Request" class="btn btn-primary sendRequestBtn">
+                <input type="reset" value="Reset" class="btn btn-secondary sendRequestBtn">
+            </div>
+        </form>
+        
+        <!-- <form [formGroup]="productQuantityForm" (ngSubmit)="sendRequest()">
+            <div formGroupName="product" class="row" *ngFor="let product of temp_products['products']">
+                <div class="col">
+                    ** some picture here **
+                </div>
+                <div class="col">
+                    {{product['pname']}}
+                    <input type="text" name="productName" id="productName" [value]="product['pname']" formControlName="name">
+                </div>
+                <div class="col">
+                    {{ product["quantity"] }}
+                </div>
+                <div class="col">
+                    <div class="form-floating mb-3 itemInput">
+                        <input type="text" class="form-control itemInputBox" id="f_item" name="f_item" value="1" formControlName="quantity">
+                        <label for="f_newPassword1">Quantity</label>
+                    </div> 
+                </div>
+                <div class="col">
+                    <input type="button" value="+" class="btn btn-primary">
+                    <input type="button" value="-" class="btn btn-primary">
+                </div>
+                <hr>
+            </div>
+
+            <div class="row">
+                <input type="submit" value="Send Quantity Request" class="btn btn-primary sendRequestBtn">
+                <input type="reset" value="Reset" class="btn btn-secondary sendRequestBtn">
+            </div>
+        </form> -->
+    </div>
+</div>

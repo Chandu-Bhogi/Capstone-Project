@@ -1,0 +1,32 @@
+h2{
+    margin: auto
+}
+
+h3{
+    text-align: center;
+}
+
+.editProfileContent{
+    width:50%;
+    margin: auto;
+}
+
+.updatePasswordContent{
+    /* width: fit-content; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.passInput{
+    width:100%;
+    /* border: 5px solid red; */
+}
+
+.passTextBox{
+}
+
+.formBtn{
+    width: 100%;
+    margin: 5px;
+}
