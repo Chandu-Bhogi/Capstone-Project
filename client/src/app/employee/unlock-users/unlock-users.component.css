@@ -1,0 +1,16 @@
+.unlockUsersArea{
+    margin: auto;
+}
+
+
+.orderDetails{
+    border: 5px solid black;
+    border-radius: 10px;
+    width:fit-content;
+    padding: 30px;
+    margin: 30px auto;
+
+}
+.orderStatusBtn{
+    margin: 10px;
+}
