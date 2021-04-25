@@ -16,7 +16,10 @@ import { FundsComponent } from './user/funds/funds.component';
 import { SendRequestComponent } from './employee/send-request/send-request.component';
 import { UpdateOrderStatusComponent } from './employee/update-order-status/update-order-status.component';
 import { UnlockUsersComponent } from './employee/unlock-users/unlock-users.component';
-import { EditEmployeeProfileComponent } from './employee/edit-employee-profile/edit-employee-profile.component'
+import { EditEmployeeProfileComponent } from './employee/edit-employee-profile/edit-employee-profile.component';
+import { PendingOrdersComponent } from './employee/update-order-status/pending-orders/pending-orders.component';
+import { ShippedOrdersComponent } from './employee/update-order-status/shipped-orders/shipped-orders.component';
+import { DeliveredOrdersComponent } from './employee/update-order-status/delivered-orders/delivered-orders.component'
 
 @NgModule({
   declarations: [
@@ -31,7 +34,10 @@ import { EditEmployeeProfileComponent } from './employee/edit-employee-profile/e
     SendRequestComponent,
     UpdateOrderStatusComponent,
     UnlockUsersComponent,
-    EditEmployeeProfileComponent
+    EditEmployeeProfileComponent,
+    PendingOrdersComponent,
+    ShippedOrdersComponent,
+    DeliveredOrdersComponent
   ],
   imports: [
     BrowserModule,

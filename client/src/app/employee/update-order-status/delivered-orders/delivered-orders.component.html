@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="deliveredOrderArea">
+        <form #orderRef="ngForm" (ngSubmit)="submitOrderStatusUpdate(orderRef.value)">
+            <div class="OrderFormArea" *ngFor="let order of orders_service.temp_order['orders']">
+                <div *ngIf="order['status']=='delivered'">
+                    <div class="orderDetails">
+                        Tracking ID: {{ order['tracking_id'] }}
+                        <br>
+                        Recipient: {{ order['recepient'] }}
+                        <br>
+                        Current Order Status: <br>
+                        <input class="form-check-input" type="radio" value="Pending" [name]="'order_'+order['tracking_id']"  [id]="'order1_'+order['tracking_id']" ngModel> 
+                        <label [for]="'order1_'+order['tracking_id']">Pending</label> <br>
+                        <input class="form-check-input" type="radio" value="Shipped" [name]="'order_'+order['tracking_id']"  [id]="'order2_'+order['tracking_id']" ngModel> 
+                        <label [for]="'order2_'+order['tracking_id']">Shipped</label> <br>
+                        <input class="form-check-input" type="radio" value="Delivered" [name]="'order_'+order['tracking_id']"  [id]="'order3_'+order['tracking_id']" ngModel> 
+                        <label [for]="'order3_'+order['tracking_id']">Delivered</label> <br>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin: auto;width: fit-content;">
+                <input type="submit" class="btn btn-primary orderStatusBtn" value="Submit Order Status Update">
+                <input type="reset" class="btn btn-primary orderStatusBtn" value="Reset">
+            </div>
+        </form>
+
+    </div>
+</div>

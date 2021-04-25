@@ -1,1 +1,13 @@
-<p>update-order-status works!</p>
+<div class="container">
+    <h2>Update Order Status</h2>
+
+        <select [(ngModel)]="selectedOrderType" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+            <option selected>Select Order Status to Update</option>
+            <option value="pending">Pending Orders</option>
+            <option value="shipped">Shipped Orders</option>
+            <option value="delivered">Delivered Orders</option>
+        </select>
+        <app-pending-orders *ngIf="selectedOrderType == 'pending'"></app-pending-orders>
+        <app-shipped-orders *ngIf="selectedOrderType == 'shipped'"></app-shipped-orders>
+        <app-delivered-orders *ngIf="selectedOrderType == 'delivered'"></app-delivered-orders>
+</div>

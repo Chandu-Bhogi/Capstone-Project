@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OrdersService } from 'src/app/orders.service';
 
 @Component({
   selector: 'app-update-order-status',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UpdateOrderStatusComponent implements OnInit {
 
-  constructor() { }
+  selectedOrderType?:any;
+
+  constructor(public orders_service:OrdersService) { }
 
   ngOnInit(): void {
   }
 
+  checkOrderType(selectedOrderTypeRef:any){
+    console.log(selectedOrderTypeRef)
+  }
 }
