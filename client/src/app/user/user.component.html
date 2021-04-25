@@ -16,12 +16,16 @@
             <button class="btn btn-outline-primary" type="button" (click)="showCartBtn()">Cart</button>
           </li>
         </ul>
+        <a class="navbar-brand">{{currentUser}}</a>
         <button class="btn btn-danger" type="button" (click)="logout_user()">Log Out</button>
       </div>
     </div>
 </nav>
 
 <div class="container" *ngIf="showCart">
+  <div class="d-grid gap-2">
+    <button class="btn btn-primary" type="button" (click)="buyOrder()">Buy</button>
+  </div>
     <h3>Cart</h3>
     <div class="name" *ngFor= "let item of cart">
         {{item}}

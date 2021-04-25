@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ServerResponse } from './model.serverResponse'
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +37,12 @@ export class UserService {
     )
   }
 
+  signUpUser(user:any):Observable<ServerResponse>{
+    return this.http.post<ServerResponse>("http://localhost:4100/v1/auth/signup",user)
+  }
+
+  signInUser(user:any):Observable<ServerResponse>{
+    return this.http.post<ServerResponse>("http://localhost:4100/v1/auth/login",user)
+  }
 
 }

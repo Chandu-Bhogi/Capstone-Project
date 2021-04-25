@@ -11,6 +11,7 @@ export class UserComponent implements OnInit {
   cart:String[] = []
   showCart = false
   showEdit = false
+  currentUser = sessionStorage.getItem("userName")
   showFunds = false
   showHome = true
 
@@ -44,7 +45,7 @@ export class UserComponent implements OnInit {
   showFundBtn(){
     this.showHome = false
     this.showCart = false;
-    this.showFunds = false
+    this.showEdit = false
     this.showFunds = true;
     
   }
@@ -59,5 +60,10 @@ export class UserComponent implements OnInit {
   removeFromCart(item:String) {
     let index = this.cart.indexOf(item)
     this.cart.splice(index, 1)
+  }
+
+  buyOrder() {
+    alert(`You have bought ${this.cart.length} items`)
+    this.cart = []
   }
 }
