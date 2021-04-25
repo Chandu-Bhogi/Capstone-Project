@@ -31,6 +31,8 @@ export class LoginComponent implements OnInit {
   }
 
   signiInEmployee() {
+    console.log(this.login.value)
+    this.router.navigate(["employee"])
 
   }
 

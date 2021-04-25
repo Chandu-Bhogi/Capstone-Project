@@ -1,0 +1,37 @@
+<div class="container">
+    <h2 style="text-align: center;">Request more Product Inventory</h2>
+
+    <div class="SendRequestArea">
+
+
+        <form #productQuantityRef="ngForm" (ngSubmit)="sendRequest2(productQuantityRef.value)">
+            <div class="row" *ngFor="let product of temp_products['products']">
+                <div class="col">
+                    ** some picture here **
+                </div>
+                <div class="col">
+                    <span>{{product['pname']}}</span>
+                </div>
+                <div class="col">
+                    {{ product["quantity"] }}
+                </div>
+                <div class="col">
+                    <div class="form-floating mb-3 itemInput">
+                        <input type="text" class="form-control itemInputBox" [id]="'product_'+product['id']" [name]="'product_'+product['pname']" ngModel>
+                        <label [for]="'product_'+product['id']">Quantity</label>
+                    </div> 
+                </div>
+                <!-- <div class="col">
+                    <input type="button" value="+" class="btn btn-primary" [id]="'inc_'+product['id']" (click)="add_1('product_'+product['id'])">
+                    <input type="button" value="-" class="btn btn-primary" [id]="'dec_'+product['id']" (click)="sub_1('product_'+product['id'])">
+                </div> -->
+                <hr>
+            </div>
+
+            <div class="row">
+                <input type="submit" value="Send Quantity Request" class="btn btn-primary sendRequestBtn">
+                <input type="reset" value="Reset" class="btn btn-secondary sendRequestBtn">
+            </div>
+        </form>
+    </div>
+</div>
