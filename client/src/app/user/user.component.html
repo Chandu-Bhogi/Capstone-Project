@@ -10,10 +10,10 @@
             <button class="btn btn-outline-primary" type="button" (click)="showFundBtn()">Funds</button>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" (click)="showEditBtn()">Edit Profile</a>
+            <button class="btn btn-outline-primary" type="button" (click)="showEditBtn()">Edit Profile</button>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" (click)="showCartBtn()">Cart</a>
+            <button class="btn btn-outline-primary" type="button" (click)="showCartBtn()">Cart</button>
           </li>
         </ul>
         <a class="navbar-brand">{{currentUser}}</a>
@@ -23,6 +23,9 @@
 </nav>
 
 <div class="container" *ngIf="showCart">
+  <div class="d-grid gap-2">
+    <button class="btn btn-primary" type="button" (click)="buyOrder()">Buy</button>
+  </div>
     <h3>Cart</h3>
     <div class="name" *ngFor= "let item of cart">
         {{item}}
