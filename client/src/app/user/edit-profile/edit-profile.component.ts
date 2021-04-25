@@ -26,9 +26,8 @@ export class EditProfileComponent implements OnInit {
 
     // check if the new passwords match
     if(updatePasswordRef['f_newPassword1'] != updatePasswordRef['f_newPassword2']){
-      console.log("ok")
-      this.password1Res = "❌"
-      this.password2Res = "❌"
+      this.password1Res = "❌ Password didn't match!"
+      this.password2Res = "❌ Password didn't match!"
     }
   }
 

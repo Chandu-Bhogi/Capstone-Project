@@ -1,7 +1,8 @@
 <div class="container">
+    <h2 style="text-align: center;">Unlock Users</h2>
     <div class="unlockUsersArea">
         <form #lockedUsersRef="ngForm" (ngSubmit)="unlockUsers(lockedUsersRef.value)">
-            <div class="OrderFormArea" *ngFor="let person of user_service.temp_users['users']">
+            <div class="OrderFormArea" *ngFor="let person of user_service.temp_users['users'];index as idx">
                 <div *ngIf="person['locked']== 1">
                     <div class="orderDetails">
                         Person ID: {{ person['id'] }}
@@ -15,7 +16,6 @@
                             <option value="locked" ngValue>Locked</option>
                             <option value="unlocked" ngValue>Unlocked</option>
                         </select>
-                        
                     </div>
                 </div>
             </div>

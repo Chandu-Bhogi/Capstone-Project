@@ -6,21 +6,13 @@ h3{
     text-align: center;
 }
 
-.editProfileContent{
-    width:50%;
-    margin: auto;
-}
-
 .updatePasswordContent{
-    /* width: fit-content; */
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    width:50%;
+    margin:auto;
 }
 .passInput{
-    width:100%;
-    /* border: 5px solid red; */
+     width:100%;
+    border: 5px solid red;
 }
 
 .passTextBox{
