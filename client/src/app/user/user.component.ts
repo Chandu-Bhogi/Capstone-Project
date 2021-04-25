@@ -12,6 +12,8 @@ export class UserComponent implements OnInit {
   showCart = false
   showEdit = false
   currentUser = sessionStorage.getItem("userName")
+  showFunds = false
+  showHome = true
 
   constructor() { }
 
@@ -27,18 +29,32 @@ export class UserComponent implements OnInit {
   }
 
   showCartBtn() {
-    this.showCart = true
+    this.showHome = false
     this.showEdit = false
+    this.showFunds = false
+    this.showCart = true
   }
 
   showEditBtn() {
+    this.showHome = false
     this.showCart = false
+    this.showFunds = false
     this.showEdit = true
+  }
+
+  showFundBtn(){
+    this.showHome = false
+    this.showCart = false;
+    this.showFunds = false
+    this.showFunds = true;
+    
   }
 
   homeBtn() {
     this.showCart = false
     this.showEdit = false
+    this.showFunds = false
+    this.showHome = true
   }
 
   removeFromCart(item:String) {

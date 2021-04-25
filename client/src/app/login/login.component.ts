@@ -55,6 +55,7 @@ export class LoginComponent implements OnInit {
 
   signiInEmployee(employeeInfo:any) {
     console.log(employeeInfo)
+    this.router.navigate(["employee"])
   }
 
   signiInAdmin(adminInfo:any) {
