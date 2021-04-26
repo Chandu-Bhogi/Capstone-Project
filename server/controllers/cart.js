@@ -16,7 +16,7 @@ exports.createUserCart = asyncHandler(async (req, res, next) => {
 
     console.log(products)
     if (products.length > 0){
-        Users.findByIdAndUpdate(req.params.id, { cart: products }, { new: true })
+        Users.findOneAndUpdate( { id: req.params.id }, { $push: { cart: products }}, { new: true })
         .then((user) => 
           res.status(200).json({ user, message: "Success" })
         )
