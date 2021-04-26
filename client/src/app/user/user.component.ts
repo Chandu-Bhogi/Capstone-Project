@@ -21,7 +21,7 @@ export class UserComponent implements OnInit {
   }
 
   logout_user() {
-    alert("LogOut")
+    confirm("Are you sure you would like to ")
   }
 
   addToCart(item:String) {

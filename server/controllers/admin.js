@@ -9,7 +9,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     console.log(req.body)
     const { adminID, password } = req.body;
   
-    let admin = await Admin.find({adminID: req.body.adminID});
+    let [admin] = await Admin.find({adminID: adminID});
 
     console.log("Admin: ")
     console.log(admin)
