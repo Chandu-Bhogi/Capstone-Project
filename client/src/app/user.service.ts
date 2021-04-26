@@ -21,7 +21,7 @@ export class UserService {
 
   config:any = {
     URL:'http://localhost:',
-    PORT:'8100'
+    PORT:'4100'
   }
 
   constructor(public http:HttpClient) { }
@@ -31,10 +31,9 @@ export class UserService {
   }
 
   post_UpdateProfile(profileUpdates:any){
-    return this.http.post(
-      this.config['URL']+this.config['PORT']+'/',
-      profileUpdates
-    )
+    let URL:string = this.config['URL']+this.config['PORT']+'/v1/profile/updateuser'
+    console.log(`Traveling to: ${URL}`)
+    return this.http.post(URL,profileUpdates).subscribe(response=>console.log(response),err=>console.log(err));
   }
 
   signUpUser(user:any):Observable<ServerResponse>{

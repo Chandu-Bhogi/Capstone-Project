@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -10,13 +11,25 @@ export class EditProfileComponent implements OnInit {
   password1Res?:string
   password2Res?:string 
 
-  constructor() { }
+  constructor(public user_service:UserService) { }
 
   ngOnInit(): void {
   }
 
   submitEdits(editProfileRef:any){
-    console.log(editProfileRef)
+    let curr_userName:any = sessionStorage.getItem('userName')
+    editProfileRef['userName'] = curr_userName
+    
+
+    let final_UserEdits:any = {}
+    for(let [k,v] of Object.entries(editProfileRef)){
+      if(v != ""){
+        final_UserEdits[k] = v
+      }
+    }
+    console.log(final_UserEdits)
+
+    this.user_service.post_UpdateProfile(final_UserEdits)
   }
 
   submitNewPassword(updatePasswordRef:any){

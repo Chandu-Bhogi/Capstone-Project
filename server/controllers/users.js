@@ -42,5 +42,51 @@ exports.retrieveAllUsers = asyncHandler(async (req,res,next)=>{
 
 // Edit Profile
 exports.updateUser = asyncHandler(async (req, res, next) => {
-    
+    console.log("hi in the update")
+    console.log(req.body)
+
+    console.log("userName: " + req.body['userName'])
+    console.log("city: " + req.body['f_city'])
+    console.log("state: " + req.body['f_state'])
+    //{$set:{"city":req.body['f_city'],"state":req.body['f_state']}}
+
+    // User.findOne({"userName":req.body.userName},(err,data)=>{
+    //     if(!err){
+    //         console.log(data)
+    //         // let id = data["_id"]
+    //         // User.updateOne({_id:id},{$set:{"city":req.body.f_city,"state":req.body.f_state}},(error,result)=>{
+    //         //     if(!error){
+    //         //         console.log(result)
+    //         //     }
+    //         //     else{
+    //         //         console.log(error)
+    //         //     }
+    //         // })
+    //     }
+    // })
+
+
+    User.findOneAndUpdate({"userName":req.body.userName},{$set:{"city":req.body.f_city,"state":req.body.f_state}},{multi: true },(error,result)=>{
+        if(!error){
+            console.log("....")
+            console.log(result)
+            console.log("====")
+            if(result.nModified > 0){
+                console.log("-- Updated --")
+            }
+            else{
+                console.log("[LOG]: ERROR -- Didn't find the record.")
+            }
+        }else{
+            console.log("[LOG]: ERROR -- " + error)
+        }
+    })
 });
+exports.show_updateUser = asyncHandler(async (req,res,next)=>{
+    res.send("update area")
+})
+
+
+exports.findUser = asyncHandler(async (req,res,next)=>{
+    res.sendFile(path.resolve(__dirname+"/../public/findUser.html"))   
+})

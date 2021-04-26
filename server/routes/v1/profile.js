@@ -7,7 +7,11 @@ const router = express.Router();
 router.get("/adduser",users.show_addUser);
 router.post("/adduser",users.addUser);
 
-router.put("/updatuser", users.updateUser);
+router.get("/updateuser",users.show_updateUser);
+router.post("/updateuser", users.updateUser);
+
 router.get("/allusers", users.retrieveAllUsers);
+
+router.get("/findUser",users.findUser);
 
 module.exports = router;
