@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AdminService } from '../admin.service';
 import { UserService } from '../user.service'
 
 @Component({
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   userMap = new Map()
   attempts = 2
-  constructor(public router: Router, public userService:UserService) { }
+  constructor(public router: Router, public userService:UserService,public adminService:AdminService) { }
 
   ngOnInit(): void {
   }
@@ -60,6 +61,13 @@ export class LoginComponent implements OnInit {
 
   signiInAdmin(adminInfo:any) {
     console.log(adminInfo)
-    this.router.navigate(["admin"])
+    this.adminService.sendCredentials(adminInfo).subscribe(result=>{
+      console.log(result)
+      if(result.status){
+        this.router.navigate(["admin"])
+      }else{
+        alert(result.message)
+      }
+    })
   }
 }
