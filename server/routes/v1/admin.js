@@ -6,6 +6,7 @@ const validator = require("../../middlewares/validator");
 const router = express.Router();
 
 router.post('/login',admin.login)
+router.post('/addAdmin',admin.postAdmin)
 
 router.get('/getAdmins',admin.getAdmins)
 

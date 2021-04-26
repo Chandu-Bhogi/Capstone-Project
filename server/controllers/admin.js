@@ -27,16 +27,31 @@ exports.login = asyncHandler(async (req, res, next) => {
       res.status(200).json({status: false, message: "Account does not exist with this Admin Account.",
       });
     }
-  });
+});
 
-  exports.getAdmins = asyncHandler(async (req,res,next)=>{
-    console.log("in admin retrieve")
-    Admin.find({},(error,result)=>{
-        if(!error){
-            res.send(result)
-        }else{
-            res.send("Nothing")
-        }
-    })
+exports.getAdmins = asyncHandler(async (req,res,next)=>{
+  // console.log("in admin retrieve")
+  // Admin.find({},(error,result)=>{
+  //     if(!error){
+  //         res.send(result)
+  //     }else{
+  //         res.send("Nothing")
+  //     }
+  // })
 
+  Admin.find({})
+  .then(admin => res.status(200).json({ status: true, admin }))
+  .catch(err => res.status(422).json({ status: false, message: `There was an error in fecthign the data. Err: ${err}` }));
+
+})
+
+exports.postAdmin = asyncHandler(async (req,res,next)=>{
+  let [check] = await Admin.insertMany(req.body);
+
+  console.log(check)
+  if (check){
+    res.status(200).json({status: true, message: "Admin Added", admin: check})
+  }else{
+    res.status(422).json({status: false, message: `Error in Req, please check the input`})
+  }
 })
