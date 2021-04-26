@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LocationStrategy } from '@angular/common';
 
 @Component({
   selector: 'app-user',
@@ -15,13 +17,23 @@ export class UserComponent implements OnInit {
   showFunds = false
   showHome = true
 
-  constructor() { }
+  constructor(public router:Router, private locationStrategy: LocationStrategy) {
+    this.preventBackButton()
+   }
 
   ngOnInit(): void {
   }
 
+  preventBackButton() {
+    history.pushState(null, "", location.href);
+    this.locationStrategy.onPopState(() => {
+      history.pushState(null, "", location.href);
+    })
+  }
+
   logout_user() {
-    alert("LogOut")
+    sessionStorage.clear()
+    this.router.navigate([""])
   }
 
   addToCart(item:String) {

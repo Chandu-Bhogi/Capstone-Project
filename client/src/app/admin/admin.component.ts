@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup} from '@angular/forms';
+import { LocationStrategy } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -28,9 +30,23 @@ export class AdminComponent implements OnInit {
 
   showReport =  false
   showEdit = false
-  constructor() { }
+
+  constructor(private locationStrategy: LocationStrategy, public router: Router) { 
+    this.preventBackButton()
+  }
 
   ngOnInit(): void {
+  }
+
+  preventBackButton() {
+    history.pushState(null, "", location.href);
+    this.locationStrategy.onPopState(() => {
+      history.pushState(null, "", location.href);
+    })
+  }
+
+  logOut() {
+    this.router.navigate([""])
   }
 
   addEmployee() {
