@@ -4,6 +4,7 @@ const orders = require("./v1/orders");
 const products = require("./v1/products");
 const profile = require("./v1/profile");
 const tickets = require("./v1/tickets");
+const admin = require("./v1/admin")
 
 module.exports = (app) => {
   app.use("/v1/auth", auth);
@@ -12,4 +13,5 @@ module.exports = (app) => {
   app.use("/v1/products", products);
   app.use("/v1/profile", profile);
   app.use("/v1/tickets", tickets);
+  app.use("/v1/admin",admin);
 };
