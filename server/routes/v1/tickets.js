@@ -9,7 +9,7 @@ router.get("/getalltickets", tickets.getAllTickets);
 //Fetch all tickets by PARTIAL id or PARTIAL description using query params.
 router.get("/getticket", tickets.getTicket);
 
-router.post("/createticket", tickets.createTicket);
+// router.post("/createticket", tickets.createTicket);
 
 router.put("/updateticket/:id", tickets.updateTicket);
 

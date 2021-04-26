@@ -13,4 +13,3 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
       res.status(400).json({ status: false, message: `userId ${String(req.params.id)} could not be inserted, Err ${err}`}));
 });
 
-

@@ -1,14 +1,45 @@
-<div>
-    <h2>Welcome to the User Panel!</h2>
-
-    <a [routerLink]="['/editProfile']">Edit Profile</a>
-    
-
-    <hr>
-    <div class="logoutArea">
-        <h4>Ready to log out?</h4>
-        <input type="button" class="btn btn-danger" value="Logout!">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand">CapStone</a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+              <button class="btn btn-outline-primary" type="button" (click)="homeBtn()">Home</button>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-outline-primary" type="button" (click)="showFundBtn()">Funds</button>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-outline-primary" type="button" (click)="showEditBtn()">Edit Profile</button>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-outline-primary" type="button" (click)="showCartBtn()">Cart</button>
+          </li>
+        </ul>
+        <a class="navbar-brand">{{currentUser}}</a>
+        <button class="btn btn-danger" type="button" (click)="logout_user()">Log Out</button>
+      </div>
     </div>
+</nav>
 
+<div class="container" *ngIf="showCart">
+  <div class="d-grid gap-2">
+    <button class="btn btn-primary" type="button" (click)="buyOrder()">Buy</button>
+  </div>
+    <h3>Cart</h3>
+    <div class="name" *ngFor= "let item of cart">
+        {{item}}
+        <button class="btn btn-outline-danger" type="button" (click)="removeFromCart(item)">Remove</button>
+        <hr>
+    </div>
 </div>
-<router-outlet></router-outlet>
+<app-edit-profile *ngIf="showEdit"></app-edit-profile>
+<app-funds *ngIf="showFunds"></app-funds>
+<div class="container" *ngIf="showHome">
+    <h3>Items</h3>
+    <div class="name" *ngFor= "let item of items">
+        {{item}}
+        <button class="btn btn-outline-primary" type="button" (click)="addToCart(item)">Add</button>
+        <hr>
+    </div>
+</div>

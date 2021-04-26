@@ -1,0 +1,24 @@
+h2{
+    margin: auto
+}
+
+h3{
+    text-align: center;
+}
+
+.updatePasswordContent{
+    width:50%;
+    margin:auto;
+}
+.passInput{
+     width:100%;
+    border: 5px solid red;
+}
+
+.passTextBox{
+}
+
+.formBtn{
+    width: 100%;
+    margin: 5px;
+}
