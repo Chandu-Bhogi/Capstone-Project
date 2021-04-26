@@ -11,4 +11,4 @@ const TicketSchema = new Schema({
   description: String,
 });
 
-module.exports = mongoose.model("Products", TicketSchema);
+module.exports = mongoose.model("Tickets", TicketSchema);

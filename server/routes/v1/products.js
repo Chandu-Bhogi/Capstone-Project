@@ -10,8 +10,8 @@ router.get("/getproduct", products.getProductsByQuery);
 
 router.post("/addproduct", products.addProduct);
 
-router.put("/update", products.updateProduct);
+router.put("/update/:id", products.updateProduct);
 
-router.delete("/deleteproduct", products.deleteProduct);
+router.delete("/deleteproduct/:id", products.deleteProduct);
 
 module.exports = router;
