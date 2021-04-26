@@ -3,7 +3,8 @@ const employees = require("../../controllers/employees");
 
 const router = express.Router();
 
-router.get("/getallemplyees", employees.getAllEmployees);
+//localhost:4100/v1/employees/getallemployees
+router.get("/getallemployees", employees.getAllEmployees);
 router.get("/getemployee", employees.getEmployeeByQuery);
 
 router.post("/addemployee", employees.addEmployee);

@@ -20,7 +20,7 @@ exports.createTicket = asyncHandler(async (req, res, next) => {
 
     let DBstate = {id, complainant, description};
     
-    insertObjectInDB(req, res, next)(DBstate);
+    insertObjectInDB(DBstate)(req, res, next);
 });
 
 exports.updateTicket = asyncHandler(async (req, res, next) => {
@@ -35,7 +35,7 @@ exports.updateTicket = asyncHandler(async (req, res, next) => {
 
     let DBstate = {id, complainant, description};
 
-    updateObjectInDB(req, res, next)(DBstate);
+    updateObjectInDB(DBstate)(req, res, next);
 });
 
 exports.getAllTickets = asyncHandler(getAllObjectsFromDB);
