@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Product, Data } from '../model.product';
+import { UserService } from '../user.service'
 
 @Component({
   selector: 'app-user',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserComponent implements OnInit {
 
-  items:String[] = ['item1', 'item2', 'item3', 'item4']
+  items:Data[] = []
   cart:String[] = []
   showCart = false
   showEdit = false
@@ -15,7 +17,11 @@ export class UserComponent implements OnInit {
   showFunds = false
   showHome = true
 
-  constructor() { }
+  constructor(public userService:UserService) { 
+    userService.getProducts().subscribe(result=> {
+      this.items = result.data
+    })
+  }
 
   ngOnInit(): void {
   }

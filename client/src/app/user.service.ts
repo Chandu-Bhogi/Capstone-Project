@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { ServerResponse } from './model.serverResponse'
+import { Product } from './model.product'
 
 @Injectable({
   providedIn: 'root'
@@ -45,4 +46,7 @@ export class UserService {
     return this.http.post<ServerResponse>("http://localhost:4100/v1/auth/login",user)
   }
 
+  getProducts():Observable<Product> {
+    return this.http.get<Product>("http://localhost:4100/v1/products/getallproducts")
+  }
 }
