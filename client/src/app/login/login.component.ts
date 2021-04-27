@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
     console.log(employeeInfo)
 
     this.employee_service.sendCredentials(employeeInfo)
-    .subscribe(res=>{
+    .subscribe((res:any) =>{
       if(res.status){
         this.router.navigate(["employee"])
       }else{
