@@ -3,44 +3,38 @@ const asyncHandler = require("../middlewares/async");
 const User = require("../models/Users")
 const path = require('path')
 
-// DEBUG methods
-exports.show_addUser = asyncHandler(async (req,res,next)=>{
-    res.sendFile(path.resolve(__dirname+"/../public/addUser.html"))   
-})
-exports.addUser = asyncHandler(async (req,res,next)=>{
-    console.log("==> In the addUser POST")
+// Edit Profile
+exports.updateUser = asyncHandler(async (req, res, next) => {
+    console.log("hi in the update")
     console.log(req.body)
 
-    let profile = new User({
-        _id:req.body.userId,
-        name:req.body.name,
-        email:req.body.email,
-        password: req.body.password,
-        cart: [],
-        funds: req.body.funds
-    })
-    profile.save((error,result)=>{
-        if(!error){
-            res.send("[LOG]: Inserted!")
-        }else{
-            res.send("[ERROR]: Insertion failure. ==> " + error)
-            //console.log(error)
-        }
-    })
-})
-exports.retrieveAllUsers = asyncHandler(async (req,res,next)=>{
-    console.log("in retrieve")
-    User.find({},(error,result)=>{
-        if(!error){
-            res.send(result)
-        }else{
-            res.send("Nothing")
-        }
-    })
-
+    User.findOneAndUpdate({"userName":req.body.userName},{$set:req.body},{multi: true })
+    .then(user=>res.status(200).json({status:true,user}))
+    .catch(err=>res.status(422).json({status:false,message:`There was an error! -> ${err}`}))
+});
+exports.getUserByUsername = asyncHandler(async(req,res,next)=>{
+  console.log("GET USER BY USERNAME")
+  let username = req.params.userName
+  let result = await User.find({userName:username})
+  .then(user=>res.status(200).json({status:true,user,message:"Found User"}))
+  .catch(err=>res.status(422).json({status:false,message:`There was an error! => ${err}`}))
 })
 
 // Edit Profile
-exports.updateUser = asyncHandler(async (req, res, next) => {
-    
+exports.updateUserById = asyncHandler(async (req, res, next) => {
+    User.findOneAndUpdate({id: req.params.id}, { $set: req.body }, { new: true })
+    .then((user) => 
+      res.status(200).json({ user, message: "Success" })
+    )
+    .catch((err) =>
+      res.status(400).json({ status: false, message: `userId ${String(req.params.id)} could not be inserted, Err ${err}`}));
 });
+
+exports.addFunds = asyncHandler(async (req,res,next)=>{
+  console.log("You are in the addFunds!")
+  let username = req.body['userName']
+  let fundsAmnt = req.body['funds']
+  User.findOneAndUpdate({userName:username},{$inc:{funds:fundsAmnt}},{new:true})
+  .then(user=>res.status(200).json({status:true,message:"success",user}))
+  .catch(err=>res.status(422).json({status:false,message:`There was an error ==> ${err}`}))
+})

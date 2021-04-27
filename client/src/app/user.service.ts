@@ -1,7 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { from, Observable, Observer } from 'rxjs';
 import { ServerResponse } from './model.serverResponse'
+import { Product } from './model.product'
+import { User } from './model.user'
 
 @Injectable({
   providedIn: 'root'
@@ -21,20 +23,36 @@ export class UserService {
 
   config:any = {
     URL:'http://localhost:',
-    PORT:'8100'
+    PORT:'4100'
   }
 
   constructor(public http:HttpClient) { }
+
+  getUserByUsername(username:string):Observable<User>{
+    let URL = this.config['URL']+this.config['PORT']+'/v1/profile/getUser/'+username;
+    console.log("[LOG]: Traveling to: " + URL)
+    return this.http.get<User>(URL)
+  }
 
   send_logout_request(){
     
   }
 
-  post_UpdateProfile(profileUpdates:any){
-    return this.http.post(
-      this.config['URL']+this.config['PORT']+'/',
-      profileUpdates
-    )
+  get_userData(){
+    let URL:string = this.config['URL']+this.config['PORT']+'/v1/profile/updateuser'
+    return this.http.get(URL)
+  }
+
+  updateProfile(profileUpdates:any){
+    let URL:string = this.config['URL']+this.config['PORT']+'/v1/profile/updateuser'
+    console.log(`Traveling to: ${URL}`)
+    return this.http.put(URL,profileUpdates).subscribe(response=>console.log(response),err=>console.log(err));
+  }
+
+  addFunds(fundAmount:any){
+    let URL = this.config['URL']+this.config['PORT']+'/v1/profile/addFunds'
+    console.log(`Going to: ${URL}`)
+    return this.http.post(URL,fundAmount)
   }
 
   signUpUser(user:any):Observable<ServerResponse>{
@@ -45,4 +63,7 @@ export class UserService {
     return this.http.post<ServerResponse>("http://localhost:4100/v1/auth/login",user)
   }
 
+  getProducts():Observable<Product> {
+    return this.http.get<Product>("http://localhost:4100/v1/products/getallproducts")
+  }
 }

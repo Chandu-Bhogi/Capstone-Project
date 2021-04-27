@@ -12,7 +12,9 @@ export class LoginComponent implements OnInit {
 
   userMap = new Map()
   attempts = 2
-  constructor(public router: Router, public userService:UserService,public adminService:AdminService) { }
+  constructor(public router: Router, public userService:UserService,public adminService:AdminService) {
+    sessionStorage.clear()
+   }
 
   ngOnInit(): void {
   }
@@ -21,7 +23,7 @@ export class LoginComponent implements OnInit {
     this.router.navigate(["signup"])
   }
 
-  report() {
+  raiseTicket() {
     
   }
 

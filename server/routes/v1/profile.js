@@ -3,11 +3,10 @@ const users = require("../../controllers/users");
 
 const router = express.Router();
 
-// Debug/Development Area
-router.get("/adduser",users.show_addUser);
-router.post("/adduser",users.addUser);
+router.put("/updateuser", users.updateUser);
+router.get("/getUser/:userName",users.getUserByUsername)
+router.put("/updateuser/:id", users.updateUserById);
 
-router.put("/updatuser", users.updateUser);
-router.get("/allusers", users.retrieveAllUsers);
+router.post('/addFunds',users.addFunds)
 
 module.exports = router;

@@ -4,7 +4,7 @@
   </div>
 </nav>
   <div class="row align-items-center">
-    <div class="col">
+    <div class="col" id="user">
         <div class="container-md">
             <form #userInfo="ngForm" (ngSubmit)="signiInUser(userInfo.value)">
                 <div class="mb-3">
@@ -15,9 +15,11 @@
                   <label for="exampleInputPassword1" class="form-label">Password</label>
                   <input type="password" class="form-control" name="password" ngModel>
                 </div>
-                <button type="submit" class="btn btn-success" >Sign In</button>
-                <button type="button" class="btn btn-primary" id="signUp" (click)="signUp()">Sign Up</button>
-                <button type="button" class="btn btn-warning" id="report" (click)="report()">Report</button>
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-success" >Sign In</button>
+                  <button type="button" class="btn btn-primary" id="signUp" (click)="signUp()">Sign Up</button>
+                  <button type="button" class="btn btn-warning" id="raiseTicket" (click)="raiseTicket()">Raise Ticket</button>
+                </div>
             </form>
         </div>
     </div>
@@ -32,7 +34,9 @@
                   <label for="exampleInputPassword1" class="form-label">Password</label>
                   <input type="password" class="form-control" name="password" ngModel>
                 </div>
-                <button type="submit" class="btn btn-success">Sign In</button>
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-success">Sign In</button>
+                </div>
             </form>
         </div>
     </div>
@@ -47,7 +51,9 @@
                   <label for="exampleInputPassword1" class="form-label">Password</label>
                   <input type="password" class="form-control" name="password" ngModel>
                 </div>
-                <button type="submit" class="btn btn-success">Sign In</button>
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-success">Sign In</button>
+                </div>
             </form>
         </div>
     </div>

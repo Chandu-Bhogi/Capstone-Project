@@ -6,3 +6,7 @@ br {
 
 .logoutArea{
 }
+
+#removeBtn, #addBtn {
+  float: right;
+}

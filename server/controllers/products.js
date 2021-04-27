@@ -1,22 +1,13 @@
-const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middlewares/async");
+const Products = require("../models/Products");
+let { getAllObjectsFromDB, getObjectsByQueryFromDB, updateObjectInDB, deleteObjectFromDB, insertObjectInDB } = require("./utils")(Products);
 
-exports.addProduct = asyncHandler(async (req, res, next) => {
-  
-});
+exports.addProduct = asyncHandler(insertObjectInDB())
 
-exports.deleteProduct = asyncHandler(async (req, res, next) => {
-  
-});
+exports.deleteProduct = asyncHandler(deleteObjectFromDB)
 
-exports.updateProduct = asyncHandler(async (req, res, next) => {
-  
-});
+exports.updateProduct = asyncHandler(updateObjectInDB())
 
-exports.getAllProducts = asyncHandler(async (req, res, next) => {
-  
-});
+exports.getAllProducts = asyncHandler(getAllObjectsFromDB)
 
-exports.getProductsByQuery = asyncHandler(async (req, res, next) => {
-  
-});
+exports.getProductsByQuery = asyncHandler(getObjectsByQueryFromDB)
