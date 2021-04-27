@@ -50,7 +50,7 @@ export class AdminComponent implements OnInit {
     console.log(report)
     this.report = report
   }
-
+  
   customize(custom:any) {
     console.log(custom)
   }

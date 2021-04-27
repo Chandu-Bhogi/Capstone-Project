@@ -13,13 +13,15 @@ import { UserService } from '../user.service'
 export class UserComponent implements OnInit {
 
   items:Data[] = []
-  cart:String[] = []
   showCart = false
   showEdit = false
+  cart:Array<Array<any>> = []
   currentUser = sessionStorage.getItem("userName")
   showFunds = false
   showHome = true
   showOrder = false
+
+  itemSelected = new Map()
 
   constructor(public router:Router, private locationStrategy: LocationStrategy, public userService:UserService) {
     this.preventBackButton()
@@ -47,15 +49,17 @@ export class UserComponent implements OnInit {
   }
 
   addToCart(item:String) {
-    this.cart.push(item)
+    if (this.itemSelected.has(item)) {
+      this.itemSelected.set(item, this.itemSelected.get(item) + 1)
+    } else {
+      this.itemSelected.set(item, 1)
+    }
+    this.cart = Array.from(this.itemSelected)
   }
 
   showCartBtn() {
-    this.showHome = false
-    this.showEdit = false
-    this.showFunds = false
     this.showCart = true
-    this.showOrder = false
+    this.showEdit = false
   }
 
   showEditBtn() {
@@ -72,7 +76,6 @@ export class UserComponent implements OnInit {
     this.showEdit = false
     this.showFunds = true;
     this.showOrder = false
-    
   }
 
   homeBtn() {
@@ -91,13 +94,13 @@ export class UserComponent implements OnInit {
     this.showOrder = true
   }
 
-  removeFromCart(item:String) {
+  removeFromCart(item:Array<any>) {
     let index = this.cart.indexOf(item)
     this.cart.splice(index, 1)
   }
 
   buyOrder() {
-    alert(`You have bought ${this.cart.length} items`)
-    this.cart = []
+    // alert(`You have bought ${this.cart.length} items`)
+    // this.cart = []
   }
 }

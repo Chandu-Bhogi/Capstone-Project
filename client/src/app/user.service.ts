@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { from, Observable } from 'rxjs';
+import { from, Observable, Observer } from 'rxjs';
 import { ServerResponse } from './model.serverResponse'
 import { Product } from './model.product'
+import { User } from './model.user'
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,12 @@ export class UserService {
   }
 
   constructor(public http:HttpClient) { }
+
+  getUserByUsername(username:string):Observable<User>{
+    let URL = this.config['URL']+this.config['PORT']+'/v1/profile/getUser/'+username;
+    console.log("[LOG]: Traveling to: " + URL)
+    return this.http.get<User>(URL)
+  }
 
   send_logout_request(){
     
