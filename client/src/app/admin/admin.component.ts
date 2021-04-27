@@ -113,5 +113,14 @@ export class AdminComponent implements OnInit {
 
   addProduct(product:any) {
     console.log(product)
+    this.admin_service.addProduct(product)
+    .subscribe(res=>{
+      console.log(res)
+      if(res.status){
+        alert("Product has been added")
+      }else{
+        alert("Product already exists!")
+      }
+    })
   }
 }

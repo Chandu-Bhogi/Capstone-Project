@@ -8,6 +8,7 @@ import { UserService } from 'src/app/user.service';
 })
 export class FundsComponent implements OnInit {
 
+  accountNumber?:Number;
   curr_funds?:Number;
 
   constructor(public user_service:UserService) { }
@@ -20,6 +21,7 @@ export class FundsComponent implements OnInit {
       let user_details = response['user'][0]
       console.log(user_details)
       this.curr_funds = user_details['funds']
+      this.accountNumber = user_details['accountNumber']
     })
   }
 

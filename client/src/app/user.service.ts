@@ -10,6 +10,8 @@ import { User } from './model.user'
 })
 export class UserService {
 
+  regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+
   temp_users:any = {"users":[
     {id:1,name:"joe",locked:1},
     {id:2,name:"dan",locked:1},

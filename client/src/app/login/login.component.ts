@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { EmployeeService } from '../employee.service';
 import { AdminService } from '../admin.service';
 import { UserService } from '../user.service'
 
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
 
   userMap = new Map()
   attempts = 2
-  constructor(public router: Router, public userService:UserService,public adminService:AdminService) {
+  constructor(public router: Router, public userService:UserService,public adminService:AdminService,public employee_service:EmployeeService) {
     sessionStorage.clear()
    }
 
@@ -58,7 +59,16 @@ export class LoginComponent implements OnInit {
 
   signiInEmployee(employeeInfo:any) {
     console.log(employeeInfo)
-    this.router.navigate(["employee"])
+
+    this.employee_service.sendCredentials(employeeInfo)
+    .subscribe(res=>{
+      if(res.status){
+        this.router.navigate(["employee"])
+      }else{
+        alert("Issue with Employee credentials")
+      }
+    })
+    
   }
 
   signiInAdmin(adminInfo:any) {

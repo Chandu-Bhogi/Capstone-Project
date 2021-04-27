@@ -3,11 +3,6 @@ const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
   id: String,
-  recipient: {
-    type: Schema.Types.Mixed,
-    ref: "Users",
-    required: true
-  },
   status: String,
   list: [{
     type: Schema.Types.Mixed,

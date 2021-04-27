@@ -8,20 +8,7 @@ exports.getReports = asyncHandler(async (req, res, next) => {
   
 });
 
-exports.createTicket = asyncHandler(async (req, res, next) => {
-    let { id, complainant_id, description } = req.body;
-
-    if (Array.isArray(complainant_id)) return res.status(400).json({ status: false, message: `Please Enter complaintant's ID as a String`});
-
-    let [complainant] = await Users.find({ id: complainant_id });
-    let [check] = await Tickets.find({id: id});
-
-    if (check) return res.status(400).json({ status: false, message: 'Duplicate Resource Found in DB'});
-
-    let DBstate = {id, complainant, description};
-    
-    insertObjectInDB(DBstate)(req, res, next);
-});
+exports.createTicket = asyncHandler(insertObjectInDB())
 
 exports.updateTicket = asyncHandler(async (req, res, next) => {
     const id = req.params.id;
