@@ -1,3 +1,4 @@
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocationStrategy } from '@angular/common';
@@ -38,8 +39,11 @@ export class UserComponent implements OnInit {
   }
 
   logout_user() {
-    sessionStorage.clear()
-    this.router.navigate([""])
+    let logout:boolean = confirm("Are you sure you want to log out?")
+    if(logout){
+      sessionStorage.clear()
+      this.router.navigate([''])      
+    }
   }
 
   addToCart(item:String) {
