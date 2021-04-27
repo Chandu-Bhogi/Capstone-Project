@@ -42,6 +42,20 @@ export class EditProfileComponent implements OnInit {
   }
 
   submitEdits(editProfileRef:any){
+    let fname:any = document.getElementById('f_fname')
+    let lname:any = document.getElementById('f_lname')
+    let email:any = document.getElementById('f_email')
+    let address:any = document.getElementById('f_address')
+    let dob:any = document.getElementById('f_dob')
+    let phoneNum:any = document.getElementById('f_phoneNum')
+
+    fname.value = ""
+    lname.value = ""
+    email.value = ""
+    address.value = ""
+    dob.value = ""
+    phoneNum.value = ""  
+
     // Grab the currently logged in username from sessionStorage
     let curr_userName:any = sessionStorage.getItem('userName')
     editProfileRef['userName'] = curr_userName
