@@ -13,9 +13,20 @@ export class FundsComponent implements OnInit {
   constructor(public user_service:UserService) { }
 
   ngOnInit(): void {
+
+    let curr_userName:any = sessionStorage.getItem('userName')
+    let resp = this.user_service.getUserByUsername(curr_userName)
+    resp.subscribe( (response:any) =>{
+      let user_details = response['user'][0]
+      console.log(user_details)
+      this.curr_funds = user_details['funds']
+    })
   }
 
   addFunds(fundsAmnt:any){
+    let fundsInput:any = document.getElementById('fundsInput')
+    fundsInput.value = ""
+
     console.log("Here are the inputted funds:")
     console.log(fundsAmnt)
   
