@@ -22,20 +22,26 @@
     <div class="col"></div>
     <div class="col">
       <div class="container-md">
-        <form [formGroup]="custom" (ngSubmit)="customize()">
+        <form #custom="ngForm" (ngSubmit)="customize(custom.value)">
+          <div class="d-grid gap-2">
             <button type="button" class="btn btn-primary" id="daily" (click)="daily()">Daily</button>
             <button type="button" class="btn btn-primary" id="weekly" (click)="weekly()">Weekly</button>
             <button type="button" class="btn btn-primary" id="monthly" (click)="monthly()">Monthly</button>
+          </div>
+
             <div class="mb-3">
               <label class="form-label">Product ID</label>
-              <input type="text" class="form-control" formControlName="productID">
+              <input type="text" class="form-control" name="productID" ngModel>
             </div>
             <div class="mb-3">
                 <label class="form-label">Customer ID</label>
-                <input type="text" class="form-control" formControlName="customerID">
+                <input type="text" class="form-control" name="customerID" ngModel>
             </div>
-            <button type="submit" class="btn btn-primary" id="search">Search</button>
-            <button type="reset" class="btn btn-link" id="reset">Reset</button>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary" id="search">Search</button>
+              <button type="reset" class="btn btn-link" id="reset">Reset</button>
+            </div>
+
         </form>
     </div>
     </div>
@@ -45,16 +51,23 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
+          <th scope="col">Username</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Products</th>
+          <th scope="col">Status</th>
+          <th scope="col">Date</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor= "let report of reports">
           <td>{{report}}</td>
-          <td>Otto</td>
-          <td>@mdo</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
         </tr>
       </tbody>
     </table>

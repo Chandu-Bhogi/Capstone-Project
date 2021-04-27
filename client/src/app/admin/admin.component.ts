@@ -48,8 +48,8 @@ export class AdminComponent implements OnInit {
     this.report = report
   }
 
-  customize() {
-    console.log(this.custom.value)
+  customize(custom:any) {
+    console.log(custom)
   }
 
   daily() {
