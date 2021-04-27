@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup} from '@angular/forms';
+import { LocationStrategy } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -7,40 +9,41 @@ import { FormControl, FormGroup} from '@angular/forms';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  employee = new FormGroup ({
-    fName: new FormControl(),
-    lName: new FormControl(),
-    email: new FormControl()
-  })
-
-  employeeID = new FormGroup({
-    id:new FormControl()
-  })
-
-  custom = new FormGroup({
-    productID:new FormControl(),
-    customerID:new FormControl()
-  })
 
   count = 1
   reports:String[] = ['Report1', 'Report2', 'Report3', 'Report4']
   report:String = ""
 
-  showReport =  false
+  showReport =  true
   showEdit = false
-  constructor() { }
+  showProduct = false
+
+  constructor(private locationStrategy: LocationStrategy, public router: Router) { 
+    this.preventBackButton()
+  }
 
   ngOnInit(): void {
   }
 
-  addEmployee() {
-    console.log(this.employee.value)
-    alert(this.makeEmployeeID(this.employee.value.fName, this.employee.value.lName, this.count) + "\n" +
-    this.makePassword(this.employee.value.email))
+  preventBackButton() {
+    history.pushState(null, "", location.href);
+    this.locationStrategy.onPopState(() => {
+      history.pushState(null, "", location.href);
+    })
   }
 
-  deleteEmployee() {
-    console.log(this.employeeID.value)
+  logOut() {
+    this.router.navigate([""])
+  }
+
+  addEmployee(employee:any) {
+    console.log(employee)
+    alert(this.makeEmployeeID(employee.fName, employee.lName, this.count) + "\n" +
+    this.makePassword(employee.email))
+  }
+
+  deleteEmployee(employeeID:any) {
+    console.log(employeeID)
   }
 
   selectReport(report:String) {
@@ -48,8 +51,8 @@ export class AdminComponent implements OnInit {
     this.report = report
   }
 
-  customize() {
-    console.log(this.custom.value)
+  customize(custom:any) {
+    console.log(custom)
   }
 
   daily() {
@@ -69,19 +72,34 @@ export class AdminComponent implements OnInit {
     this.reports.splice(index,1)
   }
 
-  homeBtn() {
-    this.showReport = false
-    this.showEdit = false
-  }
-
   showReportBtn() {
     this.showReport = true
     this.showEdit = false
+    this.showProduct = false
   }
 
   showEditBtn() {
     this.showReport = false
     this.showEdit = true
+    this.showProduct = false
+  }
+
+  showProducts() {
+    this.showReport = false
+    this.showEdit = false
+    this.showProduct = true
+  }
+
+  editProduct(product:any) {
+    console.log(product)
+  }
+
+  deleteProduct(product:any) {
+    console.log(product)
+  }
+
+  addProduct(product:any) {
+    console.log(product)
   }
 
   makePassword(email:String):String {
