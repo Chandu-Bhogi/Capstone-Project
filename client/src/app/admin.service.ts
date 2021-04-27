@@ -21,5 +21,11 @@ export class AdminService {
     return this.http.post<ServerResponse>(URL,admin)
   }
 
+  addEmployee(employee_details:any):Observable<ServerResponse>{
+    let URL = this.config["URL"]+this.config["PORT"]+"/v1/admin/addEmployee"
+    console.log("[LOG]: Going to: " + URL)
+    return this.http.post<ServerResponse>(URL,employee_details)
+  }
+
 
 }

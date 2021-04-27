@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup} from '@angular/forms';
 import { LocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
+import { AdminService } from '../admin.service';
 
 @Component({
   selector: 'app-admin',
@@ -18,7 +19,7 @@ export class AdminComponent implements OnInit {
   showEdit = false
   showProduct = false
 
-  constructor(private locationStrategy: LocationStrategy, public router: Router) { 
+  constructor(private locationStrategy: LocationStrategy, public router: Router,public admin_service:AdminService) { 
     this.preventBackButton()
   }
 
@@ -40,6 +41,11 @@ export class AdminComponent implements OnInit {
     console.log(employee)
     alert(this.makeEmployeeID(employee.fName, employee.lName, this.count) + "\n" +
     this.makePassword(employee.email))
+
+    this.admin_service.addEmployee(employee)
+    .subscribe(res=>{
+      console.log(res)
+    })
   }
 
   deleteEmployee(employeeID:any) {

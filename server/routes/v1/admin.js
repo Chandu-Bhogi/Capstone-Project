@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.post('/login',admin.login)
 router.post('/addAdmin',admin.postAdmin)
+router.post('/addEmployee',admin.addEmployee)
 
 router.get('/getAdmins',admin.getAdmins)
 
