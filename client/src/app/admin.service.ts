@@ -33,5 +33,11 @@ export class AdminService {
     return this.http.delete<ServerResponse>(URL)
   }
 
+  addProduct(product_info:any):Observable<ServerResponse>{
+    let URL = this.config["URL"]+this.config["PORT"]+"/v1/products/addproduct/"
+    console.log("[LOG]: Going to: " + URL)
+    return this.http.post<ServerResponse>(URL,product_info)
+  }
+
 
 }

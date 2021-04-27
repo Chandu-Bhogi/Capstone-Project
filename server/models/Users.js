@@ -16,6 +16,7 @@ const UserSchema = new Schema({
     required: true
   }],
   funds: Number,
+  accountNumber: Number,
   locked: {
     type: Boolean,
     default: 0

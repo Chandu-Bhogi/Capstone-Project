@@ -3,6 +3,23 @@ const asyncHandler = require("../middlewares/async");
 const Employee = require("../models/employees");
 let { getAllObjectsFromDB, getObjectsByQueryFromDB, updateObjectInDB, deleteObjectFromDB, insertObjectInDB } = require("./utils")(Employee);
 
+exports.login = asyncHandler(async (req,res,next)=>{
+    const {id,password} = req.body
+
+    let [check] = await Employee.find({id:id})
+
+    if(check && check.id){
+        if(check.password === password){
+            delete check.password
+            res.status(200).json({status:true,message:"Welcome Employee"})
+        }else{
+            res.status(200).json({status:false,message:"Failed login"})
+        }
+    }else{
+        res.status(200).json({status:false,message:"Failed login"})
+    }
+})
+
 exports.addEmployee = asyncHandler(async (req, res, next) => {
     const {firstName, lastName, email} = req.body
     let password = makePassword(email)

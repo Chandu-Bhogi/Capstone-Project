@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
       if(res.status){
         this.router.navigate(["employee"])
       }else{
-        alert("Issue with credentials")
+        alert("Issue with Employee credentials")
       }
     })
     

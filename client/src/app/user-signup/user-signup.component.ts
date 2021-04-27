@@ -28,7 +28,7 @@ export class UserSignupComponent implements OnInit {
     ){
       alert("One or more missing inputs")
     } else {
-      if (this.regexp.test(userInfo.email)) {
+      if (this.userService.regexp.test(userInfo.email)) {
         this.userService.signUpUser(userInfo).subscribe(result=>{
           if (result.status) {
             alert(result.message)

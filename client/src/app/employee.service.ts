@@ -16,7 +16,7 @@ export class EmployeeService {
   constructor(public http:HttpClient) { }
 
   sendCredentials(employee:any):Observable<ServerResponse>{
-    let URL = this.config["URL"]+this.config["PORT"]+"/v1/employee/login"
+    let URL = this.config["URL"]+this.config["PORT"]+"/v1/employees/login"
     console.log("[LOG]: Going to: " + URL)
     return this.http.post<ServerResponse>(URL,employee)
   }
