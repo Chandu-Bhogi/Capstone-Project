@@ -1,4 +1,6 @@
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -15,13 +17,17 @@ export class UserComponent implements OnInit {
   showFunds = false
   showHome = true
 
-  constructor() { }
+  constructor(public router:Router) { }
 
   ngOnInit(): void {
   }
 
   logout_user() {
-    alert("LogOut")
+    let logout:boolean = confirm("Are you sure you want to log out?")
+    if(logout){
+      sessionStorage.clear()
+      this.router.navigate([''])      
+    }
   }
 
   addToCart(item:String) {
