@@ -35,10 +35,10 @@ export class UserService {
     return this.http.get(URL)
   }
 
-  post_UpdateProfile(profileUpdates:any){
+  updateProfile(profileUpdates:any){
     let URL:string = this.config['URL']+this.config['PORT']+'/v1/profile/updateuser'
     console.log(`Traveling to: ${URL}`)
-    return this.http.post(URL,profileUpdates).subscribe(response=>console.log(response),err=>console.log(err));
+    return this.http.put(URL,profileUpdates).subscribe(response=>console.log(response),err=>console.log(err));
   }
 
   signUpUser(user:any):Observable<ServerResponse>{

@@ -17,10 +17,10 @@ export class EditProfileComponent implements OnInit {
   }
 
   submitEdits(editProfileRef:any){
+    // Grab the currently logged in username from sessionStorage
     let curr_userName:any = sessionStorage.getItem('userName')
     editProfileRef['userName'] = curr_userName
     
-
     let final_UserEdits:any = {}
     for(let [k,v] of Object.entries(editProfileRef)){
       if(v != ""){
@@ -29,7 +29,7 @@ export class EditProfileComponent implements OnInit {
     }
     console.log(final_UserEdits)
 
-    this.user_service.post_UpdateProfile(final_UserEdits)
+    this.user_service.updateProfile(final_UserEdits)
   }
 
   submitNewPassword(updatePasswordRef:any){
