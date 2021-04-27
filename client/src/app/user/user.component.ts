@@ -1,6 +1,9 @@
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LocationStrategy } from '@angular/common';
+import { Product, Data } from '../model.product';
+import { UserService } from '../user.service'
 
 @Component({
   selector: 'app-user',
@@ -9,17 +12,30 @@ import { Router } from '@angular/router';
 })
 export class UserComponent implements OnInit {
 
-  items:String[] = ['item1', 'item2', 'item3', 'item4']
+  items:Data[] = []
   cart:String[] = []
   showCart = false
   showEdit = false
   currentUser = sessionStorage.getItem("userName")
   showFunds = false
   showHome = true
+  showOrder = false
 
-  constructor(public router:Router) { }
+  constructor(public router:Router, private locationStrategy: LocationStrategy, public userService:UserService) {
+    this.preventBackButton()
+    userService.getProducts().subscribe(result=> {
+      this.items = result.data
+    })
+   }
 
   ngOnInit(): void {
+  }
+
+  preventBackButton() {
+    history.pushState(null, "", location.href);
+    this.locationStrategy.onPopState(() => {
+      history.pushState(null, "", location.href);
+    })
   }
 
   logout_user() {
@@ -39,6 +55,7 @@ export class UserComponent implements OnInit {
     this.showEdit = false
     this.showFunds = false
     this.showCart = true
+    this.showOrder = false
   }
 
   showEditBtn() {
@@ -46,6 +63,7 @@ export class UserComponent implements OnInit {
     this.showCart = false
     this.showFunds = false
     this.showEdit = true
+    this.showOrder = false
   }
 
   showFundBtn(){
@@ -53,6 +71,7 @@ export class UserComponent implements OnInit {
     this.showCart = false;
     this.showEdit = false
     this.showFunds = true;
+    this.showOrder = false
     
   }
 
@@ -61,6 +80,15 @@ export class UserComponent implements OnInit {
     this.showEdit = false
     this.showFunds = false
     this.showHome = true
+    this.showOrder = false
+  }
+
+  showOrderBtn() {
+    this.showCart = false
+    this.showEdit = false
+    this.showFunds = false
+    this.showHome = false
+    this.showOrder = true
   }
 
   removeFromCart(item:String) {

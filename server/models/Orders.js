@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
-  tracking_id: String,
+  id: String,
   recipient: {
     type: Schema.Types.Mixed,
     ref: "Users",
@@ -14,6 +14,7 @@ const OrderSchema = new Schema({
     ref: "Products",
     required: true
   }],
+  total_bill: Number,
 });
 
 module.exports = mongoose.model("Orders", OrderSchema);
