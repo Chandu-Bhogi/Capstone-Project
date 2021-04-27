@@ -45,6 +45,12 @@ export class UserService {
     )
   }
 
+  addFunds(fundAmount:any){
+    let URL = this.config['URL']+this.config['PORT']+'/v1/profile/addFunds'
+    console.log(`Going to: ${URL}`)
+    return this.http.post(URL,fundAmount)
+  }
+
   signUpUser(user:any):Observable<ServerResponse>{
     return this.http.post<ServerResponse>("http://localhost:4100/v1/auth/signup",user)
   }
