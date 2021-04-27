@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LocationStrategy } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee',
@@ -14,9 +16,18 @@ export class EmployeeComponent implements OnInit {
   clicked_editProfile:boolean = false
   logout_employee:boolean = false
 
-  constructor() { }
+  constructor(private locationStrategy: LocationStrategy, public router:Router) { 
+    this.preventBackButton()
+  }
 
   ngOnInit(): void {
+  }
+
+  preventBackButton() {
+    history.pushState(null, "", location.href);
+    this.locationStrategy.onPopState(() => {
+      history.pushState(null, "", location.href);
+    })
   }
 
   showSendRequestBtn(){
@@ -52,7 +63,7 @@ export class EmployeeComponent implements OnInit {
   }
   
   logout_user(){
-    alert("Logout!")
+    this.router.navigate([""])
   }
 
 }
