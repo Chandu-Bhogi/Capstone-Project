@@ -58,7 +58,16 @@ export class LoginComponent implements OnInit {
 
   signiInEmployee(employeeInfo:any) {
     console.log(employeeInfo)
-    this.router.navigate(["employee"])
+
+    this.employee_service.sendCredentials(employeeInfo)
+    .subscribe(res=>{
+      if(res.status){
+        this.router.navigate(["employee"])
+      }else{
+        alert("Issue with credentials")
+      }
+    })
+    
   }
 
   signiInAdmin(adminInfo:any) {
