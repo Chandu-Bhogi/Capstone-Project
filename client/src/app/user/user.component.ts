@@ -63,16 +63,6 @@ export class UserComponent implements OnInit {
   }
 
   showEditBtn() {
-    this.showCart = false
-    this.showEdit = true
-    this.showHome = false
-    this.showEdit = false
-    this.showFunds = false
-    this.showCart = true
-    this.showOrder = false
-  }
-
-  showEditBtn() {
     this.showHome = false
     this.showCart = false
     this.showFunds = false
