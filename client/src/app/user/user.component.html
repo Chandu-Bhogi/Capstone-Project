@@ -41,8 +41,8 @@
 <div class="container" *ngIf="showHome">
     <h3>Items</h3>
     <div class="name" *ngFor= "let item of items">
-        {{item}}
-        <button class="btn btn-outline-primary" type="button" (click)="addToCart(item)">Add</button>
+        {{item.name}}
+        <button class="btn btn-outline-primary" type="button" (click)="addToCart(item.name)">Add</button>
         <hr>
     </div>
 </div>

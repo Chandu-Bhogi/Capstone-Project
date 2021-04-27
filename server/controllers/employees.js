@@ -1,18 +1,14 @@
 const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middlewares/async");
+const Users = require("../models/Users");
+let { getAllObjectsFromDB, getObjectsByQueryFromDB, updateObjectInDB, deleteObjectFromDB, insertObjectInDB } = require("./utils")(Users);
 
-exports.addEmployee = asyncHandler(async (req, res, next) => {
-  
-});
+exports.addEmployee = asyncHandler(insertObjectInDB());
 
-exports.deleteEmployee = asyncHandler(async (req, res, next) => {
-  
-});
+exports.deleteEmployee = asyncHandler(deleteObjectFromDB);
 
-exports.updateEmployee = asyncHandler(async (req, res, next) => {
-  
-});
+exports.updateEmployee = asyncHandler(updateObjectInDB());
 
-exports.getAllEmployees = asyncHandler(async (req, res, next) => {
-  
-});
+exports.getAllEmployees = asyncHandler(getAllObjectsFromDB);
+
+exports.getEmployeeByQuery = asyncHandler(getObjectsByQueryFromDB);

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocationStrategy } from '@angular/common';
+import { Product, Data } from '../model.product';
+import { UserService } from '../user.service'
 
 @Component({
   selector: 'app-user',
@@ -9,7 +11,7 @@ import { LocationStrategy } from '@angular/common';
 })
 export class UserComponent implements OnInit {
 
-  items:String[] = ['item1', 'item2', 'item3', 'item4']
+  items:Data[] = []
   cart:String[] = []
   showCart = false
   showEdit = false
@@ -18,8 +20,11 @@ export class UserComponent implements OnInit {
   showHome = true
   showOrder = false
 
-  constructor(public router:Router, private locationStrategy: LocationStrategy) {
+  constructor(public router:Router, private locationStrategy: LocationStrategy, public userService:UserService) {
     this.preventBackButton()
+    userService.getProducts().subscribe(result=> {
+      this.items = result.data
+    })
    }
 
   ngOnInit(): void {
