@@ -5,4 +5,6 @@ const router = express.Router();
 
 router.put("/updateuser/:id", users.updateUser);
 
+router.post('/addFunds',users.addFunds)
+
 module.exports = router;
