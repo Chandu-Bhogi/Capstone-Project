@@ -39,7 +39,7 @@ const insertObjectInDB = (model) => (inputState = null) => async (req, res, next
   inputState =  (inputState == null) ? req.body : inputState;
 
   const { id } = req.body;
-
+  
   if (!id) return res.status(500).json({ status: false, message: "Wrong Request"});
 
   let [check] = await model.find({id});

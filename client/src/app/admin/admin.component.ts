@@ -38,18 +38,25 @@ export class AdminComponent implements OnInit {
   }
 
   addEmployee(employee:any) {
-    console.log(employee)
-    alert(this.makeEmployeeID(employee.fName, employee.lName, this.count) + "\n" +
-    this.makePassword(employee.email))
-
     this.admin_service.addEmployee(employee)
     .subscribe(res=>{
-      console.log(res)
+      if (res.status) {
+        alert(res.message)
+      } else {
+        alert(res.message)
+      }
     })
   }
 
   deleteEmployee(employeeID:any) {
-    console.log(employeeID)
+    this.admin_service.deleteEmployee(employeeID.id)
+    .subscribe(res=> {
+      if (res.status) {
+        alert(res.message)
+      } else {
+        alert(res.message)
+      }
+    })
   }
 
   selectReport(report:String) {
@@ -106,17 +113,5 @@ export class AdminComponent implements OnInit {
 
   addProduct(product:any) {
     console.log(product)
-  }
-
-  makePassword(email:String):String {
-    let min = Math.ceil(100)
-    let max = Math.floor(1000)
-    let num = Math.floor(Math.random() * (max - min) + min)
-
-    return email.split("@")[0] + "" + num
-  }
-
-  makeEmployeeID(fName:String, lName:String, count:Number):String {
-    return fName.charAt(0).toLowerCase() + lName.toLowerCase() + count
   }
 }
