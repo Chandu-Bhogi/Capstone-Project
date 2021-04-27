@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { EmployeeService } from '../employee.service';
 import { UserService } from '../user.service'
 
 @Component({
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   userMap = new Map()
   attempts = 2
-  constructor(public router: Router, public userService:UserService) {
+  constructor(public router: Router, public userService:UserService,public employee_service:EmployeeService) {
     sessionStorage.clear()
    }
 
