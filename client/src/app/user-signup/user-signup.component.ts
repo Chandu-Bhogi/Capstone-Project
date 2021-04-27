@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup} from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from '../user.service'
 
 @Component({
   selector: 'app-user-signup',
@@ -8,28 +8,39 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-signup.component.css']
 })
 export class UserSignupComponent implements OnInit {
-  signUp = new FormGroup({
-    fName:new FormControl(),
-    lName:new FormControl(),
-    email:new FormControl(),
-    dod:new FormControl(),
-    pNumber:new FormControl(),
-    address:new FormControl(),
-    password:new FormControl()
-  })
+
   count = 1
-  constructor(public router: Router) { }
+  regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+  constructor(public router: Router, public userService:UserService) { }
 
   ngOnInit(): void {
   }
 
-  signUpUser() {
-    console.log(this.signUp.value)
-    alert("Your Username is: "+this.userNameMaker(this.signUp.value.fName, this.signUp.value.lName, this.count))
-    this.router.navigate(["user"])
-  }
-
-  userNameMaker(firstName:String, LastName:String, count:Number):String {
-    return firstName.charAt(0).toLowerCase() + LastName.toLowerCase() + count
+  signUpUser(userInfo:any) {
+    if (
+      userInfo.firstName == "" ||
+      userInfo.lastName == "" ||
+      userInfo.email == "" ||
+      userInfo.dod == "" ||
+      userInfo.phoneNumber == "" ||
+      userInfo.userAddress == "" ||
+      userInfo.password == ""
+    ){
+      alert("One or more missing inputs")
+    } else {
+      if (this.regexp.test(userInfo.email)) {
+        this.userService.signUpUser(userInfo).subscribe(result=>{
+          if (result.status) {
+            alert(result.message)
+            sessionStorage.setItem("userName", result.userName)
+            this.router.navigate(["user"])
+          } else {
+            alert(result.message)
+          }
+        });
+      } else {
+        alert("Invalid email")
+      }
+    }
   }
 }

@@ -19,7 +19,7 @@ const getObjectsByQueryFromDB = (model) => async (req, res, next)  => {
 
 const deleteObjectFromDB = (model) => async (req, res, next)  => {
 
-  if (!req.params.id) return res.status(500).json({ status: false, message: "Wrong Request"});
+  if (!req.params.id) return res.status(500).json({ status: false, message: "Wrong Request!! Please enter ID of the resource to be deleted"});
 
   let [check] = await model.find({id: req.params.id});
   if (!check) {

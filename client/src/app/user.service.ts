@@ -1,10 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ServerResponse } from './model.serverResponse'
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+
+  temp_users:any = {"users":[
+    {id:1,name:"joe",locked:1},
+    {id:2,name:"dan",locked:1},
+    {id:3,name:"kevin",locked:0},
+    {id:4,name:"eric",locked:1},
+    {id:5,name:"mary",locked:0},
+    {id:6,name:"randy",locked:1},
+    {id:7,name:"andrea",locked:1},
+    {id:8,name:"oliver",locked:1}
+  ]}
 
   config:any = {
     URL:'http://localhost:',
@@ -24,5 +37,12 @@ export class UserService {
     )
   }
 
+  signUpUser(user:any):Observable<ServerResponse>{
+    return this.http.post<ServerResponse>("http://localhost:4100/v1/auth/signup",user)
+  }
+
+  signInUser(user:any):Observable<ServerResponse>{
+    return this.http.post<ServerResponse>("http://localhost:4100/v1/auth/login",user)
+  }
 
 }

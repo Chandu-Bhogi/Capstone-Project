@@ -14,6 +14,7 @@ const OrderSchema = new Schema({
     ref: "Products",
     required: true
   }],
+  total_bill: Number,
 });
 
 module.exports = mongoose.model("Orders", OrderSchema);

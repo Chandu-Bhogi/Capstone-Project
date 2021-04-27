@@ -18,7 +18,7 @@ exports.createOrder = asyncHandler(async (req, res, next) => {
     if (list.length !== product_ids.length) return res.status(400).json({ status: false, message: "Some of the product_ids are not available in DB" });
 
     DBstate = { id, recepient, list};
-    insertObjectInDB(req, res, next)(DBstate);
+    insertObjectInDB(DBstate)(req, res, next);
 });
 
 exports.getAllOrders = asyncHandler(getAllObjectsFromDB);
@@ -37,7 +37,7 @@ exports.updateOrder = asyncHandler(async (req, res, next) =>{
     if (list.length !== product_ids.length) return res.status(400).json({ status: false, message: "Some of the product_ids are not available in DB" });
 
     DBstate = { id, recepient, list};
-    updateObjectInDB(req, res, next)(DBstate);
+    updateObjectInDB(DBstate)(req, res, next);
 });
 
 exports.deleteOrder = asyncHandler(deleteObjectFromDB);
