@@ -62,4 +62,6 @@ export class UserService {
   getProducts():Observable<Product> {
     return this.http.get<Product>("http://localhost:4100/v1/products/getallproducts")
   }
+  //createUserCart():Observable<
+ // router.post("/createusercart/:id", Cart.createUserCart);
 }

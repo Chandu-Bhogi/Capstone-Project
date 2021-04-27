@@ -20,7 +20,7 @@ export class UserComponent implements OnInit {
   showFunds = false
   showHome = true
   showOrder = false
-
+  totalQty=0;
   itemSelected = new Map()
 
   constructor(public router:Router, private locationStrategy: LocationStrategy, public userService:UserService) {
@@ -55,6 +55,7 @@ export class UserComponent implements OnInit {
       this.itemSelected.set(item, 1)
     }
     this.cart = Array.from(this.itemSelected)
+    this.totalQuantity();
   }
 
   showCartBtn() {
@@ -97,10 +98,30 @@ export class UserComponent implements OnInit {
   removeFromCart(item:Array<any>) {
     let index = this.cart.indexOf(item)
     this.cart.splice(index, 1)
+    this.itemSelected.delete(item[0]);
+    this.totalQuantity();
   }
+
+  updateFromCart(item:String,qty:String) {
+    if (this.itemSelected.has(item)) {
+      this.itemSelected.set(item,qty)
+    } 
+    this.cart = Array.from(this.itemSelected)
+    this.totalQuantity();
+  }
+
+  totalQuantity(){
+    //this.cart1.forEach(item=>this.cartTotal+=parseInt();
+
+    for (let [key, value] of this.itemSelected) {
+      this.totalQty+=parseInt(value);
+      console.log(key,value);
+  }
+}
 
   buyOrder() {
     // alert(`You have bought ${this.cart.length} items`)
     // this.cart = []
+
   }
 }
