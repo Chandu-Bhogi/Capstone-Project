@@ -51,6 +51,13 @@ export class UserComponent implements OnInit {
   }
 
   showCartBtn() {
+    this.showCart = true
+    this.showEdit = false
+  }
+
+  showEditBtn() {
+    this.showCart = false
+    this.showEdit = true
     this.showHome = false
     this.showEdit = false
     this.showFunds = false
@@ -72,7 +79,6 @@ export class UserComponent implements OnInit {
     this.showEdit = false
     this.showFunds = true;
     this.showOrder = false
-    
   }
 
   homeBtn() {
