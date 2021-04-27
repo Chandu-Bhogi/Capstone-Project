@@ -10,15 +10,52 @@ import { User } from '../../model.user'
 })
 export class EditProfileComponent implements OnInit {
 
+  user_firstName?:string;
+  user_lastName?:string;
+  user_address?:string;
+  user_email?:string;
+  user_dob?:string;
+  user_phoneNumber?:string;
+
   password1Res?:string
   password2Res?:string 
 
   constructor(public user_service:UserService) { }
 
   ngOnInit(): void {
+
+    let curr_userName:any = sessionStorage.getItem('userName')
+    let resp = this.user_service.getUserByUsername(curr_userName)
+    resp.subscribe( (response:any) =>{
+      let user_details = response['user'][0]
+      console.log(user_details)
+
+      this.user_firstName = user_details['firstName']
+      this.user_lastName = user_details['lastName']
+      this.user_address = user_details['userAddress']
+      this.user_email = user_details['email']
+      this.user_dob = user_details['dod']
+      this.user_phoneNumber = user_details['phoneNumber']
+    })
+
+
   }
 
   submitEdits(editProfileRef:any){
+    let fname:any = document.getElementById('f_fname')
+    let lname:any = document.getElementById('f_lname')
+    let email:any = document.getElementById('f_email')
+    let address:any = document.getElementById('f_address')
+    let dob:any = document.getElementById('f_dob')
+    let phoneNum:any = document.getElementById('f_phoneNum')
+
+    fname.value = ""
+    lname.value = ""
+    email.value = ""
+    address.value = ""
+    dob.value = ""
+    phoneNum.value = ""  
+
     // Grab the currently logged in username from sessionStorage
     let curr_userName:any = sessionStorage.getItem('userName')
     editProfileRef['userName'] = curr_userName

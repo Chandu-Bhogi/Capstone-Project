@@ -2,61 +2,102 @@
     <h2>Edit Profile</h2>
 
     <h3>Basic Details Update</h3>
-    <div class="editProfileContent">
-        <form #editProfileRef="ngForm" (ngSubmit)="submitEdits(editProfileRef.value)">
-            <div class='row'>
-                <div class="col">
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="f_fname" name="firstName" ngModel>
-                                <label for="f_email">First Name</label>
-                            </div>
-        
+    <div class="row">
+
+        <div class="col">
+            
+            <div class="CurrentUserInfo">
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <p class="infoType">First Name: </p> <p class="infoAnswer">{{user_firstName}}</p>
                         </div>
-                        <div class='col'>
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="f_lname" name="lastName" ngModel>
-                                <label for="f_email">Last Name</label>
-                            </div>
+                        <div class="row">
+                            <p class="infoType">Last Name: </p><p class="infoAnswer">{{user_lastName}}</p>
                         </div>
+                        <div class="row">
+                            <p class="infoType">E-Mail: </p><p class="infoAnswer">{{user_email}}</p>
+                        </div>
+
                     </div>
-                    
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="f_email" name="email" ngModel>
-                        <label for="f_email">E-mail</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="f_address" name="userAddress" ngModel>
-                        <label for="f_address">Address</label>
-                    </div>        
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="f_dob" name="dod" ngModel>
-                                <label for="f_dob">Date of Birth</label>
-                            </div>
+                    <div class="col">
+                        <div class="row">
+                            <p class="infoType">Address: </p><p class="infoAnswer">{{user_address}}</p>
                         </div>
-                        <div class='col'>
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="f_phoneNum" name="phoneNumber" ngModel>
-                                <label for="f_phoneNum">Phone Number</label>
-                            </div>
+                        <div class="row">
+                            <p class="infoType">Date of Birth: </p><p class="infoAnswer">{{user_dob}}</p>
                         </div>
-                        
+                        <div class="row">
+                            <p class="infoType">Phone Number: </p><p class="infoAnswer">{{user_phoneNumber}}</p>
+                        </div>
+
                     </div>
 
-                    <div class="row">
+                </div>
+                
+                
+            </div>
+        </div>
+
+
+        <div class="col">
+            <div class="editProfileContent">
+                <form #editProfileRef="ngForm" (ngSubmit)="submitEdits(editProfileRef.value)">
+                    <div class='row'>
                         <div class="col">
-                            <input type="submit" class="btn btn-primary formBtn" value="Done">
-                        </div>
-                        <div class="col">
-                            <input type="reset" class="btn btn-secondary formBtn" value="Reset">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="f_fname" name="firstName" ngModel>
+                                        <label for="f_email">First Name</label>
+                                    </div>
+                
+                                </div>
+                                <div class='col'>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="f_lname" name="lastName" ngModel>
+                                        <label for="f_email">Last Name</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="f_email" name="email" ngModel>
+                                <label for="f_email">E-mail</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="f_address" name="userAddress" ngModel>
+                                <label for="f_address">Address</label>
+                            </div>        
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="f_dob" name="dod" ngModel>
+                                        <label for="f_dob">Date of Birth</label>
+                                    </div>
+                                </div>
+                                <div class='col'>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="f_phoneNum" name="phoneNumber" ngModel>
+                                        <label for="f_phoneNum">Phone Number</label>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <input type="submit" class="btn btn-primary formBtn" value="Done">
+                                </div>
+                                <div class="col">
+                                    <input type="reset" class="btn btn-secondary formBtn" value="Reset">
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 
     <hr>
