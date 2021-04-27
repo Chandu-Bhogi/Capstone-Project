@@ -15,6 +15,9 @@
           <li class="nav-item">
             <button class="btn btn-outline-primary" type="button" (click)="showCartBtn()">Cart</button>
           </li>
+          <li class="nav-item">
+            <button class="btn btn-outline-primary" type="button" (click)="showOrderBtn()">Order Status</button>
+          </li>
         </ul>
         <a class="navbar-brand">{{currentUser}}</a>
         <button class="btn btn-danger" type="button" (click)="logout_user()">Log Out</button>
@@ -42,4 +45,8 @@
         <button class="btn btn-outline-primary" type="button" (click)="addToCart(item)">Add</button>
         <hr>
     </div>
+</div>
+
+<div class="container" *ngIf="showOrder">
+  <h3>Orders</h3>
 </div>

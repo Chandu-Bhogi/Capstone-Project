@@ -9,27 +9,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  employee = new FormGroup ({
-    fName: new FormControl(),
-    lName: new FormControl(),
-    email: new FormControl()
-  })
-
-  employeeID = new FormGroup({
-    id:new FormControl()
-  })
-
-  custom = new FormGroup({
-    productID:new FormControl(),
-    customerID:new FormControl()
-  })
 
   count = 1
   reports:String[] = ['Report1', 'Report2', 'Report3', 'Report4']
   report:String = ""
 
-  showReport =  false
+  showReport =  true
   showEdit = false
+  showProduct = false
 
   constructor(private locationStrategy: LocationStrategy, public router: Router) { 
     this.preventBackButton()
@@ -49,14 +36,14 @@ export class AdminComponent implements OnInit {
     this.router.navigate([""])
   }
 
-  addEmployee() {
-    console.log(this.employee.value)
-    alert(this.makeEmployeeID(this.employee.value.fName, this.employee.value.lName, this.count) + "\n" +
-    this.makePassword(this.employee.value.email))
+  addEmployee(employee:any) {
+    console.log(employee)
+    alert(this.makeEmployeeID(employee.fName, employee.lName, this.count) + "\n" +
+    this.makePassword(employee.email))
   }
 
-  deleteEmployee() {
-    console.log(this.employeeID.value)
+  deleteEmployee(employeeID:any) {
+    console.log(employeeID)
   }
 
   selectReport(report:String) {
@@ -64,8 +51,8 @@ export class AdminComponent implements OnInit {
     this.report = report
   }
 
-  customize() {
-    console.log(this.custom.value)
+  customize(custom:any) {
+    console.log(custom)
   }
 
   daily() {
@@ -85,19 +72,34 @@ export class AdminComponent implements OnInit {
     this.reports.splice(index,1)
   }
 
-  homeBtn() {
-    this.showReport = false
-    this.showEdit = false
-  }
-
   showReportBtn() {
     this.showReport = true
     this.showEdit = false
+    this.showProduct = false
   }
 
   showEditBtn() {
     this.showReport = false
     this.showEdit = true
+    this.showProduct = false
+  }
+
+  showProducts() {
+    this.showReport = false
+    this.showEdit = false
+    this.showProduct = true
+  }
+
+  editProduct(product:any) {
+    console.log(product)
+  }
+
+  deleteProduct(product:any) {
+    console.log(product)
+  }
+
+  addProduct(product:any) {
+    console.log(product)
   }
 
   makePassword(email:String):String {

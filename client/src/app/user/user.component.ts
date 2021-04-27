@@ -16,6 +16,7 @@ export class UserComponent implements OnInit {
   currentUser = sessionStorage.getItem("userName")
   showFunds = false
   showHome = true
+  showOrder = false
 
   constructor(public router:Router, private locationStrategy: LocationStrategy) {
     this.preventBackButton()
@@ -45,6 +46,7 @@ export class UserComponent implements OnInit {
     this.showEdit = false
     this.showFunds = false
     this.showCart = true
+    this.showOrder = false
   }
 
   showEditBtn() {
@@ -52,6 +54,7 @@ export class UserComponent implements OnInit {
     this.showCart = false
     this.showFunds = false
     this.showEdit = true
+    this.showOrder = false
   }
 
   showFundBtn(){
@@ -59,6 +62,7 @@ export class UserComponent implements OnInit {
     this.showCart = false;
     this.showEdit = false
     this.showFunds = true;
+    this.showOrder = false
     
   }
 
@@ -67,6 +71,15 @@ export class UserComponent implements OnInit {
     this.showEdit = false
     this.showFunds = false
     this.showHome = true
+    this.showOrder = false
+  }
+
+  showOrderBtn() {
+    this.showCart = false
+    this.showEdit = false
+    this.showFunds = false
+    this.showHome = false
+    this.showOrder = true
   }
 
   removeFromCart(item:String) {
