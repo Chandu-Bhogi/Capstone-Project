@@ -105,10 +105,28 @@ export class AdminComponent implements OnInit {
 
   editProduct(product:any) {
     console.log(product)
+    this.admin_service.updateProduct(product)
+    .subscribe((res:any)=>{
+      console.log(res)
+      if(res.status){
+        alert("Product has been updated")
+      }else{
+        alert("Issue with updating product")
+      }
+    })
   }
 
   deleteProduct(product:any) {
     console.log(product)
+    this.admin_service.deleteProduct(product)
+    .subscribe((res:any)=>{
+      console.log(res)
+      if(res.status){
+        alert("Product has been deleted")
+      }else{
+        alert("Issue with deleting product")
+      }
+    })
   }
 
   addProduct(product:any) {
