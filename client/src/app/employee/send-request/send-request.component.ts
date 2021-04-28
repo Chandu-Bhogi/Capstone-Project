@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Data, Router } from '@angular/router';
+import { ProductService } from 'src/app/product.service';
+//import { Product, Data } from '../model.product';
+//import {ProductService} from '../product.service'
+
 
 @Component({
   selector: 'app-send-request',
@@ -21,12 +26,17 @@ export class SendRequestComponent implements OnInit {
     
     ]
   }
-  products:Array<any> = []
+  products:Data[] = []
 
-  constructor() { }
-
+  constructor(public router: Router, public product_service: ProductService) { 
+    product_service.getProducts().subscribe((result: { data: any[]; })=> {
+      this.products = result.data
+    })
+   }
   ngOnInit(): void {
+    throw new Error('Method not implemented.');
   }
+  
 
   sendRequest2(productRef:any){
     console.log("TDF")

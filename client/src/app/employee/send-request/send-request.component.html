@@ -1,26 +1,38 @@
 <div class="container">
-    <h2 style="text-align: center;">Request more Product Inventory</h2>
+    <h2 style="text-align: center; padding: 6px;">Request more Product Inventory</h2>
 
     <div class="SendRequestArea">
 
-
+        
         <form #productQuantityRef="ngForm" (ngSubmit)="sendRequest2(productQuantityRef.value)">
-            <div class="row" *ngFor="let product of temp_products['products']">
-                <div class="col">
-                    ** some picture here **
+            
+            <div class="row" *ngFor="let product of products">
+                
+                
+                    <div class="col" style="margin-top:20px">
+                    <span>{{product.id}}</span>
                 </div>
-                <div class="col">
-                    <span>{{product['pname']}}</span>
+            
+                <div class="col" style="margin-top:20px">
+                    {{product.quantity}}
                 </div>
-                <div class="col">
-                    {{ product["quantity"] }}
+                <div class="col" style="margin-top:20px">
+                    $&nbsp;{{product.price}}
                 </div>
                 <div class="col">
                     <div class="form-floating mb-3 itemInput">
-                        <input type="text" class="form-control itemInputBox" [id]="'product_'+product['id']" [name]="'product_'+product['pname']" ngModel>
-                        <label [for]="'product_'+product['id']">Quantity</label>
+                        <input type="number" class="form-control" name="quantity"  id="floatingInput" ngModel>
+                        <label for="floatingInput">Update Quantity here</label>
+                    
                     </div> 
+                </div> 
+                <div class="col" style="margin-top:15px">
+                    <input type="button" value="Update">
+                    <!-- <input type="button" value="Delete"> -->
                 </div>
+                 <div class="col" style="margin-top:15px">
+                    <input type="button" value="Delete">
+                </div> 
                 <!-- <div class="col">
                     <input type="button" value="+" class="btn btn-primary" [id]="'inc_'+product['id']" (click)="add_1('product_'+product['id'])">
                     <input type="button" value="-" class="btn btn-primary" [id]="'dec_'+product['id']" (click)="sub_1('product_'+product['id'])">
@@ -28,10 +40,10 @@
                 <hr>
             </div>
 
-            <div class="row">
+            <!-- <div class="row">
                 <input type="submit" value="Send Quantity Request" class="btn btn-primary sendRequestBtn">
                 <input type="reset" value="Reset" class="btn btn-secondary sendRequestBtn">
-            </div>
+            </div> -->
         </form>
     </div>
 </div>
