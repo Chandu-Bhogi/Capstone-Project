@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ServerResponse } from './model.serverResponse';
 import { Observable } from 'rxjs';
+import { Employee } from './model.employee';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,7 @@ export class EmployeeService {
     return this.http.post<ServerResponse>(URL,employee)
   }
 
+
   getEmployeeById(emp_info:any):Observable<ServerResponse>{
     let emp_id = emp_info['id']
     let URL:string = this.config['URL']+this.config['PORT']+'/v1/employees/getEmployeeById/'+emp_id
@@ -33,5 +35,17 @@ export class EmployeeService {
     let URL:string = this.config['URL']+this.config['PORT']+'/v1/employees/updatepassword/'+emp_id
     console.log(`Traveling to: ${URL}`)
     return this.http.put<ServerResponse>(URL,password_info)
+  }
+  getEmployee(employee:any):Observable<Employee>{
+    let URL = this.config["URL"]+this.config["PORT"]+"/v1/employees/getemployee/"+employee
+    console.log("[LOG]: Going to: " + URL)
+    return this.http.get<Employee>(URL)
+  }
+
+  passwordChanged(employee:any, id:any):Observable<ServerResponse>{
+    console.log(employee)
+    let URL = this.config["URL"]+this.config["PORT"]+"/v1/employees/updateemployee/"+id
+    console.log("[LOG]: Going to: " + URL)
+    return this.http.put<ServerResponse>(URL,employee)
   }
 }

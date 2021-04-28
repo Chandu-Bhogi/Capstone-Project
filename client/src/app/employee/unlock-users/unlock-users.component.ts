@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Data } from 'src/app/model.ticket';
 import { UserService } from 'src/app/user.service';
 
 @Component({
@@ -8,13 +9,28 @@ import { UserService } from 'src/app/user.service';
 })
 export class UnlockUsersComponent implements OnInit {
 
-  constructor(public user_service:UserService) { }
+  tickets:Data[] = []
+
+  constructor(public user_service:UserService) {
+    this.user_service.getTickets().subscribe(result => {
+      this.tickets = result.data
+    })
+   }
 
   ngOnInit(): void {
   }
 
-  unlockUsers(lockedUsersRef:any){
-    console.log(lockedUsersRef)
+  unLockUser(userName:any){
+    let obj = {
+      userName: userName,
+      locked: false
+    }
+    this.user_service.updateProfile(obj)
+    this.user_service.deleteTicket(userName).subscribe(res => {
+      this.user_service.getTickets().subscribe(result => {
+        this.tickets = result.data
+      })
+    })
   }
 
 }

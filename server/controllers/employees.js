@@ -3,6 +3,13 @@ const asyncHandler = require("../middlewares/async");
 const Employee = require("../models/employees");
 let { getAllObjectsFromDB, getObjectsByQueryFromDB, updateObjectInDB, deleteObjectFromDB, insertObjectInDB } = require("./utils")(Employee);
 
+exports.getEmployeeById = asyncHandler(async(req,res,next)=>{
+    let id = req.params.id
+    Employee.find({id:id})
+    .then(data=>res.status(200).json({status:true,data,message:"Found Employee"}))
+    .catch(err=>res.status(422).json({status:false,message:`There was an error! => ${err}`}))
+  })
+
 exports.login = asyncHandler(async (req,res,next)=>{
     const {id,password} = req.body
 

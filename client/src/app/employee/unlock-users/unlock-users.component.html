@@ -1,27 +1,15 @@
 <div class="container">
     <h2 style="text-align: center;">Unlock Users</h2>
     <div class="unlockUsersArea">
-        <form #lockedUsersRef="ngForm" (ngSubmit)="unlockUsers(lockedUsersRef.value)">
-            <div class="OrderFormArea" *ngFor="let person of user_service.temp_users['users'];index as idx">
-                <div *ngIf="person['locked']== 1">
+        <form>
+            <div class="OrderFormArea" *ngFor="let ticket of tickets">
                     <div class="orderDetails">
-                        Person ID: {{ person['id'] }}
-                        <br>
-                        Name: {{ person['name'] }}
-                        <br>
-                        Account Status: {{ person['locked'] == 1 ? "Locked" : "Unlocked" }}<br>
+                        Username: {{ticket.id}} <br>
+                        Description: {{ticket.description}}<br>
+                        Account Status: Locked<br>
 
-                        <select [name]="'user_'+person['id']+'_accountStatus'" class="form-select form-select-sm" aria-label=".form-select-sm example" ngModel>
-                            <option selected>Select Account Status</option>
-                            <option value="locked" ngValue>Locked</option>
-                            <option value="unlocked" ngValue>Unlocked</option>
-                        </select>
+                        <input type="button" class="btn btn-primary orderStatusBtn" value="Unlock" (click)="unLockUser(ticket.id)">
                     </div>
-                </div>
-            </div>
-            <div style="margin: auto;width: fit-content;">
-                <input type="submit" class="btn btn-primary orderStatusBtn" value="Update Account Status">
-                <input type="reset" class="btn btn-primary orderStatusBtn" value="Reset">
             </div>
         </form>
     </div>
