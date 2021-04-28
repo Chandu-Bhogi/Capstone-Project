@@ -77,6 +77,9 @@ export class UserService {
     return this.http.get<Product>("http://localhost:4100/v1/products/getallproducts")
   }
 
+  //createUserCart():Observable<
+  // router.post("/createusercart/:id", Cart.createUserCart);
+
   createTicket(ticket:any):Observable<ServerResponse> {
     return this.http.post<ServerResponse>("http://localhost:4100/v1/tickets/createticket",ticket)
   }
