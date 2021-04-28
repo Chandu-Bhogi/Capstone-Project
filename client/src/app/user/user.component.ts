@@ -60,7 +60,7 @@ export class UserComponent implements OnInit {
     }
     this.cart = Array.from(this.itemSelected)
     this.totalQuantity();
-    //console.log(this.itemSelected);
+   
   }
 
 
@@ -123,22 +123,20 @@ export class UserComponent implements OnInit {
     this.cartTotal=0;
     for (let [key, value] of this.itemSelected) {
       this.totalQty+=value[0];
-      //if(this.itemSelected.size==1)
+      
       var itemTotal=value[0]*value[1];
       this.cartTotal+=itemTotal;
       
-      //console.log(key,value[0]);
-      //this.cartTotalAmount();
       
   }
-  //this.cartTotal+=itemTotal;
+ 
 }
 
 cartTotalAmount(){
 this.itemSelected.forEach((item,val)=>
 {
   console.log(item,val);
-  //this.cartTotal=(item[1]*item[0]);
+ 
 }
 )
 
