@@ -52,22 +52,21 @@
       <thead>
         <tr>
           <th scope="col">Username</th>
-          <th scope="col">First Name</th>
-          <th scope="col">Last Name</th>
           <th scope="col">Products</th>
           <th scope="col">Status</th>
           <th scope="col">Date</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor= "let report of reports">
-          <td>{{report}}</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+        <tr *ngFor="let report of reports">
+          <td>{{report.id}}</td>
+          <td>
+            <ul *ngFor="let product of report.cart">
+              <li>{{product.id}}, Quantity = {{product.quantity}}, Total = ${{product.total}}</li>
+            </ul>
+          </td>
+          <td>{{report.status}}</td>
+          <td>{{report.date}}</td>
         </tr>
       </tbody>
     </table>

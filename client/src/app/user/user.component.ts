@@ -35,9 +35,9 @@ export class UserComponent implements OnInit {
     if (this.currentUser != null) {
       userService.getUserByUsername(this.currentUser).subscribe(result => {
         console.log(result.user[0].cart)
-        let cart = result.user[0].cart
-        for(let i=0; i < cart.length; i++) {
-          this.itemSelected.set(cart[i].id, [(cart[i].quantity),(cart[i].total/cart[i].quantity).toPrecision(2)])
+        this.cart = result.user[0].cart
+        for(let i=0; i < this.cart.length; i++) {
+          this.itemSelected.set(this.cart[i].id, [(this.cart[i].quantity),(this.cart[i].total/this.cart[i].quantity).toPrecision(2)])
         }
         this.localCart = Array.from(this.itemSelected)
       })
@@ -166,16 +166,31 @@ cartTotalAmount(){
 }
 
   buyOrder() {
+    let today = new Date()
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    let yyyy = today.getFullYear();
+
+    let date = mm + '/' + dd + '/' + yyyy;
     let order = {
       id: sessionStorage.getItem('userName'),
       status: "Pending",
       cart: this.cart,
-      date: new Date()
+      date: date
     }
     console.log("Clicked")
+    console.log(order)
     this.userService.createOrder(order).subscribe(result => {
-      console.log("result")
       console.log(result)
+      this.cart = []
+      this.localCart = []
+      this.itemSelected = new Map()
+      let userCart = {
+        userName: sessionStorage.getItem('userName'),
+        cart: this.cart
+      }
+  
+      this.userService.updateProfile(userCart)
     })
   }
 }

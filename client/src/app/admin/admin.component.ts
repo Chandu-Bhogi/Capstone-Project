@@ -4,6 +4,7 @@ import { LocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
 import { AdminService } from '../admin.service';
 import { UserService } from '../user.service';
+import { Data } from '../model.order';
 
 @Component({
   selector: 'app-admin',
@@ -13,8 +14,7 @@ import { UserService } from '../user.service';
 export class AdminComponent implements OnInit {
 
   count = 1
-  reports:String[] = ['Report1', 'Report2', 'Report3', 'Report4']
-  report:String = ""
+  reports:Data[] = []
 
   showReport =  true
   showEdit = false
@@ -22,6 +22,10 @@ export class AdminComponent implements OnInit {
 
   constructor(private locationStrategy: LocationStrategy, public router: Router,public admin_service:AdminService, public userService:UserService) { 
     this.preventBackButton()
+    userService.getAllOrders().subscribe(result => {
+      console.log(result)
+      this.reports = result.data
+    })
   }
 
   ngOnInit(): void {
@@ -65,11 +69,6 @@ export class AdminComponent implements OnInit {
       }
     })
   }
-
-  selectReport(report:String) {
-    console.log(report)
-    this.report = report
-  }
   
   customize(custom:any) {
     console.log(custom)
@@ -85,11 +84,6 @@ export class AdminComponent implements OnInit {
 
   monthly() {
 
-  }
-
-  resolve() {
-    let index = this.reports.indexOf(this.report)
-    this.reports.splice(index,1)
   }
 
   showReportBtn() {

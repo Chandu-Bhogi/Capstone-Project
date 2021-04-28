@@ -5,6 +5,7 @@ import { ServerResponse } from './model.serverResponse'
 import { Product } from './model.product'
 import { User } from './model.user'
 import { Ticket } from './model.ticket'
+import { Order } from './model.order';
 
 @Injectable({
   providedIn: 'root'
@@ -93,5 +94,9 @@ export class UserService {
     console.log("come here")
     console.log(order)
     return this.http.post<ServerResponse>("http://localhost:4100/v1/orders/createorder",order)
+  }
+  
+  getAllOrders():Observable<Order> {
+    return this.http.get<Order>("http://localhost:4100/v1/orders/getallorders")
   }
 }
