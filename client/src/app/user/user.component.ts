@@ -21,12 +21,15 @@ export class UserComponent implements OnInit {
   showHome = true
   showOrder = false
   totalQty=0;
+  cartTotal=0;
   itemSelected = new Map()
 
   constructor(public router:Router, private locationStrategy: LocationStrategy, public userService:UserService) {
     this.preventBackButton()
     userService.getProducts().subscribe(result=> {
       this.items = result.data
+      console.log(result.data);
+      console.log(this.items);
     })
    }
 
@@ -48,15 +51,19 @@ export class UserComponent implements OnInit {
     }
   }
 
-  addToCart(item:String) {
+  addToCart(item:String,itmPrice:string) {
+    console.log(itmPrice+"price item")
     if (this.itemSelected.has(item)) {
-      this.itemSelected.set(item, this.itemSelected.get(item) + 1)
+      this.itemSelected.set(item, [(this.itemSelected.get(item)[0] + 1),parseFloat(itmPrice)])
     } else {
-      this.itemSelected.set(item, 1)
+      this.itemSelected.set(item, [1,parseFloat(itmPrice)])
     }
     this.cart = Array.from(this.itemSelected)
     this.totalQuantity();
+    //console.log(this.itemSelected);
   }
+
+
 
   showCartBtn() {
     this.showCart = true
@@ -102,26 +109,48 @@ export class UserComponent implements OnInit {
     this.totalQuantity();
   }
 
-  updateFromCart(item:String,qty:String) {
+  updateFromCart(item:String,qty:string) {
     if (this.itemSelected.has(item)) {
-      this.itemSelected.set(item,qty)
+      this.itemSelected.set(item,[parseInt(qty),this.itemSelected.get(item)[1]]);
     } 
     this.cart = Array.from(this.itemSelected)
     this.totalQuantity();
   }
 
   totalQuantity(){
-    //this.cart1.forEach(item=>this.cartTotal+=parseInt();
-
+   
+    this.totalQty=0;
+    this.cartTotal=0;
     for (let [key, value] of this.itemSelected) {
-      this.totalQty+=parseInt(value);
-      console.log(key,value);
+      this.totalQty+=value[0];
+      //if(this.itemSelected.size==1)
+      var itemTotal=value[0]*value[1];
+      this.cartTotal+=itemTotal;
+      
+      //console.log(key,value[0]);
+      //this.cartTotalAmount();
+      
   }
+  //this.cartTotal+=itemTotal;
+}
+
+cartTotalAmount(){
+this.itemSelected.forEach((item,val)=>
+{
+  console.log(item,val);
+  //this.cartTotal=(item[1]*item[0]);
+}
+)
+
 }
 
   buyOrder() {
     // alert(`You have bought ${this.cart.length} items`)
     // this.cart = []
+    //var obj:any=[];
+    //obj.customerId="";
+
+
 
   }
 }
