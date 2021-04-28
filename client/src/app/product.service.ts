@@ -14,10 +14,13 @@ import { Ticket } from './model.ticket'
     config:any = {
         URL:'http://localhost:',
         PORT:'4100'
-      }
+    }
     
-      constructor(public http:HttpClient) { }
-      getProducts():Observable<Product> {
-        return this.http.get<Product>("http://localhost:4100/v1/products/getallproducts")
-      }
+    constructor(public http:HttpClient) { }
+      
+    getProducts():Observable<Product> {
+      let URL:string = this.config['URL']+this.config['PORT']+'/v1/products/getallproducts'
+      console.log(`Traveling to: ${URL}`)
+      return this.http.get<Product>(URL)
+    }
   }
