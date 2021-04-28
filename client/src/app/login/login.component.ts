@@ -36,21 +36,27 @@ export class LoginComponent implements OnInit {
         console.log(this.lockedUser)
         if(this.lockedUser) {
           let desc = prompt("Description: ")
-          let obj = {
-            id: userName,
-            description: desc
-          }
-          this.userService.createTicket(obj).subscribe(result => {
-            if(result.status) {
-              alert("Ticket has been raised")
-            } else {
-              alert("Failed to raise a ticket")
+          if (desc != null) {
+            let obj = {
+              id: userName,
+              description: desc
             }
-          })
+            this.userService.createTicket(obj).subscribe(result => {
+              if(result.status) {
+                alert("Ticket has been raised")
+              } else {
+                alert("Failed to raise a ticket")
+              }
+            })
+          }
+        } else {
+          alert("Your account is not Locked")
         }
       })
     } else {
-      alert("Invalid input")
+      if (userName != null) {
+        alert("Invalid input")
+      }
     }
   }
 
