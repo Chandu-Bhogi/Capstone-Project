@@ -4,6 +4,7 @@ import { from, Observable, Observer } from 'rxjs';
 import { ServerResponse } from './model.serverResponse'
 import { Product } from './model.product'
 import { User } from './model.user'
+import { Ticket } from './model.ticket'
 
 @Injectable({
   providedIn: 'root'
@@ -67,5 +68,17 @@ export class UserService {
 
   getProducts():Observable<Product> {
     return this.http.get<Product>("http://localhost:4100/v1/products/getallproducts")
+  }
+
+  createTicket(ticket:any):Observable<ServerResponse> {
+    return this.http.post<ServerResponse>("http://localhost:4100/v1/tickets/createticket",ticket)
+  }
+
+  getTickets():Observable<Ticket> {
+    return this.http.get<Ticket>("http://localhost:4100/v1/tickets/getalltickets")
+  }
+
+  deleteTicket(userName:any):Observable<ServerResponse> {
+    return this.http.delete<ServerResponse>("http://localhost:4100/v1/tickets/deletetticket/"+userName)
   }
 }

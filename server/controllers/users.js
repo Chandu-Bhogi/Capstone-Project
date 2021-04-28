@@ -15,7 +15,7 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
 exports.getUserByUsername = asyncHandler(async(req,res,next)=>{
   console.log("GET USER BY USERNAME")
   let username = req.params.userName
-  let result = await User.find({userName:username})
+  User.find({userName:username})
   .then(user=>res.status(200).json({status:true,user,message:"Found User"}))
   .catch(err=>res.status(422).json({status:false,message:`There was an error! => ${err}`}))
 })

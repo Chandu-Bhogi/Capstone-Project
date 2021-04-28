@@ -3,6 +3,7 @@ import { FormControl, FormGroup} from '@angular/forms';
 import { LocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
 import { AdminService } from '../admin.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-admin',
@@ -19,7 +20,7 @@ export class AdminComponent implements OnInit {
   showEdit = false
   showProduct = false
 
-  constructor(private locationStrategy: LocationStrategy, public router: Router,public admin_service:AdminService) { 
+  constructor(private locationStrategy: LocationStrategy, public router: Router,public admin_service:AdminService, public userService:UserService) { 
     this.preventBackButton()
   }
 
@@ -34,18 +35,24 @@ export class AdminComponent implements OnInit {
   }
 
   logOut() {
-    this.router.navigate([""])
+    if (confirm("Are you sure you want to log out?")) {
+      this.router.navigate([""])
+    }
   }
 
   addEmployee(employee:any) {
-    this.admin_service.addEmployee(employee)
-    .subscribe(res=>{
-      if (res.status) {
-        alert(res.message)
-      } else {
-        alert(res.message)
-      }
-    })
+    if (this.userService.regexp.test(employee.email)) {
+      this.admin_service.addEmployee(employee)
+      .subscribe(res=>{
+        if (res.status) {
+          alert(res.message)
+        } else {
+          alert(res.message)
+        }
+      })
+    } else {
+      alert("Invalid email")
+    }
   }
 
   deleteEmployee(employeeID:any) {
