@@ -12,6 +12,9 @@ router.post("/addemployee", employees.addEmployee);
 
 router.put("/updateemployee/:id", employees.updateEmployee);
 
+router.get("/getEmployeeById/:id",employees.getEmployeeById);
+router.put("/updatePassword/:id",employees.updatePassword);
+
 router.delete("/deleteemployee/:id", employees.deleteEmployee);
 
 
