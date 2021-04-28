@@ -3,6 +3,13 @@ const asyncHandler = require("../middlewares/async");
 const Employee = require("../models/employees");
 let { getAllObjectsFromDB, getObjectsByQueryFromDB, updateObjectInDB, deleteObjectFromDB, insertObjectInDB } = require("./utils")(Employee);
 
+exports.getEmployeeById = asyncHandler(async(req,res,next)=>{
+    let id = req.params.id
+    Employee.find({id:id})
+    .then(data=>res.status(200).json({status:true,data,message:"Found Employee"}))
+    .catch(err=>res.status(422).json({status:false,message:`There was an error! => ${err}`}))
+  })
+
 exports.login = asyncHandler(async (req,res,next)=>{
     const {id,password} = req.body
 
@@ -19,6 +26,23 @@ exports.login = asyncHandler(async (req,res,next)=>{
         res.status(200).json({status:false,message:"Failed login"})
     }
 })
+
+exports.getEmployeeById = asyncHandler(async (req, res, next) => {
+    let emp_id = req.params.id
+    Employee.find({id:emp_id})
+    .then(emp=>res.status(200).json({status:true,emp,message:"Found Employee!"}))
+    .catch(err=>res.status(422).json({status:false,message:`Issue finding employee => ${err}`}))
+})
+
+exports.updatePassword = asyncHandler(async (req, res, next) => {
+    let emp_id = req.params.id
+    let password = req.body['password']
+    Employee.findOneAndUpdate({id: emp_id}, { $set: {password:password} })
+    .then((emp) => //console.log(emp))
+      emp.status(200).json({ status:true,emp, message: "Success! Password was changed for Employee" }))
+    .catch((err) => //console.log("===> " + err))
+      res.status(200).json({ status: true, message: "Success! Password was changed for Employee" }))
+});
 
 exports.addEmployee = asyncHandler(async (req, res, next) => {
     const {firstName, lastName, email} = req.body

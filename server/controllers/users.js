@@ -5,15 +5,12 @@ const path = require('path')
 
 // Edit Profile
 exports.updateUser = asyncHandler(async (req, res, next) => {
-    console.log("hi in the update")
     console.log(req.body)
-
     User.findOneAndUpdate({"userName":req.body.userName},{$set:req.body},{multi: true })
     .then(user=>res.status(200).json({status:true,user}))
     .catch(err=>res.status(422).json({status:false,message:`There was an error! -> ${err}`}))
 });
 exports.getUserByUsername = asyncHandler(async(req,res,next)=>{
-  console.log("GET USER BY USERNAME")
   let username = req.params.userName
   User.find({userName:username})
   .then(user=>res.status(200).json({status:true,user,message:"Found User"}))
@@ -28,6 +25,16 @@ exports.updateUserById = asyncHandler(async (req, res, next) => {
     )
     .catch((err) =>
       res.status(400).json({ status: false, message: `userId ${String(req.params.id)} could not be inserted, Err ${err}`}));
+});
+
+exports.updatePassword = asyncHandler(async (req, res, next) => {
+  let {userName, password} = req.body
+  User.findOneAndUpdate({userName: req.params.id}, { $set: {password:password} }, { new: true })
+  .then((user) => 
+    res.status(200).json({ status:true,user, message: "Success! Password was changed" })
+  )
+  .catch((err) =>
+    res.status(422).json({ status: false, message: `Error! Password couldn't be changed ==> ${err}`}));
 });
 
 exports.addFunds = asyncHandler(async (req,res,next)=>{

@@ -52,6 +52,13 @@ export class UserService {
     return this.http.put(URL,profileUpdates).subscribe(response=>console.log(response),err=>console.log(err));
   }
 
+  updatePassword(password_info:any):Observable<ServerResponse>{
+    let username = password_info['userName']
+    let URL:string = this.config['URL']+this.config['PORT']+'/v1/profile/updatepassword/'+username
+    console.log(`Traveling to: ${URL}`)
+    return this.http.put<ServerResponse>(URL,password_info)
+  }
+
   addFunds(fundAmount:any){
     let URL = this.config['URL']+this.config['PORT']+'/v1/profile/addFunds'
     console.log(`Going to: ${URL}`)
@@ -69,6 +76,9 @@ export class UserService {
   getProducts():Observable<Product> {
     return this.http.get<Product>("http://localhost:4100/v1/products/getallproducts")
   }
+
+  //createUserCart():Observable<
+  // router.post("/createusercart/:id", Cart.createUserCart);
 
   createTicket(ticket:any):Observable<ServerResponse> {
     return this.http.post<ServerResponse>("http://localhost:4100/v1/tickets/createticket",ticket)
