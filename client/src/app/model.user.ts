@@ -8,7 +8,7 @@ export class User {
 
 export class Data {
     constructor(
-        public cart: any,
+        public cart: Cart[],
         public dod: string,
         public email: string,
         public firstName: string,
@@ -18,4 +18,12 @@ export class Data {
         public phoneNumber: string,
         public userName: string
         ){}
+}
+
+export class Cart {
+    constructor(
+        public id: string,
+        public quantity: number,
+        public total: number,
+    ){}
 }

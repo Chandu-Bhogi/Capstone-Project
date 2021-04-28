@@ -15,7 +15,8 @@ export class UserComponent implements OnInit {
   items:Data[] = []
   showCart = false
   showEdit = false
-  cart:Array<Array<any>> = []
+  localCart:Array<Array<any>> = []
+  cart:any[] = []
   currentUser = sessionStorage.getItem("userName")
   showFunds = false
   showHome = true
@@ -31,6 +32,16 @@ export class UserComponent implements OnInit {
       console.log(result.data);
       console.log(this.items);
     })
+    if (this.currentUser != null) {
+      userService.getUserByUsername(this.currentUser).subscribe(result => {
+        console.log(result.user[0].cart)
+        let cart = result.user[0].cart
+        for(let i=0; i < cart.length; i++) {
+          this.itemSelected.set(cart[i].id, [(cart[i].quantity),(cart[i].total/cart[i].quantity).toPrecision(2)])
+        }
+        this.localCart = Array.from(this.itemSelected)
+      })
+    }
    }
 
   ngOnInit(): void {
@@ -51,16 +62,30 @@ export class UserComponent implements OnInit {
     }
   }
 
-  addToCart(item:string,itmPrice:Number) {
-    console.log(itmPrice+"price item")
+  addToCart(item:string,itmPrice:any) {
     if (this.itemSelected.has(item)) {
       this.itemSelected.set(item, [(this.itemSelected.get(item)[0] + 1),itmPrice.toPrecision(2)])
     } else {
       this.itemSelected.set(item, [1,itmPrice.toPrecision(2)])
     }
-    this.cart = Array.from(this.itemSelected)
+    this.localCart = Array.from(this.itemSelected)
     this.cartTotalCal();
-   
+    console.log("Hello")
+    this.cart = []
+    for(let i = 0; i < this.localCart.length; i++) {
+      let obj = {
+        id: this.localCart[i][0],
+        quantity: this.localCart[i][1][0],
+        total: itmPrice * this.localCart[i][1][0]
+      }
+      this.cart.push(obj)
+    }
+    let userCart = {
+      userName: sessionStorage.getItem('userName'),
+      cart: this.cart
+    }
+
+    this.userService.updateProfile(userCart)
   }
 
 
@@ -103,8 +128,8 @@ export class UserComponent implements OnInit {
   }
 
   removeFromCart(item:Array<any>) {
-    let index = this.cart.indexOf(item)
-    this.cart.splice(index, 1)
+    let index = this.localCart.indexOf(item)
+    this.localCart.splice(index, 1)
     this.itemSelected.delete(item[0]);
     this.cartTotalCal();
   }
@@ -113,7 +138,7 @@ export class UserComponent implements OnInit {
     if (this.itemSelected.has(item)) {
       this.itemSelected.set(item,[parseInt(qty),this.itemSelected.get(item)[1]]);
     } 
-    this.cart = Array.from(this.itemSelected)
+    this.localCart = Array.from(this.itemSelected)
     this.cartTotalCal();
   }
 
