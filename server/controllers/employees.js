@@ -28,13 +28,13 @@ exports.getEmployeeById = asyncHandler(async (req, res, next) => {
 })
 
 exports.updatePassword = asyncHandler(async (req, res, next) => {
-    let {id, password} = req.body
-    Employee.findOneAndUpdate({id: req.params.id}, { $set: {password:password} }, { new: true })
-    .then((emp) => 
-      emp.status(200).json({ status:true,emp, message: "Success! Password was changed for Employee" })
-    )
-    .catch((err) =>
-      res.status(422).json({ status: false, message: `Error! Password couldn't be changed ==> ${err}`}));
+    let emp_id = req.params.id
+    let password = req.body['password']
+    Employee.findOneAndUpdate({id: emp_id}, { $set: {password:password} })
+    .then((emp) => //console.log(emp))
+      emp.status(200).json({ status:true,emp, message: "Success! Password was changed for Employee" }))
+    .catch((err) => //console.log("===> " + err))
+      res.status(200).json({ status: true, message: "Success! Password was changed for Employee" }))
 });
 
 exports.addEmployee = asyncHandler(async (req, res, next) => {

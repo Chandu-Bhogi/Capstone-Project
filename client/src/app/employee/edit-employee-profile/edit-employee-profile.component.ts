@@ -17,6 +17,14 @@ export class EditEmployeeProfileComponent implements OnInit {
   }
 
   submitNewPassword(updatePasswordRef:any){
+    let a:any = document.getElementById('f_currPassword')
+    let b:any = document.getElementById('f_newPassword1')
+    let c:any = document.getElementById('f_newPassword2')
+
+    a.value = ""
+    b.value = ""
+    c.value = ""
+
     console.log(updatePasswordRef)
 
     let emp_id:any  = sessionStorage.getItem('id')
@@ -51,10 +59,7 @@ export class EditEmployeeProfileComponent implements OnInit {
           })
         }
       }
-    })
-
-
-    
+    })    
   }
 
 }

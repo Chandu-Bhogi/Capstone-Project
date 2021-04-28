@@ -5,15 +5,12 @@ const path = require('path')
 
 // Edit Profile
 exports.updateUser = asyncHandler(async (req, res, next) => {
-    console.log("hi in the update")
     console.log(req.body)
-
     User.findOneAndUpdate({"userName":req.body.userName},{$set:req.body},{multi: true })
     .then(user=>res.status(200).json({status:true,user}))
     .catch(err=>res.status(422).json({status:false,message:`There was an error! -> ${err}`}))
 });
 exports.getUserByUsername = asyncHandler(async(req,res,next)=>{
-  console.log("GET USER BY USERNAME")
   let username = req.params.userName
   let result = await User.find({userName:username})
   .then(user=>res.status(200).json({status:true,user,message:"Found User"}))
