@@ -62,6 +62,9 @@ const updateObjectInDB = (model) => (inputState = null) => async (req, res, next
 
     const id = req.params.id;
     let [check] = await model.find({id});
+    console.log(id)
+    console.log(req.body)
+    console.log(inputState)
 
     if (!check) return res.status(404).json({ status: false, message: `ID: ${id} is not available in DB`})
 

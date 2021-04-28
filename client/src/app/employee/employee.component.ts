@@ -15,6 +15,7 @@ export class EmployeeComponent implements OnInit {
   clicked_unlockUsers:boolean = false
   clicked_editProfile:boolean = false
   logout_employee:boolean = false
+  currentEmployee = sessionStorage.getItem("employee")
 
   constructor(private locationStrategy: LocationStrategy, public router:Router) { 
     this.preventBackButton()
