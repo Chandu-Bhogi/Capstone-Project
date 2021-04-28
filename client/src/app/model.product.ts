@@ -7,8 +7,8 @@ export class Product {
 
 export class Data {
     constructor(
-        public id: String,
-        public price: string,
-        public quantity: string
+        public id: string,
+        public price:Number,
+        public quantity:Number
         ){}
 }

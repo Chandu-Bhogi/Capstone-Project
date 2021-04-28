@@ -51,15 +51,15 @@ export class UserComponent implements OnInit {
     }
   }
 
-  addToCart(item:String,itmPrice:string) {
+  addToCart(item:string,itmPrice:Number) {
     console.log(itmPrice+"price item")
     if (this.itemSelected.has(item)) {
-      this.itemSelected.set(item, [(this.itemSelected.get(item)[0] + 1),parseFloat(itmPrice)])
+      this.itemSelected.set(item, [(this.itemSelected.get(item)[0] + 1),itmPrice.toPrecision(2)])
     } else {
-      this.itemSelected.set(item, [1,parseFloat(itmPrice)])
+      this.itemSelected.set(item, [1,itmPrice.toPrecision(2)])
     }
     this.cart = Array.from(this.itemSelected)
-    this.totalQuantity();
+    this.cartTotalCal();
    
   }
 
@@ -106,7 +106,7 @@ export class UserComponent implements OnInit {
     let index = this.cart.indexOf(item)
     this.cart.splice(index, 1)
     this.itemSelected.delete(item[0]);
-    this.totalQuantity();
+    this.cartTotalCal();
   }
 
   updateFromCart(item:String,qty:string) {
@@ -114,17 +114,17 @@ export class UserComponent implements OnInit {
       this.itemSelected.set(item,[parseInt(qty),this.itemSelected.get(item)[1]]);
     } 
     this.cart = Array.from(this.itemSelected)
-    this.totalQuantity();
+    this.cartTotalCal();
   }
 
-  totalQuantity(){
+  cartTotalCal(){
    
     this.totalQty=0;
     this.cartTotal=0;
     for (let [key, value] of this.itemSelected) {
       this.totalQty+=value[0];
       
-      var itemTotal=value[0]*value[1];
+      var itemTotal=parseFloat((value[0]*value[1]).toPrecision(2));
       this.cartTotal+=itemTotal;
       
       
