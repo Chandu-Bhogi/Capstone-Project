@@ -112,7 +112,28 @@ export class LoginComponent implements OnInit {
     this.employee_service.sendCredentials(employeeInfo)
     .subscribe(res=>{
       if(res.status){
-        this.router.navigate(["employee"])
+        this.employee_service.getEmployee(employeeInfo.id).subscribe(result => {
+          if(result.data[0].changedPassword) {
+            this.router.navigate(["employee"])
+            sessionStorage.setItem("employee", employeeInfo.id)
+          } else {
+            let newPassword = prompt("New Password: ")
+            if(newPassword != null && newPassword != "") {
+              let conform = prompt("Conform Password: ")
+              if (conform == newPassword) {
+                let employeeObj = {
+                  password: conform,
+                  changedPassword: true
+                }
+                console.log(employeeObj)
+                this.employee_service.passwordChanged(employeeObj, employeeInfo.id).subscribe(result => {
+                  this.router.navigate(["employee"])
+                  sessionStorage.setItem("employee", employeeInfo.id)
+                })
+              }
+            }
+          }
+        })
       }else{
         alert("Issue with Employee credentials")
       }
