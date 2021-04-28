@@ -25,7 +25,7 @@ export class UserComponent implements OnInit {
   cartTotal=0;
   itemSelected = new Map()
   curr_funds: any;
-  values="";
+  
 
   constructor(public router:Router, private locationStrategy: LocationStrategy, public userService:UserService) {
     this.preventBackButton()
@@ -139,10 +139,8 @@ export class UserComponent implements OnInit {
   }
 }
 
-onKey(event: any) { // without type info
-  var values="";
+onKey(event: any) { 
   console.log("onkey"+event.target.value);
-values += event.target.value + ' | ';
 }
 
 
@@ -163,13 +161,12 @@ values += event.target.value + ' | ';
 
       var cartOrders:any=[];
       cartOrders.customerId=this.currentUser;
-      //cartBackend.productCart=[this.itemSelected.keys,this.itemSelected.values
-     // if(this.curr_funds<this.this.)
+      
         if(this.curr_funds<this.cartTotal){
           console.log("buyout");
           var msg=this.currentUser+"  have Insufficient Funds  $" + this.curr_funds+".Please add funds to your account";
           alert(msg);
-          // have Insufficient Funds ${this.cartTotal} .Please add funds to your account');
+          
         }else if(this.cartTotal<=0){
           alert("Please add items to the cart")
         }
@@ -182,17 +179,7 @@ values += event.target.value + ' | ';
           cartOrders.status="In-process";
           JSON.stringify(cartOrders);
           this.curr_funds-=this.cartTotal;
-          //user_details['funds']=this.curr_funds;
-         /* console.log("CARTITEMS");
-          console.log(cartOrders);
-          console.log("before"+this.curr_funds)
           
-          console.log("after"+this.curr_funds);
-
-          cartOrders.forEach((element: any) =>{
-            console.log(element);
-            console.log("CARTITEMS");
-          })*/
           alert("order placed");
          
         }

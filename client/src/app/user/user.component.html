@@ -49,7 +49,7 @@
         </div>
         <div class="col-sm-3"> 
           <input type="number" id="orderedQuantity" value={{item[1][0]}} step="1" min="0" class="col-2" (keyup)="onKey($event)" #updatedQty>
-          <p>ABBFKABKA{{values}}</p>
+        
         </div>
         <div class="col-sm-3">
           <button class="btn btn-outline-warning" type="button" (click)="updateFromCart(item[0],updatedQty.value)">Update</button>
