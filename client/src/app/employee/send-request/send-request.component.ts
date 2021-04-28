@@ -102,7 +102,7 @@ export class SendRequestComponent implements OnInit {
       request_type:"delete"
     }
     this.productRequest_service.makeDeleteRequest(pr_delete_info)
-    .subscribe((res)=>{
+    .subscribe((res:any)=>{
       if(res.status){
         alert("Product Delete Request has been sent")
       }else{
