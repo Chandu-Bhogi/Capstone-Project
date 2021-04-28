@@ -12,7 +12,7 @@ const UserSchema = new Schema({
   password: String,
   cart: [{
     type: Schema.Types.Mixed,
-    ref: "Products",
+    ref: "CartProducts",
     required: true
   }],
   funds: Number,
