@@ -93,6 +93,14 @@ export class EditProfileComponent implements OnInit {
           }
 
           // Send PUT request for password change
+          this.user_service.updatePassword(update_details)
+          .subscribe((res:any)=>{
+            if(res.status){
+              alert("Your password has been successfully changed!")
+            }else{
+              alert("Password could not be changed! Try again!")
+            }
+          })
           
         }
       }

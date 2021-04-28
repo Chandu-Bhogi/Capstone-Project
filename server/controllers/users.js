@@ -30,6 +30,16 @@ exports.updateUserById = asyncHandler(async (req, res, next) => {
       res.status(400).json({ status: false, message: `userId ${String(req.params.id)} could not be inserted, Err ${err}`}));
 });
 
+exports.updatePassword = asyncHandler(async (req, res, next) => {
+  let {userName, password} = req.body
+  User.findOneAndUpdate({userName: req.params.id}, { $set: {password:password} }, { new: true })
+  .then((user) => 
+    res.status(200).json({ status:true,user, message: "Success! Password was changed" })
+  )
+  .catch((err) =>
+    res.status(422).json({ status: false, message: `Error! Password couldn't be changed ==> ${err}`}));
+});
+
 exports.addFunds = asyncHandler(async (req,res,next)=>{
   console.log("You are in the addFunds!")
   let username = req.body['userName']

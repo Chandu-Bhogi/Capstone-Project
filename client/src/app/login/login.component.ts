@@ -63,6 +63,7 @@ export class LoginComponent implements OnInit {
     this.employee_service.sendCredentials(employeeInfo)
     .subscribe((res:any) =>{
       if(res.status){
+        sessionStorage.setItem("id",employeeInfo['id'])
         this.router.navigate(["employee"])
       }else{
         alert("Issue with Employee credentials")

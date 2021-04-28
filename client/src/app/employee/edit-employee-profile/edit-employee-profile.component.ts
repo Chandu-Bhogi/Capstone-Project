@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EmployeeService } from 'src/app/employee.service';
 
 @Component({
   selector: 'app-edit-employee-profile',
@@ -10,7 +11,7 @@ export class EditEmployeeProfileComponent implements OnInit {
   password1Res?:string
   password2Res?:string
 
-  constructor() { }
+  constructor(public employee_service:EmployeeService) { }
 
   ngOnInit(): void {
   }
@@ -18,14 +19,42 @@ export class EditEmployeeProfileComponent implements OnInit {
   submitNewPassword(updatePasswordRef:any){
     console.log(updatePasswordRef)
 
-    // Check if current passoword matches
+    let emp_id:any  = sessionStorage.getItem('id')
 
-    // check if the new passwords match
-    if(updatePasswordRef['f_newPassword1'] != updatePasswordRef['f_newPassword2']){
-      console.log("ok")
-      this.password1Res = "❌ Password didn't match!"
-      this.password2Res = "❌ Password didn't match!"
-    }
+    // We need to retrieve the employee password
+    let resp = this.employee_service.getEmployeeById({"id":emp_id})
+    resp.subscribe((response:any)=>{
+      let employee_details = response['emp'][0]
+      console.log("here are the details")
+      console.log(employee_details)
+
+      if(updatePasswordRef['f_newPassword1'] != updatePasswordRef['f_newPassword2']){
+        console.log("ok")
+        this.password1Res = "❌ Password didn't match!"
+        this.password2Res = "❌ Password didn't match!"
+      }else{
+        if(updatePasswordRef['f_currPassword'] == employee_details['password']){
+          console.log("Match!")
+          let update_details = {
+            id:emp_id,
+            password:updatePasswordRef['f_newPassword1']
+          }
+
+          // Send PUT request for password change
+          this.employee_service.updatePassword(update_details)
+          .subscribe((res:any)=>{
+            if(res.status){
+              alert("Your password has been successfully changed!")
+            }else{
+              alert("Password could not be changed! Try again!")
+            }
+          })
+        }
+      }
+    })
+
+
+    
   }
 
 }

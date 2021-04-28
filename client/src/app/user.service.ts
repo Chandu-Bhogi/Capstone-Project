@@ -51,6 +51,13 @@ export class UserService {
     return this.http.put(URL,profileUpdates).subscribe(response=>console.log(response),err=>console.log(err));
   }
 
+  updatePassword(password_info:any):Observable<ServerResponse>{
+    let username = password_info['userName']
+    let URL:string = this.config['URL']+this.config['PORT']+'/v1/profile/updatepassword/'+username
+    console.log(`Traveling to: ${URL}`)
+    return this.http.put<ServerResponse>(URL,password_info)
+  }
+
   addFunds(fundAmount:any){
     let URL = this.config['URL']+this.config['PORT']+'/v1/profile/addFunds'
     console.log(`Going to: ${URL}`)
