@@ -40,6 +40,7 @@ export class UserComponent implements OnInit {
           this.itemSelected.set(cart[i].id, [(cart[i].quantity),(cart[i].total/cart[i].quantity).toPrecision(2)])
         }
         this.localCart = Array.from(this.itemSelected)
+        this.cartTotalCal()
       })
     }
    }
@@ -88,6 +89,10 @@ export class UserComponent implements OnInit {
     this.userService.updateProfile(userCart)
   }
 
+  
+    
+  
+
 
 
   showCartBtn() {
@@ -132,6 +137,10 @@ export class UserComponent implements OnInit {
     this.localCart.splice(index, 1)
     this.itemSelected.delete(item[0]);
     this.cartTotalCal();
+
+
+
+    
   }
 
   updateFromCart(item:String,qty:string) {
@@ -140,6 +149,25 @@ export class UserComponent implements OnInit {
     } 
     this.localCart = Array.from(this.itemSelected)
     this.cartTotalCal();
+
+    this.cart = []
+    for(let i = 0; i < this.localCart.length; i++) {
+      let obj = {
+        id: this.localCart[i][0],
+        quantity: this.localCart[i][1][0],
+        total: this.itemSelected.get(item)[1] * this.localCart[i][1][0]
+      }
+      this.cart.push(obj)
+    }
+    let userCart = {
+      userName: sessionStorage.getItem('userName'),
+      cart: this.cart
+    }
+
+    this.userService.updateProfile(userCart)
+  
+
+   
   }
 
   cartTotalCal(){
@@ -148,11 +176,9 @@ export class UserComponent implements OnInit {
     this.cartTotal=0;
     for (let [key, value] of this.itemSelected) {
       this.totalQty+=value[0];
-      
       var itemTotal=parseFloat((value[0]*value[1]).toPrecision(2));
       this.cartTotal+=itemTotal;
-      
-      
+    
   }
  
 }
