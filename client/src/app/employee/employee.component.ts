@@ -63,7 +63,9 @@ export class EmployeeComponent implements OnInit {
   }
   
   logout_user(){
-    this.router.navigate([""])
+    if (confirm("Are you sure you want to log out?")) {
+      this.router.navigate([""])
+    }
   }
 
 }
