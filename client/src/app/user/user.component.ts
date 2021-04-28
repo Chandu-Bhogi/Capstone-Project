@@ -158,22 +158,24 @@ export class UserComponent implements OnInit {
 }
 
 cartTotalAmount(){
-this.itemSelected.forEach((item,val)=>
-{
-  console.log(item,val);
- 
-}
-)
-
+  this.itemSelected.forEach((item,val)=>
+  {
+    console.log(item,val);
+  
+  })
 }
 
   buyOrder() {
-    // alert(`You have bought ${this.cart.length} items`)
-    // this.cart = []
-    //var obj:any=[];
-    //obj.customerId="";
-
-
-
+    let order = {
+      id: sessionStorage.getItem('userName'),
+      status: "Pending",
+      cart: this.cart,
+      date: new Date()
+    }
+    console.log("Clicked")
+    this.userService.createOrder(order).subscribe(result => {
+      console.log("result")
+      console.log(result)
+    })
   }
 }

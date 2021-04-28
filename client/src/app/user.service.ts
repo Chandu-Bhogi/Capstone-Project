@@ -75,10 +75,7 @@ export class UserService {
 
   getProducts():Observable<Product> {
     return this.http.get<Product>("http://localhost:4100/v1/products/getallproducts")
-  }
-
-  //createUserCart():Observable<
-  // router.post("/createusercart/:id", Cart.createUserCart);
+  };
 
   createTicket(ticket:any):Observable<ServerResponse> {
     return this.http.post<ServerResponse>("http://localhost:4100/v1/tickets/createticket",ticket)
@@ -90,5 +87,11 @@ export class UserService {
 
   deleteTicket(userName:any):Observable<ServerResponse> {
     return this.http.delete<ServerResponse>("http://localhost:4100/v1/tickets/deletetticket/"+userName)
+  }
+  
+  createOrder(order:any):Observable<ServerResponse> {
+    console.log("come here")
+    console.log(order)
+    return this.http.post<ServerResponse>("http://localhost:4100/v1/orders/createorder",order)
   }
 }

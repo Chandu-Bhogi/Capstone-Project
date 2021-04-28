@@ -8,7 +8,7 @@ router.get("/getallorders", Orders.getAllOrders);
 // get all orders by given status using req.query
 router.get("/getorder", Orders.getOrder);
 
-// router.post("/createorder", Orders.createOrder);
+router.post("/createorder", Orders.createOrder);
 
 router.put("/updateorder/:id", Orders.updateOrder);
 
