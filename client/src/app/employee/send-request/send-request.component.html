@@ -4,46 +4,36 @@
     <div class="SendRequestArea">
 
         
-        <form #productQuantityRef="ngForm" (ngSubmit)="sendRequest2(productQuantityRef.value)">
+        
             
             <div class="row" *ngFor="let product of products">
-                
+
+                <form #productQuantityRef="ngForm">
+                    <div class="col" style="margin-top:20px">
+                        <span>{{product.id}}</span>
+                    </div>
                 
                     <div class="col" style="margin-top:20px">
-                    <span>{{product.id}}</span>
-                </div>
-            
-                <div class="col" style="margin-top:20px">
-                    {{product.quantity}}
-                </div>
-                <div class="col" style="margin-top:20px">
-                    $&nbsp;{{product.price}}
-                </div>
-                <div class="col">
-                    <div class="form-floating mb-3 itemInput">
-                        <input type="number" class="form-control" name="quantity"  id="floatingInput" ngModel>
-                        <label for="floatingInput">Update Quantity here</label>
-                    
-                    </div> 
-                </div> 
-                <div class="col" style="margin-top:15px">
-                    <input type="button" value="Update">
-                    <!-- <input type="button" value="Delete"> -->
-                </div>
-                 <div class="col" style="margin-top:15px">
-                    <input type="button" value="Delete">
-                </div> 
-                <!-- <div class="col">
-                    <input type="button" value="+" class="btn btn-primary" [id]="'inc_'+product['id']" (click)="add_1('product_'+product['id'])">
-                    <input type="button" value="-" class="btn btn-primary" [id]="'dec_'+product['id']" (click)="sub_1('product_'+product['id'])">
-                </div> -->
-                <hr>
-            </div>
+                        {{product.quantity}}
+                    </div>
+                    <div class="col" style="margin-top:20px">
+                        $&nbsp;{{product.price}}
+                    </div>
 
-            <!-- <div class="row">
-                <input type="submit" value="Send Quantity Request" class="btn btn-primary sendRequestBtn">
-                <input type="reset" value="Reset" class="btn btn-secondary sendRequestBtn">
-            </div> -->
-        </form>
+                    <div class="col">
+                        <div class="form-floating mb-3 itemInput">
+                            <input type="number" class="form-control" name="quantity"  id="floatingInput" ngModel>
+                            <label for="floatingInput">Update Quantity here</label>
+                        
+                        </div> 
+                    </div> 
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="button" (click)="addProductRequest(productQuantityRef.value,product.id)">Add</button>
+                        <button class="btn btn-primary" type="button" (click)="deleteProductRequest(productQuantityRef.value,product.id)">Delete</button>
+                    </div>
+                    <hr>
+                </form>
+            </div>
+        
     </div>
 </div>
