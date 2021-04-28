@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LocationStrategy } from '@angular/common';
 import { Product, Data } from '../model.product';
 import { UserService } from '../user.service'
+import { ShippedOrdersComponent } from '../employee/update-order-status/shipped-orders/shipped-orders.component';
 
 @Component({
   selector: 'app-user',
@@ -16,13 +17,15 @@ export class UserComponent implements OnInit {
   showCart = false
   showEdit = false
   cart:Array<Array<any>> = []
-  currentUser = sessionStorage.getItem("userName")
+  currentUser:any = sessionStorage.getItem("userName")
   showFunds = false
   showHome = true
   showOrder = false
   totalQty=0;
   cartTotal=0;
   itemSelected = new Map()
+  curr_funds: any;
+  values="";
 
   constructor(public router:Router, private locationStrategy: LocationStrategy, public userService:UserService) {
     this.preventBackButton()
@@ -31,7 +34,14 @@ export class UserComponent implements OnInit {
       console.log(result.data);
       console.log(this.items);
     })
-   }
+    let resp = this.userService.getUserByUsername(this.currentUser)
+    resp.subscribe( (response:any) =>{
+      let user_details = response['user'][0]
+      console.log(user_details)
+      this.curr_funds = user_details['funds']
+    
+   })}
+   
 
   ngOnInit(): void {
   }
@@ -125,30 +135,66 @@ export class UserComponent implements OnInit {
       this.totalQty+=value[0];
       
       var itemTotal=parseFloat((value[0]*value[1]).toPrecision(2));
-      this.cartTotal+=itemTotal;
-      
-      
+      this.cartTotal+=itemTotal; 
   }
- 
 }
 
-cartTotalAmount(){
-this.itemSelected.forEach((item,val)=>
-{
-  console.log(item,val);
- 
-}
-)
-
+onKey(event: any) { // without type info
+  var values="";
+  console.log("onkey"+event.target.value);
+values += event.target.value + ' | ';
 }
 
-  buyOrder() {
-    // alert(`You have bought ${this.cart.length} items`)
-    // this.cart = []
-    //var obj:any=[];
-    //obj.customerId="";
 
 
+  
 
+    buyOrder() {
+      // alert(`You have bought ${this.cart.length} items`)
+      // this.cart = []
+      let resp = this.userService.getUserByUsername(this.currentUser)
+    resp.subscribe( (response:any) =>{
+      let user_details = response['user'][0]
+      console.log(user_details)
+      this.curr_funds = user_details['funds']
+    
+   })
+
+
+      var cartOrders:any=[];
+      cartOrders.customerId=this.currentUser;
+      //cartBackend.productCart=[this.itemSelected.keys,this.itemSelected.values
+     // if(this.curr_funds<this.this.)
+        if(this.curr_funds<this.cartTotal){
+          console.log("buyout");
+          var msg=this.currentUser+"  have Insufficient Funds  $" + this.curr_funds+".Please add funds to your account";
+          alert(msg);
+          // have Insufficient Funds ${this.cartTotal} .Please add funds to your account');
+        }else if(this.cartTotal<=0){
+          alert("Please add items to the cart")
+        }
+        
+        
+        else{
+          cartOrders.productCart=Array.from(this.itemSelected);
+          cartOrders.cartTotal=this.cartTotal;
+          cartOrders.orderedDate=new Date();
+          cartOrders.status="In-process";
+          JSON.stringify(cartOrders);
+          this.curr_funds-=this.cartTotal;
+          //user_details['funds']=this.curr_funds;
+         /* console.log("CARTITEMS");
+          console.log(cartOrders);
+          console.log("before"+this.curr_funds)
+          
+          console.log("after"+this.curr_funds);
+
+          cartOrders.forEach((element: any) =>{
+            console.log(element);
+            console.log("CARTITEMS");
+          })*/
+          alert("order placed");
+         
+        }
   }
 }
