@@ -74,7 +74,7 @@
     <h3>Items</h3>
     <div class="name" *ngFor= "let item of items">
       {{item.id}}
-     {{item.price}}
+      {{item.price}}
       <button id="addBtn" class="btn btn-outline-primary" type="button" (click)="addToCart(item.id,item.price)">Add</button>
       <hr>
     </div>

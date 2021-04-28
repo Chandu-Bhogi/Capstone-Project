@@ -79,11 +79,11 @@
             <form #employee="ngForm" (ngSubmit)="addEmployee(employee.value)">
                 <div class="mb-3">
                   <label class="form-label">First Name</label>
-                  <input type="text" class="form-control" name="fName" ngModel>
+                  <input type="text" class="form-control" name="firstName" ngModel>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Last Name</label>
-                    <input type="text" class="form-control" name="lName" ngModel>
+                    <input type="text" class="form-control" name="lastName" ngModel>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Email</label>
@@ -120,7 +120,7 @@
             <form #edit="ngForm" (ngSubmit)="editProduct(edit.value)">
                 <div class="mb-3">
                   <label class="form-label">Product Name</label>
-                  <input type="text" class="form-control" name="name" ngModel>
+                  <input type="text" class="form-control" name="id" ngModel>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Quantity</label>
@@ -139,7 +139,11 @@
         <form #add="ngForm" (ngSubmit)="addProduct(add.value)">
             <div class="mb-3">
               <label class="form-label">Product Name</label>
-              <input type="text" class="form-control" name="name" ngModel>
+              <input type="text" class="form-control" name="id" ngModel>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Price</label>
+              <input type="number" class="form-control" name="price" ngModel>
             </div>
             <div class="mb-3">
                 <label class="form-label">Quantity</label>
@@ -158,7 +162,7 @@
             <form #delete="ngForm" (ngSubmit)="deleteProduct(delete.value)">
                 <div class="mb-3">
                   <label class="form-label">Product Name</label>
-                  <input type="text" class="form-control" name="name" ngModel>
+                  <input type="text" class="form-control" name="id" ngModel>
                 </div>
                 <div class="d-grid gap-2">
                   <button type="submit" class="btn btn-warning" id="deleteProduct">Delete Product</button>

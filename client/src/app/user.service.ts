@@ -4,11 +4,14 @@ import { from, Observable, Observer } from 'rxjs';
 import { ServerResponse } from './model.serverResponse'
 import { Product } from './model.product'
 import { User } from './model.user'
+import { Ticket } from './model.ticket'
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+
+  regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
   temp_users:any = {"users":[
     {id:1,name:"joe",locked:1},
@@ -38,11 +41,22 @@ export class UserService {
     
   }
 
-  post_UpdateProfile(profileUpdates:any){
-    return this.http.post(
-      this.config['URL']+this.config['PORT']+'/',
-      profileUpdates
-    )
+  get_userData(){
+    let URL:string = this.config['URL']+this.config['PORT']+'/v1/profile/updateuser'
+    return this.http.get(URL)
+  }
+
+  updateProfile(profileUpdates:any){
+    let URL:string = this.config['URL']+this.config['PORT']+'/v1/profile/updateuser'
+    console.log(`Traveling to: ${URL}`)
+    return this.http.put(URL,profileUpdates).subscribe(response=>console.log(response),err=>console.log(err));
+  }
+
+  updatePassword(password_info:any):Observable<ServerResponse>{
+    let username = password_info['userName']
+    let URL:string = this.config['URL']+this.config['PORT']+'/v1/profile/updatepassword/'+username
+    console.log(`Traveling to: ${URL}`)
+    return this.http.put<ServerResponse>(URL,password_info)
   }
 
   addFunds(fundAmount:any){
@@ -62,6 +76,19 @@ export class UserService {
   getProducts():Observable<Product> {
     return this.http.get<Product>("http://localhost:4100/v1/products/getallproducts")
   }
+
   //createUserCart():Observable<
- // router.post("/createusercart/:id", Cart.createUserCart);
+  // router.post("/createusercart/:id", Cart.createUserCart);
+
+  createTicket(ticket:any):Observable<ServerResponse> {
+    return this.http.post<ServerResponse>("http://localhost:4100/v1/tickets/createticket",ticket)
+  }
+
+  getTickets():Observable<Ticket> {
+    return this.http.get<Ticket>("http://localhost:4100/v1/tickets/getalltickets")
+  }
+
+  deleteTicket(userName:any):Observable<ServerResponse> {
+    return this.http.delete<ServerResponse>("http://localhost:4100/v1/tickets/deletetticket/"+userName)
+  }
 }

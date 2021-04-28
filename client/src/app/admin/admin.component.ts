@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup} from '@angular/forms';
 import { LocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
+import { AdminService } from '../admin.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-admin',
@@ -18,7 +20,7 @@ export class AdminComponent implements OnInit {
   showEdit = false
   showProduct = false
 
-  constructor(private locationStrategy: LocationStrategy, public router: Router) { 
+  constructor(private locationStrategy: LocationStrategy, public router: Router,public admin_service:AdminService, public userService:UserService) { 
     this.preventBackButton()
   }
 
@@ -33,17 +35,35 @@ export class AdminComponent implements OnInit {
   }
 
   logOut() {
-    this.router.navigate([""])
+    if (confirm("Are you sure you want to log out?")) {
+      this.router.navigate([""])
+    }
   }
 
   addEmployee(employee:any) {
-    console.log(employee)
-    alert(this.makeEmployeeID(employee.fName, employee.lName, this.count) + "\n" +
-    this.makePassword(employee.email))
+    if (this.userService.regexp.test(employee.email)) {
+      this.admin_service.addEmployee(employee)
+      .subscribe(res=>{
+        if (res.status) {
+          alert(res.message)
+        } else {
+          alert(res.message)
+        }
+      })
+    } else {
+      alert("Invalid email")
+    }
   }
 
   deleteEmployee(employeeID:any) {
-    console.log(employeeID)
+    this.admin_service.deleteEmployee(employeeID.id)
+    .subscribe(res=> {
+      if (res.status) {
+        alert(res.message)
+      } else {
+        alert(res.message)
+      }
+    })
   }
 
   selectReport(report:String) {
@@ -92,25 +112,40 @@ export class AdminComponent implements OnInit {
 
   editProduct(product:any) {
     console.log(product)
+    this.admin_service.updateProduct(product)
+    .subscribe((res:any)=>{
+      console.log(res)
+      if(res.status){
+        alert("Product has been updated")
+      }else{
+        alert("Issue with updating product")
+      }
+    })
   }
 
   deleteProduct(product:any) {
     console.log(product)
+    this.admin_service.deleteProduct(product)
+    .subscribe((res:any)=>{
+      console.log(res)
+      if(res.status){
+        alert("Product has been deleted")
+      }else{
+        alert("Issue with deleting product")
+      }
+    })
   }
 
   addProduct(product:any) {
     console.log(product)
-  }
-
-  makePassword(email:String):String {
-    let min = Math.ceil(100)
-    let max = Math.floor(1000)
-    let num = Math.floor(Math.random() * (max - min) + min)
-
-    return email.split("@")[0] + "" + num
-  }
-
-  makeEmployeeID(fName:String, lName:String, count:Number):String {
-    return fName.charAt(0).toLowerCase() + lName.toLowerCase() + count
+    this.admin_service.addProduct(product)
+    .subscribe(res=>{
+      console.log(res)
+      if(res.status){
+        alert("Product has been added")
+      }else{
+        alert("Product already exists!")
+      }
+    })
   }
 }
