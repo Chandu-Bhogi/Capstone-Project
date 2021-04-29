@@ -3,7 +3,9 @@
     <div class="unlockUsersArea">
         <div class="OrderFormArea" *ngFor="let order of orders">
             <div class="orderDetails">
-                <span class="productItem">Recipient :</span>{{order['id']}}
+                <span class="productItem">Order Number:</span>{{order['id']}}
+                <br>
+                <span class="productItem">Recipient :</span>{{order['userName']}}
                 <br>
                 <span class="productItem">Date of Purchase:</span>{{order["date"]}}
                 <br>
@@ -28,14 +30,5 @@
 
             </div>
         </div>
-        <!-- <div class="OrderFormArea" *ngFor="let order of order_service.temp_order['orders'] as idx">
-            <div class="orderDetails">
-                Person ID: {{ order['tracking_id'] }}
-                <br>
-                Name: {{ order['name'] }}
-                <br>
-                Order: no status
-            </div>
-        </div> -->
     </div>
 </div>
