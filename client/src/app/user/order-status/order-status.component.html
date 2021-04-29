@@ -1,0 +1,14 @@
+<div class="container">
+    <h2 style="text-align: center;">Order Status</h2>
+    <div class="unlockUsersArea">
+        <div class="OrderFormArea" *ngFor="let order of order_service.temp_order['orders'] as idx">
+            <div class="orderDetails">
+                Person ID: {{ order['tracking_id'] }}
+                <br>
+                Name: {{ order['name'] }}
+                <br>
+                Order: no status
+            </div>
+        </div>
+    </div>
+</div>
