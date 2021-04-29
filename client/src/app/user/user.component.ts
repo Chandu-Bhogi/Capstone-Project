@@ -40,6 +40,7 @@ export class UserComponent implements OnInit {
           this.itemSelected.set(this.cart[i].id, [(this.cart[i].quantity),(this.cart[i].total/this.cart[i].quantity).toPrecision(2)])
         }
         this.localCart = Array.from(this.itemSelected)
+        this.cartTotalCal()
       })
     }
    }
@@ -69,26 +70,10 @@ export class UserComponent implements OnInit {
       this.itemSelected.set(item, [1,itmPrice.toPrecision(2)])
     }
     this.localCart = Array.from(this.itemSelected)
-    this.cartTotalCal();
-    console.log("Hello")
-    this.cart = []
-    for(let i = 0; i < this.localCart.length; i++) {
-      let obj = {
-        id: this.localCart[i][0],
-        quantity: this.localCart[i][1][0],
-        total: itmPrice * this.localCart[i][1][0]
-      }
-      this.cart.push(obj)
-    }
-    let userCart = {
-      userName: sessionStorage.getItem('userName'),
-      cart: this.cart
-    }
-
-    this.userService.updateProfile(userCart)
+    this.updateCartDB(item);
   }
 
-
+  
 
   showCartBtn() {
     this.showCart = true
@@ -131,7 +116,10 @@ export class UserComponent implements OnInit {
     let index = this.localCart.indexOf(item)
     this.localCart.splice(index, 1)
     this.itemSelected.delete(item[0]);
-    this.cartTotalCal();
+    this.updateCartDB(item[0]);
+
+
+    
   }
 
   updateFromCart(item:String,qty:string) {
@@ -139,7 +127,29 @@ export class UserComponent implements OnInit {
       this.itemSelected.set(item,[parseInt(qty),this.itemSelected.get(item)[1]]);
     } 
     this.localCart = Array.from(this.itemSelected)
+    this.updateCartDB(item);
+    
+
+   
+  }
+
+  updateCartDB(item:String){
+
+    this.cart = []
+    for(let i = 0; i < this.localCart.length; i++) {
+      let obj = {
+        id: this.localCart[i][0],
+        quantity: this.localCart[i][1][0],
+        total: this.itemSelected.get(item)[1] * this.localCart[i][1][0]
+      }
+      this.cart.push(obj)
+    }
+    let userCart = {
+      userName: sessionStorage.getItem('userName'),
+      cart: this.cart
+    }
     this.cartTotalCal();
+    this.userService.updateProfile(userCart)
   }
 
   cartTotalCal(){
@@ -148,22 +158,12 @@ export class UserComponent implements OnInit {
     this.cartTotal=0;
     for (let [key, value] of this.itemSelected) {
       this.totalQty+=value[0];
-      
       var itemTotal=parseFloat((value[0]*value[1]).toPrecision(2));
       this.cartTotal+=itemTotal;
-      
-      
+    
+  }
   }
  
-}
-
-cartTotalAmount(){
-  this.itemSelected.forEach((item,val)=>
-  {
-    console.log(item,val);
-  
-  })
-}
 
   buyOrder() {
     let today = new Date()

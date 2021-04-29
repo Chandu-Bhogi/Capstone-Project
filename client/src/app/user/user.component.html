@@ -26,9 +26,7 @@
 </nav>
 
 <div class="container" *ngIf="showCart">
-  <div class="d-grid gap-2">
-    <button class="btn btn-primary" type="button" (click)="buyOrder()">Buy</button>
-  </div>
+  
     <h3>Cart</h3>
     <div class="row">
       <div class="col-sm-5"><strong>Item</strong></div>
@@ -65,6 +63,10 @@
         <div class="col-sm-5"><strong>Total</strong></div>
         <div class="col-sm-6"><strong>{{totalQty}}</strong></div>
         <div class="col-sm-1"><strong>$ {{cartTotal}}</strong></div>
+        <hr>
+      </div>
+      <div class="col-md-12 text-center">
+        <button class="btn btn-primary active mb-8" type="button" (click)="buyOrder()">Buy Now</button>
       </div>
 </div>
 <app-edit-profile *ngIf="showEdit"></app-edit-profile>
