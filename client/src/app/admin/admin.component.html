@@ -48,7 +48,7 @@
     <div class="col"></div>
   </div>
 <div class="name" *ngIf="showReport">
-    <table class="table">
+    <table class="table table-striped">
       <thead>
         <tr>
           <th scope="col">Username</th>
@@ -62,7 +62,7 @@
           <td>{{report.id}}</td>
           <td>
             <ul *ngFor="let product of report.cart">
-              <li>{{product.id}}, Quantity = {{product.quantity}}, Total = ${{product.total}}</li>
+              <li>{{product.quantity}} {{product.id}}</li>
             </ul>
           </td>
           <td>{{report.status}}</td>
