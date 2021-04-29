@@ -2,13 +2,16 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
-  id: String,
+  _id: String,
+  user_id: String,
   status: String,
-  list: [{
-    type: Schema.Types.Mixed,
-    ref: "Products",
-    required: true
-  }],
+  list: [
+    {
+      name: String,
+      price: Number,
+      quantity: Number,
+    },
+  ],
   total_bill: Number,
 });
 

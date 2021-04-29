@@ -10,6 +10,8 @@ const getAllObjectsFromDB = (model) => async (req, res, next)  => {
 
 const getObjectsByQueryFromDB = (model) => async (req, res, next)  => {
     let queryObj = {};
+    
+    //query builder
     Object.entries(req.query).forEach(([key,val]) => queryObj[key] = {$regex: `^${val}`})
 
     model.find(queryObj)
@@ -19,15 +21,15 @@ const getObjectsByQueryFromDB = (model) => async (req, res, next)  => {
 
 const deleteObjectFromDB = (model) => async (req, res, next)  => {
 
-  if (!req.params.id) return res.status(500).json({ status: false, message: "Wrong Request!! Please enter ID of the resource to be deleted"});
+  if (!req.params._id) return res.status(500).json({ status: false, message: "Wrong Request!! Please enter ID of the resource to be deleted"});
 
-  let [check] = await model.find({id: req.params.id});
+  let [check] = await model.find({_id: req.params._id});
   if (!check) {
       res.status(422).json({ status: false, message: `Resource doesnt exist!!`});
   } else {
-      model.deleteOne({ id: req.params.id })
+      model.deleteOne({ _id: req.params._id })
       .then(response =>
-      res.status(200).json({ data: response, message: `Success!! Resource with id ${req.params.id} deleted.` })
+      res.status(200).json({ data: response, message: `Success!! Resource with id ${req.params._id} deleted.` })
       )
       .catch(err => 
       res.status(400).json({ status: false, message: `Could not delete the Resource. Request failed ! Error : ${err}` })
@@ -35,43 +37,60 @@ const deleteObjectFromDB = (model) => async (req, res, next)  => {
   }
 }
 
-const insertObjectInDB = (model) => (inputState = null) => async (req, res, next) => {
-  inputState =  (inputState == null) ? req.body : inputState;
+const insertObjectInDB = (model) => async (req, res, next) => {
 
-  const { id } = req.body;
+  const { _id } = req.body;
+  // const { _id } = req.user;
   
-  if (!id) return res.status(500).json({ status: false, message: "Wrong Request"});
-
-  let [check] = await model.find({id});
-  if (check && check.id == id) {
-    res.status(422).json({ status: false, message: `Duplicate ID!! ID:${id} already exists`});
+  let [check] = await model.find({_id: _id});
+  if (check && check._id == _id) {
+    res.status(422).json({ status: false, message: `Duplicate _id!! _id:${_id} already exists`});
   }
   else{
-    let [check] = await model.insertMany(inputState);
+    let [resouce] = await model.insertMany([req.body]);
 
-    if (check && check.id) {
-      res.status(200).json({ status: true, message: `Resource is added in database with ID: ${check.id}.` });
+    if (resouce && resouce._id) {
+      res.status(200).json({ status: true, data: resouce , message: `Resource is added in database with _id: ${resouce._id}.` });
     } else {
       res.status(422).json({ status: false, message: "There was a problem while inserting in DB, please try again." });
     }
   }
 }
 
-const updateObjectInDB = (model) => (inputState = null) => async (req, res, next) => {
-    inputState =  !inputState ? req.body : inputState;
+const updateObjectInDB = (model) => async (req, res, next) => {
 
-    const id = req.params.id;
-    let [check] = await model.find({id});
+    const _id = req.params._id;
+    let [check] = await model.find({_id});
 
-    if (!check) return res.status(404).json({ status: false, message: `ID: ${id} is not available in DB`})
+    if (!check) return res.status(404).json({ status: false, message: `_ID: ${_id} is not available in DB`})
 
-    model.findOneAndUpdate({id: id}, inputState, { new: true })
+    model.findOneAndUpdate({_id: _id}, { $set: req.body }, { new: true })
     .then((data) =>
-      res.status(200).json({ data, message: `Success!! ${id} updated in DB` })
+      res.status(200).json({ data, message: `Success!! ${_id} updated in DB` })
     )
     .catch(err =>
-      res.status(400).json({ status: false, message: `ID ${id} could not be inserted, Err ${err}` })
+      res.status(400).json({ status: false, message: `_ID ${_id} could not be inserted, Err ${err}` })
     );
+}
+
+const generateCartObject = (products, product_obj) => {
+  return products.map(obj => {
+      obj.quantity = product_obj[obj._id];
+      return (obj);
+    })
+}
+
+const generateOrderFromCart = (cart) => {
+  return cart.map(obj => {
+      obj.cost = obj.price * obj.quantity;
+      return (obj);
+    })
+}
+
+
+const calculateTotalBill = (order) => {
+  let total = (order.length != 0) ? order.reduce((acc, obj) => acc + obj.cost, 0) : 0
+  return total
 }
 
 module.exports = (model) => {
@@ -81,7 +100,10 @@ module.exports = (model) => {
             getObjectsByQueryFromDB: getObjectsByQueryFromDB(model),
             updateObjectInDB: updateObjectInDB(model),
             deleteObjectFromDB: deleteObjectFromDB(model),
-            insertObjectInDB: insertObjectInDB(model)
+            insertObjectInDB: insertObjectInDB(model),
+            generateCartObject,
+            generateOrderFromCart,
+            calculateTotalBill
         }
     )
 }

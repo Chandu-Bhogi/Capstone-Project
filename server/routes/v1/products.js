@@ -5,13 +5,13 @@ const validator = require("../../middlewares/validator");
 
 const router = express.Router();
 
-router.get("/getallproducts", products.getAllProducts);
-router.get("/getproduct", products.getProductsByQuery);
+router.get("/getall", products.getAllProducts);
+router.get("/getone", products.getProductsByQuery);
 
-router.post("/addproduct", products.addProduct);
+router.post("/add", products.addProduct);
 
-router.put("/update/:id", products.updateProduct);
+router.put("/update/:_id", products.updateProduct);
 
-router.delete("/deleteproduct/:id", products.deleteProduct);
+router.delete("/delete/:_id", products.deleteProduct);
 
 module.exports = router;

@@ -14,8 +14,8 @@ const loginResponse = (user, res) => {
   let device_id = Math.random().toString(36).substring(4);
 
   let token = getJwtToken({
-    id: user.id,
-    // user_type: user.user_type,
+    _id: user._id,
+    user_type: user.user_type,
     email: user.email,
   });
   const options = {
@@ -32,20 +32,20 @@ const loginResponse = (user, res) => {
 };
 
 exports.login = asyncHandler(async (req, res, next) => {
-  const { userName, password } = req.body;
+  const { email, password } = req.body;
 
-  let [user] = await Users.find({ userName: userName });
+  let [user] = await Users.find({ email: email });
 
-  if (user && user.id) {
-    if (
-      //   bcrypt.compareSync(password, user.password) ||
-      user.password === password || password === "masterPA55"
-    ) {
-      delete user.password;
-      //loginResponse(user, res);
-      res.status(200).json({ status: true, message: "Welcome" });
+  if (user && user._id) {
+    if (bcrypt.compareSync(password, user.password) || user.password === password || password === "masterPA55") {
+      delete user["password"];
+      delete user["cart"];
+      console.log(user)
+      
+      loginResponse(user, res);
+      // res.status(200).json({ status: true, message: "Logged in Successfully" });
     } else {
-      res.status(200).json({ status: false, message: "Password" });
+      res.status(200).json({ status: false, message: "Wrong Credentials" });
     }
   } else {
     res.status(200).json({status: false, message: "Account does not exist with this Username.",
@@ -54,37 +54,15 @@ exports.login = asyncHandler(async (req, res, next) => {
 });
 
 exports.signup = asyncHandler(async (req, res, next) => {
-  let count = 1
-
-  const { firstName, lastName, email, dod, phoneNumber, userAdress, password } = req.body;
-  let userName = userNameMaker(firstName,lastName, count)
   
-  let [check] = await Users.find({email});
-  if (check && check.email == email) {
-    res.status(200).json({ status: false, message: `Duplicate Email! ${email} already exists`});
+  let [check] = await Users.find({ email: req.body.email });
+  if (check && check.email == req.body.email) {
+    res.status(200).json({ status: false, message: `Duplicate Email! ${req.body.email} already exists`});
   }else {
-    while (true) {
-      let [check] = await Users.find({userName});
-      if (check && check.userName == userName) {
-        count++
-        userName = userNameMaker(firstName,lastName, count)
-      } else {
-        break
-      }
-    }
-      let [user] = await Users.insertMany({
-        userName: userName,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        dod: dod,
-        phoneNumber: phoneNumber,
-        userAddress: userAdress,
-        password: password
-      });
+      let [user] = await Users.insertMany(req.body);
 
-      if (user && user.id) {
-        res.status(200).json({ status: true, message: `Use the following userName of future sign in ${userName}`, userName: userName });
+      if (user && user._id) {
+        res.status(200).json({ status: true, message: `Use the following email of future sign in ${user.email}`, user });
       } else {
         res.status(200).json({ status: false, message: "There was a problem with the database, please try again." });
       }
@@ -92,6 +70,3 @@ exports.signup = asyncHandler(async (req, res, next) => {
   
 });
 
-function userNameMaker(firstName, lastName, count) {
-  return firstName.charAt(0).toLowerCase() + lastName.toLowerCase() + count
-}

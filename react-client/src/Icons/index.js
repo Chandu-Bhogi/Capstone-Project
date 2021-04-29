@@ -1,0 +1,6 @@
+export { default as AddStudent } from './AddStudent'
+export { default as AddQuestions } from './AddQuestions'
+export { default as CreateTest } from './CreateTest'
+export { default as InlineEdit } from './InlineEdit'
+export { default as LoginIcon } from './LoginIcon'
+export { default as NoData } from './NoData'

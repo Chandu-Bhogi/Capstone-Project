@@ -8,7 +8,7 @@ exports.getReports = asyncHandler(async (req, res, next) => {
   
 });
 
-exports.createTicket = asyncHandler(insertObjectInDB())
+exports.createTicket = asyncHandler(insertObjectInDB)
 
 exports.updateTicket = asyncHandler(async (req, res, next) => {
     const id = req.params.id;
@@ -20,9 +20,9 @@ exports.updateTicket = asyncHandler(async (req, res, next) => {
     let [check] = await Tickets.find({id: id});
     if (!check) return res.status(400).json({ status: false, message: 'No Resource Found in DB'});
 
-    let DBstate = {id, complainant, description};
+    req.body = {id, complainant, description};
 
-    updateObjectInDB(DBstate)(req, res, next);
+    updateObjectInDB(req, res, next);
 });
 
 exports.getAllTickets = asyncHandler(getAllObjectsFromDB);

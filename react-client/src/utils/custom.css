@@ -1,0 +1,49 @@
+.student-sidemenu .ant-menu-item-selected a, .ant-menu-item-selected a:hover, 
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{
+    color: #05f;
+    background-color: #e2ebff;
+    font-weight: 600;
+}
+.menuSidebar{
+    overflow: auto;
+    height: 100vh;
+    left: 0;
+    width: 220px;
+    border-right: 1px solid #dce2ef;
+    background: #fff;
+    position: sticky;
+    top: 0;
+    box-shadow: 1pt 0pt 5pt #f3f3f3;
+}
+.mobileHeader{
+    background: #fff;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #eee;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9;
+    box-shadow: 0pt -2pt 6pt #efefefdd;
+    background: #fff;
+}
+.mobileHeader a{
+    flex: 1;
+    text-align: center;
+    font-size: 18px;
+    padding: 0.5em;
+    color: #000;
+}
+
+@media (min-width: 740px){
+    .mobileHeader{
+        display: none;
+    }
+}
+
+@media (max-width: 740px) {
+    .menuSidebar {
+        display: none;
+    }
+}

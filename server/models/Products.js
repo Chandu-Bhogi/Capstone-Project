@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 // id is the name itself -- products are unique
 const ProductSchema = new Schema({
-  id: String, 
+  _id: String,
+  name: String,
   price: Number,
   quantity: Number,
 });

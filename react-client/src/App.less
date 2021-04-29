@@ -1,0 +1,133 @@
+@import "~antd/dist/antd.less";
+
+.App {
+  font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+}
+
+.m-0 {
+  margin: 0;
+}
+.mb-1 {
+  margin-bottom: 3px;
+}
+.d-flex {
+  display: flex;
+}
+.d-contents {
+  display: contents;
+}
+.text-sm {
+  font-size: 13px;
+}
+.text-lg {
+  font-size: 17px;
+}
+.text-xl {
+  font-size: 19px;
+}
+.text-bold {
+  font-weight: 600;
+}
+.text-black {
+  color: #000;
+}
+.text-gray {
+  color: #777;
+}
+.text-red {
+  color: red;
+}
+.htmlView p {
+  margin-bottom: 5px;
+}
+.htmlView img {
+  max-width: 100%;
+}
+.student-layout-body {
+  padding: 1em 1.5em;
+}
+.student-header {
+  font-size: 20px;
+  font-weight: 600;
+  padding: 0.5em 1em;
+  color: #000;
+  border-bottom: 1px solid #e1e1e1;
+  background: #fff;
+}
+.white-card {
+  background: rgb(255, 255, 255);
+  padding: 1em 1.5em;
+  font-size: 16px;
+  border-radius: 2px;
+  box-shadow: 0pt 2pt 4pt #eee;
+  border: 1px solid #ddd;
+}
+.rotate {
+  animation: rotation 1s infinite linear;
+}
+@media (max-width: 600px) {
+  .student-layout-body {
+    padding: 1em 0;
+  }
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+.ant-menu-item a {
+  display: flex;
+  align-items: center;
+}
+
+.sun-editor .se-svg,
+.sun-editor button > svg {
+  width: 12px !important;
+  height: 12px !important;
+}
+.sun-editor .se-btn {
+  width: 24px !important;
+  height: 24px !important;
+}
+.sun-editor .se-btn-module-border {
+  border: 0 !important;
+}
+
+.sun-editor .se-resizing-bar {
+  height: 3px !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+.sun-editor-editable {
+  padding: 0.8em !important;
+}
+.sun-editor .se-toolbar {
+  position: absolute !important;
+  top: -37px !important;
+}
+
+/** Scrollbar Stylingv**/
+
+/* width */
+.scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+/* Track */
+.scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #aaa;
+}
+/* Handle on hover */
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
