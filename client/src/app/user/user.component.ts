@@ -174,15 +174,14 @@ export class UserComponent implements OnInit {
   }
 
   buyOrder() {
+    console.log("check buy")
     this.fundsUpdate();
     if (this.cartTotal<=0){
       alert("Please add items to the cart");
-    }
-    else if(this.curr_funds < this.cartTotal){
+    }else if (this.curr_funds < this.cartTotal){
        var msg=this.currentUser+"  have Insufficient Funds  $" + this.curr_funds+".Please add funds to your account";
        alert(msg);
-    }
-    else{
+    }else {
     let today = new Date()
     let dd = String(today.getDate()).padStart(2, '0');
     let mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -190,7 +189,8 @@ export class UserComponent implements OnInit {
 
     let date = mm + '/' + dd + '/' + yyyy;
     let order = {
-      id: sessionStorage.getItem('userName'),
+      id: this.makeOrderId(),
+      userName: sessionStorage.getItem('userName'),
       status: "Pending",
       cart: this.cart,
       date: date
@@ -208,6 +208,14 @@ export class UserComponent implements OnInit {
       }
       this.userService.updateProfile(userCart)
     })
+    }
   }
-}
+
+  makeOrderId():String {
+    let min = Math.ceil(100000000000)
+    let max = Math.floor(999999999999)
+    let num = Math.floor(Math.random() * (max - min) + min)
+    return `${num}`
+  }
+
 }

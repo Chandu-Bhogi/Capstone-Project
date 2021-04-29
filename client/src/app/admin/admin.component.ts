@@ -77,7 +77,7 @@ export class AdminComponent implements OnInit {
     if (custom.customerID != "" && custom.productID != "" && custom.customerID != null && custom.productID != null) {
       this.reportShow = []
       for(let i=0; i < this.reports.length; i++) {
-        if(this.reports[i].id == custom.customerID) {
+        if(this.reports[i].userName == custom.customerID) {
           this.reportShow.push(this.reports[i])
         }
       }
@@ -85,7 +85,7 @@ export class AdminComponent implements OnInit {
       this.reportShow = []
       for(let i=0; i < temp.length; i++) {
         for(let j=0; j < temp[i].cart.length; j++) {
-          if(temp[i].cart[j].id == custom.productID) {
+          if(temp[i].cart[j].id.toLowerCase() == custom.productID.toLowerCase()) {
             this.reportShow.push(temp[i])
             break
           }
@@ -95,7 +95,7 @@ export class AdminComponent implements OnInit {
       if (custom.customerID != "" && custom.customerID != null) {
         this.reportShow = []
         for(let i=0; i < this.reports.length; i++) {
-          if(this.reports[i].id == custom.customerID) {
+          if(this.reports[i].userName == custom.customerID) {
             this.reportShow.push(this.reports[i])
           }
         }
@@ -105,7 +105,7 @@ export class AdminComponent implements OnInit {
         this.reportShow = []
         for(let i=0; i < this.reports.length; i++) {
           for(let j=0; j < this.reports[i].cart.length; j++) {
-            if(this.reports[i].cart[j].id == custom.productID) {
+            if(this.reports[i].cart[j].id.toLowerCase() == custom.productID.toLowerCase()) {
               this.reportShow.push(this.reports[i])
               break
             }
@@ -122,10 +122,11 @@ export class AdminComponent implements OnInit {
   daily() {
     let today = new Date()
     let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
     this.reportShow = []
 
     for(let i = 0; i < this.reports.length; i++) {
-      if(dd == this.reports[i].date.split("/")[1]) {
+      if(dd == this.reports[i].date.split("/")[1] && mm == this.reports[i].date.split("/")[0]) {
         this.reportShow.push(this.reports[i])
       }
     }
@@ -146,11 +147,11 @@ export class AdminComponent implements OnInit {
 
   monthly() {
     let today = new Date()
-    let yyyy = String(today.getFullYear())
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
     this.reportShow = []
 
     for(let i = 0; i < this.reports.length; i++) {
-      if(yyyy == this.reports[i].date.split("/")[2]) {
+      if( mm == this.reports[i].date.split("/")[0]) {
         this.reportShow.push(this.reports[i])
       }
     }

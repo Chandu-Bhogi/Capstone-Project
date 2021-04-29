@@ -1,9 +1,17 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ServerResponse } from './model.serverResponse'
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdersService {
+
+  config:any = {
+    URL:'http://localhost:',
+    PORT:'4100'
+  }
 
   // Temp arr of orders for testing purposes
   temp_order:any = {orders:[
@@ -22,5 +30,27 @@ export class OrdersService {
     {tracking_id:12,recepient:"kevin",status:"outForDelivery"}
   ]}
 
-  constructor() { }
+  constructor(public http:HttpClient) { }
+
+  getUserOrders(user_details:any):Observable<ServerResponse>{
+    let username = user_details['id']
+    let URL:string = this.config['URL']+this.config['PORT']+'/v1/orders/getOrderByUser/'+username
+    console.log(`Traveling to: ${URL}`)
+    return this.http.get<ServerResponse>(URL)
+
+  }
+
+  getOrderByStatus(order_details:any):Observable<ServerResponse>{
+    let status = order_details['status']
+    let URL:string = this.config['URL']+this.config['PORT']+'/v1/orders/getOrdersByStatus/'+status
+    console.log(`Traveling to: ${URL}`)
+    return this.http.get<ServerResponse>(URL)
+  }
+
+  updateOrderStatus(order_details:any):Observable<ServerResponse>{
+    let id = order_details['id']
+    let URL:string = this.config['URL']+this.config['PORT']+'/v1/orders/updateStatus/'+id
+    console.log(`Traveling to: ${URL}`)
+    return this.http.put<ServerResponse>(URL,order_details)
+  }
 }
