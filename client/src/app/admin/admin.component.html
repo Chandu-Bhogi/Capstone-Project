@@ -51,6 +51,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
+          <th scope="col">Order ID</th>
           <th scope="col">Username</th>
           <th scope="col">Products</th>
           <th scope="col">Status</th>
@@ -60,6 +61,7 @@
       <tbody>
         <tr *ngFor="let report of reportShow">
           <td>{{report.id}}</td>
+          <td>{{report.userName}}</td>
           <td>
             <ul *ngFor="let product of report.cart">
               <li>{{product.quantity}} {{product.id}}</li>

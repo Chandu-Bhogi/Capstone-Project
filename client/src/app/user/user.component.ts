@@ -174,7 +174,8 @@ export class UserComponent implements OnInit {
   
       let date = mm + '/' + dd + '/' + yyyy;
       let order = {
-        id: sessionStorage.getItem('userName'),
+        id: this.makeOrderId(),
+        userName: sessionStorage.getItem('userName'),
         status: "Pending",
         cart: this.cart,
         date: date
@@ -194,5 +195,12 @@ export class UserComponent implements OnInit {
         this.userService.updateProfile(userCart)
       })
     }
+  }
+
+  makeOrderId():String {
+    let min = Math.ceil(100000000000)
+    let max = Math.floor(999999999999)
+    let num = Math.floor(Math.random() * (max - min) + min)
+    return `${num}`
   }
 }
