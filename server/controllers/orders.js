@@ -22,11 +22,31 @@ exports.getAllOrders = asyncHandler(getAllObjectsFromDB);
 exports.getOrder = asyncHandler(getObjectsByQueryFromDB);
 
 exports.getOrderByUser = asyncHandler(async (req,res,next)=>{
-  let id = req.params['id']
-
-  Orders.find({id:id})
+  let username = req.params['username']
+  Orders.find({userName:username})
   .then((order)=>res.status(200).json({status:true,order,message:"Found the following orders"}))
   .catch((err)=>res.status(422).json({status:false,message:"Issue with finding orders"}))
+})
+
+exports.getOrdersByStatus = asyncHandler(async (req,res,next)=>{
+  let status = req.params['status']
+
+  Orders.find({status:status})
+  .then((order)=>res.status(200).json({status:true,order,message:"Found the following orders"}))
+  .catch((err)=>res.status(422).json({status:false,message:"Issue with finding orders"}))
+})
+
+exports.updateStatus = asyncHandler(async (req,res,next)=>{
+  let id = req.params['id']
+  let status = req.body['status']
+
+  Orders.findOneAndUpdate({id:id},{$set:{status:status}},{new:true})
+  .then((order)=>res.status(200).json({status:true,order,message:"Found & Updated the following order"}))
+  .catch((err)=>res.status(422).json({status:false,message:"Issue with finding/updating the order"}))
+
+  // Orders.find({status:status})
+  // .then((order)=>res.status(200).json({status:true,order,message:"Found the following orders"}))
+  // .catch((err)=>res.status(422).json({status:false,message:"Issue with finding orders"}))
 })
 
 
