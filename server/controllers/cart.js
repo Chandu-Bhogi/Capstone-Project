@@ -5,7 +5,7 @@ const Products = require("../models/Products");
 let { getAllObjectsFromDB, getObjectsByQueryFromDB, updateObjectInDB, deleteObjectFromDB, insertObjectInDB } = require("./utils")(Users);
 
 //get the user's cart
-exports.getUserCart = asyncHandler(getObjectsByQueryFromDB());
+exports.getUserCart = asyncHandler(getObjectsByQueryFromDB);
 
 //input product_id array in req.body by the key product_ids
 exports.createUserCart = asyncHandler(async (req, res, next) => {
