@@ -39,7 +39,7 @@
             </div>
             <div class="d-grid gap-2">
               <button type="submit" class="btn btn-primary" id="search">Search</button>
-              <button type="reset" class="btn btn-link" id="reset">Reset</button>
+              <button type="reset" class="btn btn-link" id="button" (click)="resetTable()">Reset Table</button>
             </div>
 
         </form>
@@ -58,7 +58,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let report of reports">
+        <tr *ngFor="let report of reportShow">
           <td>{{report.id}}</td>
           <td>
             <ul *ngFor="let product of report.cart">
