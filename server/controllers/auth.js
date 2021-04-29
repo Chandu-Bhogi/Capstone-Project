@@ -72,6 +72,7 @@ exports.signup = asyncHandler(async (req, res, next) => {
         break
       }
     }
+
       let [user] = await Users.insertMany({
         userName: userName,
         firstName: firstName,
@@ -80,7 +81,9 @@ exports.signup = asyncHandler(async (req, res, next) => {
         dod: dod,
         phoneNumber: phoneNumber,
         userAddress: userAdress,
-        password: password
+        password: password,
+        funds: 5000,
+        accountNumber: makeAccountNumber()
       });
 
       if (user && user.id) {
@@ -94,4 +97,11 @@ exports.signup = asyncHandler(async (req, res, next) => {
 
 function userNameMaker(firstName, lastName, count) {
   return firstName.charAt(0).toLowerCase() + lastName.toLowerCase() + count
+}
+
+function makeAccountNumber() {
+  let min = Math.ceil(100000000000)
+  let max = Math.floor(999999999999)
+  let num = Math.floor(Math.random() * (max - min) + min)
+  return `${num}`
 }

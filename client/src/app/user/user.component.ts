@@ -166,31 +166,33 @@ export class UserComponent implements OnInit {
  
 
   buyOrder() {
-    let today = new Date()
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0');
-    let yyyy = today.getFullYear();
-
-    let date = mm + '/' + dd + '/' + yyyy;
-    let order = {
-      id: sessionStorage.getItem('userName'),
-      status: "Pending",
-      cart: this.cart,
-      date: date
-    }
-    console.log("Clicked")
-    console.log(order)
-    this.userService.createOrder(order).subscribe(result => {
-      console.log(result)
-      this.cart = []
-      this.localCart = []
-      this.itemSelected = new Map()
-      let userCart = {
-        userName: sessionStorage.getItem('userName'),
-        cart: this.cart
-      }
+    if (this.cart.length > 0) {
+      let today = new Date()
+      let dd = String(today.getDate()).padStart(2, '0');
+      let mm = String(today.getMonth() + 1).padStart(2, '0');
+      let yyyy = today.getFullYear();
   
-      this.userService.updateProfile(userCart)
-    })
+      let date = mm + '/' + dd + '/' + yyyy;
+      let order = {
+        id: sessionStorage.getItem('userName'),
+        status: "Pending",
+        cart: this.cart,
+        date: date
+      }
+      console.log("Clicked")
+      console.log(order)
+      this.userService.createOrder(order).subscribe(result => {
+        console.log(result)
+        this.cart = []
+        this.localCart = []
+        this.itemSelected = new Map()
+        let userCart = {
+          userName: sessionStorage.getItem('userName'),
+          cart: this.cart
+        }
+    
+        this.userService.updateProfile(userCart)
+      })
+    }
   }
 }
