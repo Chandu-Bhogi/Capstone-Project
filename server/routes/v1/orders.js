@@ -7,6 +7,7 @@ const router = express.Router();
 router.get("/getallorders", Orders.getAllOrders);
 // get all orders by given status using req.query
 router.get("/getorder", Orders.getOrder);
+router.get("/getOrderByUser/:id",Orders.getOrderByUser)
 
 router.post("/createorder", Orders.createOrder);
 

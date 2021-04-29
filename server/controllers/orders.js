@@ -21,6 +21,14 @@ exports.getAllOrders = asyncHandler(getAllObjectsFromDB);
 
 exports.getOrder = asyncHandler(getObjectsByQueryFromDB);
 
+exports.getOrderByUser = asyncHandler(async (req,res,next)=>{
+  let id = req.params['id']
+
+  Orders.find({id:id})
+  .then((order)=>res.status(200).json({status:true,order,message:"Found the following orders"}))
+  .catch((err)=>res.status(422).json({status:false,message:"Issue with finding orders"}))
+})
+
 
 exports.updateOrder = asyncHandler(async (req, res, next) =>{
     const id = req.params.id;
