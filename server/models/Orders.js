@@ -4,12 +4,12 @@ const Schema = mongoose.Schema;
 const OrderSchema = new Schema({
   id: String,
   status: String,
-  list: [{
+  cart: [{
     type: Schema.Types.Mixed,
-    ref: "Products",
+    ref: "CartProducts",
     required: true
   }],
-  total_bill: Number,
+  date: String
 });
 
 module.exports = mongoose.model("Orders", OrderSchema);
