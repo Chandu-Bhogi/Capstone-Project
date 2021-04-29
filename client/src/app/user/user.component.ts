@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LocationStrategy } from '@angular/common';
 import { Product, Data } from '../model.product';
 import { UserService } from '../user.service'
+import{FundsComponent} from './funds/funds.component'
 
 @Component({
   selector: 'app-user',
@@ -23,6 +24,7 @@ export class UserComponent implements OnInit {
   showOrder = false
   totalQty=0;
   cartTotal=0;
+  curr_funds=0;
   itemSelected = new Map()
 
   constructor(public router:Router, private locationStrategy: LocationStrategy, public userService:UserService) {
@@ -33,8 +35,10 @@ export class UserComponent implements OnInit {
       console.log(this.items);
     })
     if (this.currentUser != null) {
-      userService.getUserByUsername(this.currentUser).subscribe(result => {
+      userService.getUserByUsername(this.currentUser).subscribe((result:any) => {
         console.log(result.user[0].cart)
+        let user_details = result['user'][0]
+        this.curr_funds = user_details['funds']
         this.cart = result.user[0].cart
         for(let i=0; i < this.cart.length; i++) {
           this.itemSelected.set(this.cart[i].id, [(this.cart[i].quantity),(this.cart[i].total/this.cart[i].quantity).toPrecision(2)])
@@ -46,6 +50,7 @@ export class UserComponent implements OnInit {
    }
 
   ngOnInit(): void {
+   
   }
 
   preventBackButton() {
@@ -70,7 +75,9 @@ export class UserComponent implements OnInit {
       this.itemSelected.set(item, [1,itmPrice.toPrecision(2)])
     }
     this.localCart = Array.from(this.itemSelected)
+    console.log("LOCAL CART "+this.localCart);
     this.updateCartDB(item);
+    //this.cartTotalCal();
   }
 
   
@@ -117,9 +124,6 @@ export class UserComponent implements OnInit {
     this.localCart.splice(index, 1)
     this.itemSelected.delete(item[0]);
     this.updateCartDB(item[0]);
-
-
-    
   }
 
   updateFromCart(item:String,qty:string) {
@@ -128,19 +132,15 @@ export class UserComponent implements OnInit {
     } 
     this.localCart = Array.from(this.itemSelected)
     this.updateCartDB(item);
-    
-
-   
   }
 
   updateCartDB(item:String){
-
     this.cart = []
     for(let i = 0; i < this.localCart.length; i++) {
       let obj = {
         id: this.localCart[i][0],
         quantity: this.localCart[i][1][0],
-        total: this.itemSelected.get(item)[1] * this.localCart[i][1][0]
+        total: this.localCart[i][1][0] * this.localCart[i][1][1]
       }
       this.cart.push(obj)
     }
@@ -153,47 +153,61 @@ export class UserComponent implements OnInit {
   }
 
   cartTotalCal(){
-   
     this.totalQty=0;
     this.cartTotal=0;
     for (let [key, value] of this.itemSelected) {
       this.totalQty+=value[0];
       var itemTotal=parseFloat((value[0]*value[1]).toPrecision(2));
       this.cartTotal+=itemTotal;
-    
-  }
+    }
   }
  
+  fundsUpdate(){
+    if (this.currentUser != null) {
+      this.userService.getUserByUsername(this.currentUser).subscribe((result:any) => {
+        let user_details = result['user'][0]
+        this.curr_funds = user_details['funds']
+        console.log(this.curr_funds);
+       
+      })
+    }
+  }
 
   buyOrder() {
-    if (this.cart.length > 0) {
-      let today = new Date()
-      let dd = String(today.getDate()).padStart(2, '0');
-      let mm = String(today.getMonth() + 1).padStart(2, '0');
-      let yyyy = today.getFullYear();
-  
-      let date = mm + '/' + dd + '/' + yyyy;
-      let order = {
-        id: this.makeOrderId(),
+    console.log("check buy")
+    this.fundsUpdate();
+    if (this.cartTotal<=0){
+      alert("Please add items to the cart");
+    }else if (this.curr_funds < this.cartTotal){
+       var msg=this.currentUser+"  have Insufficient Funds  $" + this.curr_funds+".Please add funds to your account";
+       alert(msg);
+    }else {
+    let today = new Date()
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    let yyyy = today.getFullYear();
+
+    let date = mm + '/' + dd + '/' + yyyy;
+    let order = {
+      id: this.makeOrderId(),
+      userName: sessionStorage.getItem('userName'),
+      status: "Pending",
+      cart: this.cart,
+      date: date
+    }
+    console.log("Clicked")
+    console.log(order)
+    this.userService.createOrder(order).subscribe(result => {
+      console.log(result)
+      this.cart = []
+      this.localCart = []
+      this.itemSelected = new Map()
+      let userCart = {
         userName: sessionStorage.getItem('userName'),
-        status: "Pending",
-        cart: this.cart,
-        date: date
+        cart: this.cart
       }
-      console.log("Clicked")
-      console.log(order)
-      this.userService.createOrder(order).subscribe(result => {
-        console.log(result)
-        this.cart = []
-        this.localCart = []
-        this.itemSelected = new Map()
-        let userCart = {
-          userName: sessionStorage.getItem('userName'),
-          cart: this.cart
-        }
-    
-        this.userService.updateProfile(userCart)
-      })
+      this.userService.updateProfile(userCart)
+    })
     }
   }
 
@@ -203,4 +217,5 @@ export class UserComponent implements OnInit {
     let num = Math.floor(Math.random() * (max - min) + min)
     return `${num}`
   }
+
 }
