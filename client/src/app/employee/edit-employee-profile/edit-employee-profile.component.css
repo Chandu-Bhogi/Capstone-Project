@@ -22,3 +22,11 @@ h3{
     width: 100%;
     margin: 5px;
 }
+
+#wrap{
+    margin: 20px 400px;
+    border: 5px solid black;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+}
