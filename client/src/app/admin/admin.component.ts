@@ -85,7 +85,7 @@ export class AdminComponent implements OnInit {
       this.reportShow = []
       for(let i=0; i < temp.length; i++) {
         for(let j=0; j < temp[i].cart.length; j++) {
-          if(temp[i].cart[j].id == custom.productID) {
+          if(temp[i].cart[j].id.toLowerCase() == custom.productID.toLowerCase()) {
             this.reportShow.push(temp[i])
             break
           }
@@ -105,7 +105,7 @@ export class AdminComponent implements OnInit {
         this.reportShow = []
         for(let i=0; i < this.reports.length; i++) {
           for(let j=0; j < this.reports[i].cart.length; j++) {
-            if(this.reports[i].cart[j].id == custom.productID) {
+            if(this.reports[i].cart[j].id.toLowerCase() == custom.productID.toLowerCase()) {
               this.reportShow.push(this.reports[i])
               break
             }

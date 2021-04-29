@@ -8,6 +8,7 @@ export class Order {
 export class Data {
     constructor(
         public id: String,
+        public userName:String,
         public status: String,
         public cart: Cart[],
         public date: String
