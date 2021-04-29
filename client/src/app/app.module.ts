@@ -21,7 +21,8 @@ import { PendingOrdersComponent } from './employee/update-order-status/pending-o
 import { ShippedOrdersComponent } from './employee/update-order-status/shipped-orders/shipped-orders.component';
 import { DeliveredOrdersComponent } from './employee/update-order-status/delivered-orders/delivered-orders.component';
 import { CancelledOrdersComponent } from './employee/update-order-status/cancelled-orders/cancelled-orders.component';
-import { OutForDeliveryOrdersComponent } from './employee/update-order-status/out-for-delivery-orders/out-for-delivery-orders.component'
+import { OutForDeliveryOrdersComponent } from './employee/update-order-status/out-for-delivery-orders/out-for-delivery-orders.component';
+import { OrderStatusComponent } from './user/order-status/order-status.component'
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { OutForDeliveryOrdersComponent } from './employee/update-order-status/ou
     ShippedOrdersComponent,
     DeliveredOrdersComponent,
     CancelledOrdersComponent,
-    OutForDeliveryOrdersComponent
+    OutForDeliveryOrdersComponent,
+    OrderStatusComponent
   ],
   imports: [
     BrowserModule,

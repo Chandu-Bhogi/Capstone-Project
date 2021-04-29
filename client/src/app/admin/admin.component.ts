@@ -4,6 +4,7 @@ import { LocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
 import { AdminService } from '../admin.service';
 import { UserService } from '../user.service';
+import { Data } from '../model.order';
 
 @Component({
   selector: 'app-admin',
@@ -13,8 +14,8 @@ import { UserService } from '../user.service';
 export class AdminComponent implements OnInit {
 
   count = 1
-  reports:String[] = ['Report1', 'Report2', 'Report3', 'Report4']
-  report:String = ""
+  reports:Data[] = []
+  reportShow:Data[] = []
 
   showReport =  true
   showEdit = false
@@ -22,6 +23,11 @@ export class AdminComponent implements OnInit {
 
   constructor(private locationStrategy: LocationStrategy, public router: Router,public admin_service:AdminService, public userService:UserService) { 
     this.preventBackButton()
+    userService.getAllOrders().subscribe(result => {
+      console.log(result)
+      this.reports = result.data
+      this.reportShow = this.reports
+    })
   }
 
   ngOnInit(): void {
@@ -65,31 +71,89 @@ export class AdminComponent implements OnInit {
       }
     })
   }
-
-  selectReport(report:String) {
-    console.log(report)
-    this.report = report
-  }
   
   customize(custom:any) {
     console.log(custom)
+    if (custom.customerID != "" && custom.productID != "" && custom.customerID != null && custom.productID != null) {
+      this.reportShow = []
+      for(let i=0; i < this.reports.length; i++) {
+        if(this.reports[i].id == custom.customerID) {
+          this.reportShow.push(this.reports[i])
+        }
+      }
+      let temp = this.reportShow
+      this.reportShow = []
+      for(let i=0; i < temp.length; i++) {
+        for(let j=0; j < temp[i].cart.length; j++) {
+          if(temp[i].cart[j].id == custom.productID) {
+            this.reportShow.push(temp[i])
+            break
+          }
+        }
+      }
+    } else {
+      if (custom.customerID != "" && custom.customerID != null) {
+        this.reportShow = []
+        for(let i=0; i < this.reports.length; i++) {
+          if(this.reports[i].id == custom.customerID) {
+            this.reportShow.push(this.reports[i])
+          }
+        }
+      }
+  
+      if (custom.productID != "" && custom.productID != null) {
+        this.reportShow = []
+        for(let i=0; i < this.reports.length; i++) {
+          for(let j=0; j < this.reports[i].cart.length; j++) {
+            if(this.reports[i].cart[j].id == custom.productID) {
+              this.reportShow.push(this.reports[i])
+              break
+            }
+          }
+        }
+      }
+    }
+  }
+
+  resetTable() {
+    this.reportShow = this.reports
   }
 
   daily() {
+    let today = new Date()
+    let dd = String(today.getDate()).padStart(2, '0');
+    this.reportShow = []
 
+    for(let i = 0; i < this.reports.length; i++) {
+      if(dd == this.reports[i].date.split("/")[1]) {
+        this.reportShow.push(this.reports[i])
+      }
+    }
   }
 
   weekly() {
+    let today = new Date()
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    this.reportShow = []
 
+    for(let i = 0; i < this.reports.length; i++) {
+      if(dd == this.reports[i].date.split("/")[1] && mm == this.reports[i].date.split("/")[0]) {
+        this.reportShow.push(this.reports[i])
+      }
+    }
   }
 
   monthly() {
+    let today = new Date()
+    let yyyy = String(today.getFullYear())
+    this.reportShow = []
 
-  }
-
-  resolve() {
-    let index = this.reports.indexOf(this.report)
-    this.reports.splice(index,1)
+    for(let i = 0; i < this.reports.length; i++) {
+      if(yyyy == this.reports[i].date.split("/")[2]) {
+        this.reportShow.push(this.reports[i])
+      }
+    }
   }
 
   showReportBtn() {
