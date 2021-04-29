@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ServerResponse } from './model.serverResponse'
 import { Observable } from 'rxjs'
 import { HttpClient } from '@angular/common/http';
+import { Request } from './model.request';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +23,14 @@ export class ProductRequestService {
   }
 
   makeDeleteRequest(product_info:any):Observable<ServerResponse>{
-    let URL:string = this.config['URL']+this.config['PORT']+'/v1/productrequest/deleteRequest'
+    let URL:string = this.config['URL']+this.config['PORT']+'/v1/productrequest/deleteRequest/'+product_info
     console.log(`Traveling to: ${URL}`)
-    return this.http.post<ServerResponse>(URL,product_info)
+    return this.http.delete<ServerResponse>(URL)
+  }
+
+  getRequest():Observable<Request>{
+    let URL:string = this.config['URL']+this.config['PORT']+'/v1/productrequest/getRequest'
+    console.log(`Traveling to: ${URL}`)
+    return this.http.get<Request>(URL)
   }
 }

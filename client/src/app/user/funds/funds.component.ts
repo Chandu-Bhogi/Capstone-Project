@@ -32,21 +32,24 @@ export class FundsComponent implements OnInit {
     console.log("Here are the inputted funds:")
     console.log(fundsAmnt)
   
-    
-    let curr_userName:any = sessionStorage.getItem('userName')
-    let funds_info = {
-      userName:curr_userName,
-      funds:fundsAmnt
+    if (fundsAmnt > 0) {
+      let curr_userName:any = sessionStorage.getItem('userName')
+      let funds_info = {
+        userName:curr_userName,
+        funds:fundsAmnt
+      }
+  
+      this.user_service.addFunds(funds_info)
+      .subscribe((res:any)=>{
+        let user_details = res['user']
+        console.log(user_details)
+        this.curr_funds = user_details['funds']
+        alert("Funds have been updated")
+      })
+    } else {
+      alert("Can't deduct from funds")
     }
 
-    this.user_service.addFunds(funds_info)
-    .subscribe((res:any)=>{
-      //console.log(res)
-
-      let user_details = res['user']
-      console.log(user_details)
-      this.curr_funds = user_details['funds']
-    })
   }
 
 }

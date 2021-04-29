@@ -39,7 +39,7 @@ export class AdminService {
     return this.http.post<ServerResponse>(URL,product_info)
   }
 
-  updateProduct(product_info:any):Observable<ServerResponse>{
+  updateProduct(product_info:any, ):Observable<ServerResponse>{
     let product_id = product_info['id']
     let URL = this.config["URL"]+this.config["PORT"]+`/v1/products/update/${product_id}`
     console.log("[LOG]: Going to: " + URL)

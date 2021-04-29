@@ -186,6 +186,7 @@ export class UserComponent implements OnInit {
     let dd = String(today.getDate()).padStart(2, '0');
     let mm = String(today.getMonth() + 1).padStart(2, '0');
     let yyyy = today.getFullYear();
+    let funds = this.cartTotal * -1
 
     let date = mm + '/' + dd + '/' + yyyy;
     let order = {
@@ -193,12 +194,15 @@ export class UserComponent implements OnInit {
       userName: sessionStorage.getItem('userName'),
       status: "Pending",
       cart: this.cart,
+      total: this.cartTotal,
       date: date
     }
     console.log("Clicked")
     console.log(order)
     this.userService.createOrder(order).subscribe(result => {
       console.log(result)
+      this.totalQty = 0
+      this.cartTotal = 0
       this.cart = []
       this.localCart = []
       this.itemSelected = new Map()
@@ -207,6 +211,13 @@ export class UserComponent implements OnInit {
         cart: this.cart
       }
       this.userService.updateProfile(userCart)
+
+      let funds_info = {
+        userName:sessionStorage.getItem('userName'),
+        funds:funds
+      }
+      this.userService.addFunds(funds_info).subscribe((res:any)=>{
+      })
     })
     }
   }

@@ -23,4 +23,10 @@ import { Ticket } from './model.ticket'
       console.log(`Traveling to: ${URL}`)
       return this.http.get<Product>(URL)
     }
+
+    deleteProducts(id:any):Observable<ServerResponse> {
+      let URL:string = this.config['URL']+this.config['PORT']+'/v1/products/deleteproduct/'+id
+      console.log(`Traveling to: ${URL}`)
+      return this.http.delete<ServerResponse>(URL)
+    }
   }

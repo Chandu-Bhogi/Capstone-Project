@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AdminService } from '../admin.service';
 import { UserService } from '../user.service';
 import { Data } from '../model.order';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-admin',
@@ -16,17 +17,29 @@ export class AdminComponent implements OnInit {
   count = 1
   reports:Data[] = []
   reportShow:Data[] = []
+  items?:any = []
 
   showReport =  true
   showEdit = false
   showProduct = false
+  showRequest = false
 
-  constructor(private locationStrategy: LocationStrategy, public router: Router,public admin_service:AdminService, public userService:UserService) { 
+  constructor(
+    private locationStrategy: LocationStrategy, 
+    public router: Router,
+    public admin_service:AdminService, 
+    public userService:UserService,
+    public productService:ProductService) { 
     this.preventBackButton()
     userService.getAllOrders().subscribe(result => {
       console.log(result)
       this.reports = result.data
       this.reportShow = this.reports
+    })
+    userService.getProducts().subscribe(result=> {
+      this.items = result.data
+      console.log(result.data);
+      console.log(this.items);
     })
   }
 
@@ -161,44 +174,27 @@ export class AdminComponent implements OnInit {
     this.showReport = true
     this.showEdit = false
     this.showProduct = false
+    this.showRequest = false
   }
 
   showEditBtn() {
     this.showReport = false
     this.showEdit = true
     this.showProduct = false
+    this.showRequest = false
   }
 
   showProducts() {
     this.showReport = false
     this.showEdit = false
     this.showProduct = true
+    this.showRequest = false
   }
-
-  editProduct(product:any) {
-    console.log(product)
-    this.admin_service.updateProduct(product)
-    .subscribe((res:any)=>{
-      console.log(res)
-      if(res.status){
-        alert("Product has been updated")
-      }else{
-        alert("Issue with updating product")
-      }
-    })
-  }
-
-  deleteProduct(product:any) {
-    console.log(product)
-    this.admin_service.deleteProduct(product)
-    .subscribe((res:any)=>{
-      console.log(res)
-      if(res.status){
-        alert("Product has been deleted")
-      }else{
-        alert("Issue with deleting product")
-      }
-    })
+  showRequests() {
+    this.showReport = false
+    this.showEdit = false
+    this.showProduct = false
+    this.showRequest = true
   }
 
   addProduct(product:any) {
@@ -208,8 +204,44 @@ export class AdminComponent implements OnInit {
       console.log(res)
       if(res.status){
         alert("Product has been added")
+        this.userService.getProducts().subscribe(result=> {
+          this.items = result.data
+          console.log(result.data);
+          console.log(this.items);
+        })
       }else{
         alert("Product already exists!")
+      }
+    })
+  }
+
+  removeProduct(id:any) {
+    this.productService.deleteProducts(id).subscribe(result => {
+      this.userService.getProducts().subscribe(result=> {
+        this.items = result.data
+        console.log(result.data);
+        console.log(this.items);
+      })
+    })
+  }
+
+  updateProduct(id:any, quantity:any) {
+    let product  = {
+      id: id,
+      quantity: quantity
+    }
+    this.admin_service.updateProduct(product)
+    .subscribe((res:any)=>{
+      console.log(res)
+      if(res.status){
+        alert("Product has been updated")
+        this.userService.getProducts().subscribe(result=> {
+          this.items = result.data
+          console.log(result.data);
+          console.log(this.items);
+        })
+      }else{
+        alert("Issue with updating product")
       }
     })
   }

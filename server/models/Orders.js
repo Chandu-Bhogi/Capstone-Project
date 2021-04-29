@@ -10,6 +10,7 @@ const OrderSchema = new Schema({
     ref: "CartProducts",
     required: true
   }],
+  total: Number,
   date: String
 });
 
