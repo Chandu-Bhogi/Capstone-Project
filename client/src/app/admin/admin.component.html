@@ -34,7 +34,7 @@
 
             <div class="mb-3">
               <label class="form-label">Product ID</label>
-              <input type="text" class="form-control" name="productID" ngModel>
+              <input type="text" class="form-control" name="productID" (ngModelChange)="filterResults($event)" ngModel>
             </div>
             <div class="mb-3">
                 <label class="form-label">Customer ID</label>
@@ -63,7 +63,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let report of reportShow">
+        <tr *ngFor="let report of filteredreportShow">
           <td>{{report.id}}</td>
           <td>{{report.userName}}</td>
           <td>

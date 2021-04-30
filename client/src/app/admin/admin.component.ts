@@ -18,6 +18,7 @@ export class AdminComponent implements OnInit {
   count = 1
   reports:Data[] = []
   reportShow:Data[] = []
+  filteredreportShow:Data[] = []
   items?:any = []
 
   showReport =  true
@@ -37,6 +38,7 @@ export class AdminComponent implements OnInit {
       console.log(result)
       this.reports = result.data
       this.reportShow = this.reports
+      this.filteredreportShow = this.reports
     })
     userService.getProducts().subscribe(result=> {
       this.items = result.data
@@ -234,4 +236,8 @@ export class AdminComponent implements OnInit {
       }
     })
   }
+
+  filterResults(value:any){
+    this.filteredreportShow = this.reportShow.filter((obj) => obj.cart.some(elem => elem.id.toLowerCase().includes(value.toLowerCase())))
+  } 
 }
