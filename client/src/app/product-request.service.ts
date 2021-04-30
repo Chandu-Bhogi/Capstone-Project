@@ -32,9 +32,9 @@ export class ProductRequestService {
   makeDeleteRequest(product_info:any):Observable<ServerResponse>{
     let URL:string
     if(this.config['deployed']){
-      URL = this.config['URL2']+'/v1/productrequest/deleteRequest'
+      URL = this.config['URL2']+'/v1/productrequest/deleteRequest/'+product_info
     }else{
-      URL = this.config['URL']+this.config['PORT']+'/v1/productrequest/deleteRequest'
+      URL = this.config['URL']+this.config['PORT']+'/v1/productrequest/deleteRequest/'+product_info
     }
     console.log(`Traveling to: ${URL}`)
     return this.http.delete<ServerResponse>(URL)
