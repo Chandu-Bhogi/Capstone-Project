@@ -113,8 +113,8 @@ export class LoginComponent implements OnInit {
     .subscribe((res:any) =>{
       if(res.status){
         sessionStorage.setItem("id",employeeInfo['id'])
-        this.router.navigate(["employee"])
         this.employee_service.getEmployee(employeeInfo.id).subscribe(result => {
+          console.log(result.data[0].changedPassword)
           if(result.data[0].changedPassword) {
             this.router.navigate(["employee"])
             sessionStorage.setItem("employee", employeeInfo.id)

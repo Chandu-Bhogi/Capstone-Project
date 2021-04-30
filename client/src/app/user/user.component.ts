@@ -127,11 +127,15 @@ export class UserComponent implements OnInit {
   }
 
   updateFromCart(item:String,qty:string) {
-    if (this.itemSelected.has(item)) {
-      this.itemSelected.set(item,[parseInt(qty),this.itemSelected.get(item)[1]]);
-    } 
-    this.localCart = Array.from(this.itemSelected)
-    this.updateCartDB(item);
+    if (parseInt(qty) > 0) {
+      if (this.itemSelected.has(item)) {
+        this.itemSelected.set(item,[parseInt(qty),this.itemSelected.get(item)[1]]);
+      } 
+      this.localCart = Array.from(this.itemSelected)
+      this.updateCartDB(item);
+    } else {
+      alert("Invalid input")
+    }
   }
 
   updateCartDB(item:String){

@@ -56,7 +56,7 @@ exports.login = asyncHandler(async (req, res, next) => {
 exports.signup = asyncHandler(async (req, res, next) => {
   let count = 1
 
-  const { firstName, lastName, email, dod, phoneNumber, userAdress, password } = req.body;
+  const { firstName, lastName, email, dod, phoneNumber, userAddress, password } = req.body;
   let userName = userNameMaker(firstName,lastName, count)
   
   let [check] = await Users.find({email});
@@ -80,7 +80,7 @@ exports.signup = asyncHandler(async (req, res, next) => {
         email: email,
         dod: dod,
         phoneNumber: phoneNumber,
-        userAddress: userAdress,
+        userAddress: userAddress,
         password: password,
         funds: 5000,
         accountNumber: makeAccountNumber()

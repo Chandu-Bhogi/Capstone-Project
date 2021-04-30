@@ -56,45 +56,54 @@ export class SendRequestComponent implements OnInit {
     console.log(productQuantityRef)
     console.log(product_id)
 
-    let emp_id = sessionStorage.getItem('id')
+    if (productQuantityRef > 0 && product_id != "") {
+      let emp_id = sessionStorage.getItem('id')
 
-    let pr_add_info = {
-      id:product_id,
-      emp_id:emp_id,
-      quantity:productQuantityRef['quantity'],
-      request_type:"add"
+      let pr_add_info = {
+        id:product_id,
+        emp_id:emp_id,
+        quantity:productQuantityRef,
+        request_type:"add"
+      }
+  
+      this.productRequest_service.makeAddRequest(pr_add_info)
+      .subscribe((res)=>{
+        if(res.status){
+          alert("Product Request has been sent")
+        }else{
+          alert("There is another request pending on the product")
+        }
+      })
+    } else {
+      alert("Invalid input")
     }
 
-    this.productRequest_service.makeAddRequest(pr_add_info)
-    .subscribe((res)=>{
-      if(res.status){
-        alert("Product Request has been sent")
-      }else{
-        alert("Issue sending product request")
-      }
-    })
   }
 
   deleteProductRequest(productQuantityRef:any,product_id:any){
     console.log(productQuantityRef)
     console.log(product_id)
 
-    let emp_id = sessionStorage.getItem('id')
+    if (productQuantityRef > 0 || productQuantityRef == "") {
+      let emp_id = sessionStorage.getItem('id')
 
-    let pr_delete_info = {
-      id:product_id,
-      emp_id:emp_id,
-      quantity:productQuantityRef['quantity'],
-      request_type:"delete"
-    }
-    this.productRequest_service.makeDeleteRequest(pr_delete_info)
-    .subscribe((res:any)=>{
-      if(res.status){
-        alert("Product Delete Request has been sent")
-      }else{
-        alert("Issue sending product delete request")
+      let pr_delete_info = {
+        id:product_id,
+        emp_id:emp_id,
+        quantity:productQuantityRef,
+        request_type:"delete"
       }
-    })
+      this.productRequest_service.makeAddRequest(pr_delete_info)
+      .subscribe((res)=>{
+        if(res.status){
+          alert("Product Request has been sent")
+        }else{
+          alert("There is another request pending on the product")
+        }
+      })
+    } else {
+      alert("Invalid input")
+    }
   }
 
 }

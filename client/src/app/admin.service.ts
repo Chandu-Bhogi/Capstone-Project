@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ServerResponse } from './model.serverResponse';
 import { Observable } from 'rxjs';
+import { Employee } from './model.employee';
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +50,17 @@ export class AdminService {
     }
     console.log("[LOG]: Going to: " + URL)
     return this.http.delete<ServerResponse>(URL)
+  }
+
+  getAllEmployee():Observable<Employee>{
+    let URL:string
+    if(this.config['deployed']){
+      URL = this.config['URL2']+"/v1/employees/getallemployees"
+    }else{
+      URL = this.config["URL"]+this.config["PORT"]+"/v1/employees/getallemployees"
+    }
+    console.log("[LOG]: Going to: " + URL)
+    return this.http.get<Employee>(URL)
   }
 
   addProduct(product_info:any):Observable<ServerResponse>{

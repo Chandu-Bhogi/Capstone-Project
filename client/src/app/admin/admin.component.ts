@@ -18,6 +18,7 @@ export class AdminComponent implements OnInit {
   reports:Data[] = []
   reportShow:Data[] = []
   items?:any = []
+  employees?:any = []
 
   showReport =  true
   showEdit = false
@@ -40,6 +41,9 @@ export class AdminComponent implements OnInit {
       this.items = result.data
       console.log(result.data);
       console.log(this.items);
+    })
+    admin_service.getAllEmployee().subscribe(result => {
+      this.employees = result
     })
   }
 
@@ -65,6 +69,9 @@ export class AdminComponent implements OnInit {
       .subscribe(res=>{
         if (res.status) {
           alert(res.message)
+          this.admin_service.getAllEmployee().subscribe(result => {
+            this.employees = result
+          })
         } else {
           alert(res.message)
         }
@@ -75,10 +82,13 @@ export class AdminComponent implements OnInit {
   }
 
   deleteEmployee(employeeID:any) {
-    this.admin_service.deleteEmployee(employeeID.id)
+    this.admin_service.deleteEmployee(employeeID)
     .subscribe(res=> {
       if (res.status) {
         alert(res.message)
+        this.admin_service.getAllEmployee().subscribe(result => {
+          this.employees = result
+        })
       } else {
         alert(res.message)
       }
