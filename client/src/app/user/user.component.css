@@ -26,8 +26,8 @@ button{
 
 .item-container {
   position: relative;
-  left: -10vw;
-  width: 80vw !important;
+  /* left: -10vw; */
+  width: 100vw !important;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
