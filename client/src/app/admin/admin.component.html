@@ -159,7 +159,7 @@
           <input type="number" id="orderedQuantity" value={{item.quantity}} step="1" min="1" class="col-2"  #updatedQty>
         </div>
         <div class="col-sm-3">
-          <button class="btn btn-outline-warning" type="button" (click)="updateProduct(item.id,item.quantity)">Update</button>
+          <button class="btn btn-outline-warning" type="button" (click)="updateProduct(item.id,updatedQty.value)">Update</button>
         </div>  
         <div class="col-sm-1">
         </div>

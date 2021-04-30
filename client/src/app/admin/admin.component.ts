@@ -230,6 +230,7 @@ export class AdminComponent implements OnInit {
       id: id,
       quantity: quantity
     }
+    console.log(product)
     this.admin_service.updateProduct(product)
     .subscribe((res:any)=>{
       console.log(res)
