@@ -72,13 +72,21 @@
 <app-edit-profile *ngIf="showEdit"></app-edit-profile>
 <div class="container" *ngIf="!showEdit && !showCart">
 <app-funds *ngIf="showFunds"></app-funds>
-<div class="container" *ngIf="showHome">
-    <h3>Items</h3>
+<h3>Items</h3>
+
+<div class="item-container" *ngIf="showHome">
     <div class="name" *ngFor= "let item of items">
-      {{item.id}}
-      {{item.price}}
-      <button id="addBtn" class="btn btn-outline-primary" type="button" (click)="addToCart(item.id,item.price)">Add</button>
-      <hr>
+
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="https://image.flaticon.com/icons/png/512/1261/1261163.png" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{item.id}}</h5>
+          <p class="card-text">{{item.price}}</p>
+          <button id="addBtn" class="btn btn-outline-primary" type="button" (click)="addToCart(item.id,item.price)">Add</button>
+        </div>
+      </div>
+      
+      
     </div>
 </div>
 <app-order-status *ngIf="showOrder"></app-order-status>
