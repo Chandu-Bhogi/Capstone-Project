@@ -13,20 +13,6 @@ import { ProductService } from 'src/app/product.service';
   styleUrls: ['./send-request.component.css']
 })
 export class SendRequestComponent implements OnInit {
-  
-  temp_products:any = {
-    "products":[
-      {id:1,pname:"apple",quantity:54},
-      {id:2,pname:"orange",quantity:8},
-      {id:3,pname:"grapes",quantity:19},
-      {id:4,pname:"cherries",quantity:213},
-      {id:5,pname:"peaches",quantity:182},
-      {id:6,pname:"cocacola",quantity:562},
-      {id:7,pname:"sprite",quantity:923},
-      {id:8,pname:"mountaindew",quantity:231}
-    
-    ]
-  }
   products:Data[] = []
 
   constructor(public router: Router, public product_service: ProductService,public productRequest_service:ProductRequestService) { 

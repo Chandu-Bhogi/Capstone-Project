@@ -11,16 +11,17 @@ exports.addProduct = asyncHandler(async (req, res, next)=>{
 })
 
 
-//exports.deleteProduct = asyncHandler(deleteObjectFromDB)
-exports.deleteProduct = asyncHandler(async (req, res, next)=>{
-    let id = req.params.id
-    let [check] = await Products.deleteOne({id:id},{new:true})
-    .then(prod=>res.status(200).json({status:true,prod,message:"Success! Product was deleted"}))
-    .catch(err=>res.status(422).json({status:false,message:`There was an error with deleting! => ${err}`}))
-})
+exports.deleteProduct = asyncHandler(deleteObjectFromDB)
+// exports.deleteProduct = asyncHandler(async (req, res, next)=>{
+//     let id = req.params.id
+//     let [check] = await Products.deleteOne({id:id},{new:true})
+//     .then(prod=>res.status(200).json({status:true,message:"Success! Product was deleted"}))
+//     .catch(err=>res.status(422).json({status:false,message:`There was an error with deleting! => ${err}`}))
+// })
 
 //exports.updateProduct = asyncHandler(updateObjectInDB())
 exports.updateProduct = asyncHandler(async (req, res, next) => {
+  console.log(req.body)
     Products.findOneAndUpdate({id: req.params.id}, { $set: req.body }, { new: true })
     .then((product) => 
       res.status(200).json({status: true, product, message: "Success" })

@@ -11,6 +11,7 @@ export class Data {
         public userName:String,
         public status: String,
         public cart: Cart[],
+        public total: Number,
         public date: String
         ){}
 }

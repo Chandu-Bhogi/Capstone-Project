@@ -16,3 +16,26 @@
     margin:auto;
 }
 
+#floatingInput{
+    width: 50%;
+}
+
+tr{
+    border-bottom: 1px solid #ccc;
+}
+
+tr:last-child{
+    /* border-bottom: 0; */
+}
+
+td{
+    margin: auto;
+    text-align: center;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.sr_btn{
+    margin: 2px;
+    width: 40%;
+}

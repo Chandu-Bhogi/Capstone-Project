@@ -2,11 +2,36 @@
     <h2 style="text-align: center; padding: 6px; font-family: 'Archivo', sans-serif;">Request more Product Inventory</h2>
 
     <div class="SendRequestArea">
+        <table style="width:100%;">
+            <thead>
 
-        
-        
-            
-            <div class="row" *ngFor="let product of products">
+            </thead>
+            <tbody>
+                <div *ngFor="let product of products">
+                    <form #productQuantityRef="ngForm">
+                        <tr>
+                            <td style="width:17%;">{{product.id}}</td>
+                            <td style="width:17%;">{{product.quantity}}</td>
+                            <td style="width:17%;">{{product.price}}</td>
+                            <td style="width:17%;">
+                                <div class="form-floating itemInput">
+                                    <input type="number" class="form-control" name="quantity"  id="floatingInput" ngModel>
+                                    <label for="floatingInput">Quantity</label>
+                                </div> 
+                            </td>
+                            <td style="width:17%;">
+                                <div class="">
+                                    <button class="btn btn-primary sr_btn" type="button" (click)="addProductRequest(productQuantityRef.value,product.id)">Add</button>
+                                    <button class="btn btn-warning sr_btn" type="button" (click)="deleteProductRequest(productQuantityRef.value,product.id)">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </form>
+                </div>
+            </tbody>
+        </table>
+
+            <!-- <div class="row" *ngFor="let product of products">
 
                 <form #productQuantityRef="ngForm">
                     <div class="col" style="margin-top:20px">
@@ -33,7 +58,7 @@
                     </div>
                     <hr>
                 </form>
-            </div>
+            </div> -->
         
     </div>
 </div>

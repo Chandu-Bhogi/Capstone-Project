@@ -47,3 +47,7 @@ td{
     text-align: center;
     margin: auto;
 }
+
+#total {
+    float: left;
+}

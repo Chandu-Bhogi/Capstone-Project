@@ -22,7 +22,8 @@ import { ShippedOrdersComponent } from './employee/update-order-status/shipped-o
 import { DeliveredOrdersComponent } from './employee/update-order-status/delivered-orders/delivered-orders.component';
 import { CancelledOrdersComponent } from './employee/update-order-status/cancelled-orders/cancelled-orders.component';
 import { OutForDeliveryOrdersComponent } from './employee/update-order-status/out-for-delivery-orders/out-for-delivery-orders.component';
-import { OrderStatusComponent } from './user/order-status/order-status.component'
+import { OrderStatusComponent } from './user/order-status/order-status.component';
+import { RequestComponent } from './admin/request/request.component'
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { OrderStatusComponent } from './user/order-status/order-status.component
     DeliveredOrdersComponent,
     CancelledOrdersComponent,
     OutForDeliveryOrdersComponent,
-    OrderStatusComponent
+    OrderStatusComponent,
+    RequestComponent
   ],
   imports: [
     BrowserModule,

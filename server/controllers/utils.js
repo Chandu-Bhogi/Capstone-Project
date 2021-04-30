@@ -10,7 +10,7 @@ const getAllObjectsFromDB = (model) => async (req, res, next)  => {
 
 const getObjectsByQueryFromDB = (model) => async (req, res, next)  => {
     let queryObj = {};
-    Object.entries(req.query).forEach(([key,val]) => queryObj[key] = {$regex: `^${val}`})
+    zObject.entries(req.query).forEach(([key,val]) => queryObj[key] = {$regex: `^${val}`})
 
     model.find(queryObj)
     .then(data => res.status(200).json({ message: `Success`, data}))

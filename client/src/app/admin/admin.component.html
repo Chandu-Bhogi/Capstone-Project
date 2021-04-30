@@ -12,6 +12,9 @@
           <li class="nav-item">
             <button class="btn btn-outline-primary" type="button" (click)="showProducts()">Products</button>
           </li>
+          <li class="nav-item">
+            <button class="btn btn-outline-primary" type="button" (click)="showRequests()">Requests</button>
+          </li>
         </ul>
         <button class="btn btn-danger" type="button" (click)="logOut()">Log Out</button>
       </div>
@@ -54,6 +57,7 @@
           <th scope="col">Order ID</th>
           <th scope="col">Username</th>
           <th scope="col">Products</th>
+          <th scope="col">Total</th>
           <th scope="col">Status</th>
           <th scope="col">Date</th>
         </tr>
@@ -67,6 +71,7 @@
               <li>{{product.quantity}} {{product.id}}</li>
             </ul>
           </td>
+          <td>${{report.total}}</td>
           <td>{{report.status}}</td>
           <td>{{report.date}}</td>
         </tr>
@@ -116,25 +121,7 @@
   </div>
 
   <div class="row align-items-center" *ngIf="showProduct">
-    <div class="col">
-        <div class="container-md">
-            <form #edit="ngForm" (ngSubmit)="editProduct(edit.value)">
-                <div class="mb-3">
-                  <label class="form-label">Product Name</label>
-                  <input type="text" class="form-control" name="id" ngModel>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Quantity</label>
-                    <input type="number" class="form-control" name="quantity" ngModel>
-                </div>
-                <div class="d-grid gap-2">
-                  <button type="submit" class="btn btn-success" id="editProduct">Edit Product</button>
-                  <button type="reset" class="btn btn-link" id="reset">Reset</button>
-                </div>
-
-            </form>
-        </div>
-    </div>
+    <div class="col"></div>
     <div class="col">
       <div class="container-md">
         <form #add="ngForm" (ngSubmit)="addProduct(add.value)">
@@ -158,18 +145,28 @@
         </form>
     </div>
     </div>
-    <div class="col">
-        <div class="container-md">
-            <form #delete="ngForm" (ngSubmit)="deleteProduct(delete.value)">
-                <div class="mb-3">
-                  <label class="form-label">Product Name</label>
-                  <input type="text" class="form-control" name="id" ngModel>
-                </div>
-                <div class="d-grid gap-2">
-                  <button type="submit" class="btn btn-warning" id="deleteProduct">Delete Product</button>
-                </div>
-                
-            </form>
+    <div class="col"> </div>
+    <div class="name" *ngFor= "let item of items">
+      <div class="row">
+        <div class="col-sm-2"><strong>{{item.id}}</strong></div>
+        <br/>
+        <div class="col-sm-1">$ {{item.price}}</div>
+
+        <div class="col-sm-2">
+          <button id="removeBtn" class="btn btn-outline-danger" type="button" (click)="removeProduct(item.id)">Remove</button>
         </div>
+        <div class="col-sm-3"> 
+          <input type="number" id="orderedQuantity" value={{item.quantity}} step="1" min="1" class="col-2"  #updatedQty>
+        </div>
+        <div class="col-sm-3">
+          <button class="btn btn-outline-warning" type="button" (click)="updateProduct(item.id,updatedQty.value)">Update</button>
+        </div>  
+        <div class="col-sm-1">
+        </div>
+      <hr>
+      </div>
+     
     </div>
   </div>
+
+  <app-request *ngIf="showRequest"></app-request>
