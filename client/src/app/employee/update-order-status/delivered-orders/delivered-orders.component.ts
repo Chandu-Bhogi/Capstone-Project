@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OrdersService } from 'src/app/orders.service';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-delivered-orders',
@@ -12,7 +13,7 @@ export class DeliveredOrdersComponent implements OnInit {
 
   orders?:any;
 
-  constructor(public order_service:OrdersService) { }
+  constructor(public order_service:OrdersService, public userService:UserService) { }
 
   ngOnInit(): void {
     
@@ -37,8 +38,20 @@ export class DeliveredOrdersComponent implements OnInit {
     this.order_service.updateOrderStatus(orderRef)
     .subscribe((res:any)=>{
       console.log(res)
+      console.log(orderRef.status)
       if(res.status){
         alert("Updated the status of the order")
+        if (orderRef.status == "Cancelled") {
+          let funds_info = {
+            userName:res["userName"],
+            funds:res["total"]
+          }
+      
+          this.userService.addFunds(funds_info)
+          .subscribe((res:any)=>{
+            alert("User funds have also been updated")
+          })
+        }
       }else{
         alert("Issue with updating the order status")
       }

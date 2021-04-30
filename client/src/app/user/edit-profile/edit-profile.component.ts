@@ -58,17 +58,32 @@ export class EditProfileComponent implements OnInit {
 
     // Grab the currently logged in username from sessionStorage
     let curr_userName:any = sessionStorage.getItem('userName')
+    let emailCheck = true
     editProfileRef['userName'] = curr_userName
     
     let final_UserEdits:any = {}
     for(let [k,v] of Object.entries(editProfileRef)){
+      console.log(k)
       if(v != ""){
-        final_UserEdits[k] = v
+        if (k == "email") {
+          if (this.user_service.regexp.test(editProfileRef.email)) {
+            final_UserEdits[k] = v
+          } else {
+            emailCheck = false
+            break
+          }
+        } else {
+          final_UserEdits[k] = v
+        }
       }
     }
     console.log(final_UserEdits)
-
-    this.user_service.updateProfile(final_UserEdits)
+    if (emailCheck){
+      this.user_service.updateProfile(final_UserEdits)
+      alert("Profile has been updated")
+    } else {
+      alert("Invalid email")
+    }
   }
 
   submitNewPassword(updatePasswordRef:any){

@@ -62,7 +62,7 @@ export class AdminService {
     return this.http.post<ServerResponse>(URL,product_info)
   }
 
-  updateProduct(product_info:any):Observable<ServerResponse>{
+  updateProduct(product_info:any, ):Observable<ServerResponse>{
     let product_id = product_info['id']
     let URL:string;
     if(this.config['deployed']){
