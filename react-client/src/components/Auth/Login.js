@@ -46,7 +46,6 @@ const Login = () => {
         loginHandler(loginDetails);
 
         history.push(`/${currentUserRole}/dashboard`);
-        console.log(currentUserRole);
       }
     });
   };

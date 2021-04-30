@@ -7,6 +7,7 @@ import UniText, { globalStyles } from "../../UniStyles/UniText";
 import { Button } from "antd";
 import message from "antd/es/message";
 import { v4 as uuidv4 } from "uuid";
+import dayjs from "dayjs";
 
 export const shallowGet = (obj) => (path, defaultReturn) => {
   if (obj === undefined) return defaultReturn;
@@ -39,11 +40,11 @@ const Cart = ({ cart, user, setCart, total }) => {
           type="primary"
           onClick={() => {
             axios
-                  .post(`/cart/createCart/${user.user._id}`, {
-                    cart: cart,
-                  })
-                  .then((res) => console.log("added"))
-                  .catch((err) => message.error(err));
+              .post(`/cart/createCart/${user.user._id}`, {
+                cart: cart,
+              })
+              .then((res) => console.log("added"))
+              .catch((err) => message.error(err));
 
             axios
               .post(`/orders/createorder`, {
@@ -52,6 +53,7 @@ const Cart = ({ cart, user, setCart, total }) => {
                 total_bill: total,
                 status: "billed",
                 list: cart,
+                timestamp: dayjs(),
               })
               .then((res) => message.success("Successfully Created the order"))
               .catch((err) => message.error(err));

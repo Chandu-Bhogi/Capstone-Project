@@ -16,6 +16,12 @@ const Employees = lazy(() => import("./components/Admin/Employees/Employees"));
 
 const UserDashboard = lazy(() => import("./components/User/UserDashboard"));
 
+const EmployeeDashboard = lazy(() =>
+  import("./components/Employee/EmployeeDashboard")
+);
+const OrderStatus = lazy(() => import("./components/Employee/OrderStatus"));
+const Orders = lazy(() => import("./components/User/Orders"));
+
 const NotFound = lazy(() => import("./NotFound"));
 
 // const DashboardRouteWrapper = () => {
@@ -113,12 +119,12 @@ const NotFound = lazy(() => import("./NotFound"));
 //     );
 // };
 
-const AdminRoutes = ({ userType , user}) => {
+const AdminRoutes = ({ userType, user }) => {
   let { path, url } = useRouteMatch();
   return (
     <Switch>
       <Route path={`${path}/dashboard`}>
-        <Dashboard userType={userType} user={user}/>
+        <Dashboard userType={userType} user={user} />
       </Route>
       <Route exact path={`${path}/products`}>
         <Products />
@@ -145,22 +151,42 @@ const AdminRoutes = ({ userType , user}) => {
   );
 };
 
-const UserRoutes = ({ userType , user}) => {
+const UserRoutes = ({ userType, user }) => {
   let { path, url } = useRouteMatch();
   return (
     <Switch>
       <Route path={`${path}/dashboard`}>
-        <UserDashboard userType={userType} user={user}/>
+        <UserDashboard userType={userType} user={user} />
       </Route>
-      {/* <Route exact path={`${path}/results`}>
-                <CandidateResults />
-            </Route>
-            <Route exact path={`${path}/results/:attemptId`}>
-                <AttemptAnalysis />
-            </Route>
-            <Route path="*">
-                <Redirect to={`${path}/test`} />
-            </Route> */}
+      <Route exact path={`${path}/order`}>
+        <Orders />
+      </Route>
+      {/* <Route exact path={`${path}/results/:attemptId`}>
+        <AttemptAnalysis />
+      </Route>
+      <Route path="*">
+        <Redirect to={`${path}/test`} />
+      </Route> */}
+    </Switch>
+  );
+};
+
+const EmployeeRoutes = ({ userType, user }) => {
+  let { path, url } = useRouteMatch();
+  return (
+    <Switch>
+      <Route path={`${path}/dashboard`}>
+        <EmployeeDashboard userType={userType} user={user} />
+      </Route>
+      <Route exact path={`${path}/orderstatus`}>
+        <OrderStatus userType={userType} user={user} />
+      </Route>
+      {/* <Route exact path={`${path}/results/:attemptId`}>
+        <AttemptAnalysis />
+      </Route>
+      <Route path="*">
+        <Redirect to={`${path}/test`} />
+      </Route> */}
     </Switch>
   );
 };
@@ -233,14 +259,14 @@ const Routes = () => {
           </Route>
 
           <PrivateRoute path="/Admin">
-            <AdminRoutes userType={userType} user={user}/>
+            <AdminRoutes userType={userType} user={user} />
           </PrivateRoute>
           <PrivateRoute path="/User">
-            <UserRoutes userType={userType} user={user}/>
+            <UserRoutes userType={userType} user={user} />
           </PrivateRoute>
-          {/* <PrivateRoute path="/testpanel">
-                        <TestPanelRoutesWrapper userType={userType} />
-                    </PrivateRoute> */}
+          <PrivateRoute path="/Employee">
+            <EmployeeRoutes userType={userType} user={user} />
+          </PrivateRoute>
 
           <Route path="/404" exact component={NotFound} />
           <Route path="/" exact>

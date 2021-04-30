@@ -11,13 +11,18 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
     .catch(err=>res.status(422).json({status:false,message:`There was an error! -> ${err}`}))
 });
 
-exports.getUserByUsername = asyncHandler(async(req,res,next)=>{
+exports.getUser = asyncHandler(async(req,res,next)=>{
   
-  let username = req.params.userName
+  let {_id} = req.params
 
-  User.find({_id: req.params._id})
-  .then(user=>res.status(200).json({status:true,user,message:"Found User"}))
-  .catch(err=>res.status(422).json({status:false,message:`There was an error! => ${err}`}))
+  console.log(_id)
+  let [user] = await User.find({_id: _id})
+
+   if (user && user._id) {
+      res.status(200).json({ status: true, data: user , message: `user is found ${user._id}.` });
+    } else {
+      res.status(422).json({ status: false, message: "There was a problem while fetching from DB, please try again." });
+    }
 })
 
 // Edit Profile
@@ -31,10 +36,8 @@ exports.updateUserById = asyncHandler(async (req, res, next) => {
 });
 
 exports.addFunds = asyncHandler(async (req,res,next)=>{
-  console.log("You are in the addFunds!")
-  let username = req.body['userName']
-  let fundsAmnt = req.body['funds']
-  User.findOneAndUpdate({userName:username},{$inc:{funds:fundsAmnt}},{new:true})
+  let { _id , funds } = req.body;
+  User.findOneAndUpdate({_id:_id},{$inc:{funds:funds}},{new:true})
   .then(user=>res.status(200).json({status:true,message:"success",user}))
   .catch(err=>res.status(422).json({status:false,message:`There was an error ==> ${err}`}))
 })

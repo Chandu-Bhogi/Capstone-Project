@@ -18,7 +18,10 @@ const UserSchema = new Schema({
     },
   ],
   cart_total: Number,
-  funds: Number,
+  funds: {
+    type: Number,
+    default: 0,
+  },
   account_number: Number,
   locked: {
     type: Boolean,

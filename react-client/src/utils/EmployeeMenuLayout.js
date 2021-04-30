@@ -13,6 +13,23 @@ import { AiOutlineSmallDash } from "react-icons/ai";
 import AddFunds from "../components/User/AddFunds";
 import EditProfile from "../components/User/EditProfile";
 
+const EmployeeMenuArray = [
+  {
+    key: "dashboard",
+    to: "/Employee/dashboard",
+    title: "Dashboard",
+  },
+  //   {
+  //     key: "requests",
+  //     to: "/Employee/requests",
+  //     title: "Requests",
+  //   },
+  {
+    key: "orderstatus",
+    to: "/Employee/orderstatus",
+    title: "Order Status",
+  },
+];
 const AdminMenuArray = [
   {
     key: "dashboard",
@@ -69,6 +86,7 @@ const NavMenuLayout = ({ children, showMenu = true }) => {
     setSelectedRoute(e.key);
   };
 
+  console.log(user.user.user_type);
   const menu = (
     <Menu>
       <Menu.Item key="0">
@@ -184,7 +202,19 @@ const NavMenuLayout = ({ children, showMenu = true }) => {
                   >
                     {VerticalMenuItem(UserMenuArray)}
                   </Menu>
-                ) : null}
+                ) : (
+                  <Menu
+                    onClick={handleClick}
+                    selectedKeys={[selectedRoute]}
+                    mode="vertical"
+                    // style={{
+                    //     backgroundColor: "#f5f8fa",
+                    //     height: "100%",
+                    // }}
+                  >
+                    {VerticalMenuItem(EmployeeMenuArray)}
+                  </Menu>
+                )}
               </div>
             </Layout.Sider>
           )}

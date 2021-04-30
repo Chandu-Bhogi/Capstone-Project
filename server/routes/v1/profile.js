@@ -4,9 +4,9 @@ const users = require("../../controllers/users");
 const router = express.Router();
 
 router.put("/updateuser", users.updateUser);
-router.get("/getUser/:userName",users.getUserByUsername)
-router.put("/updateuser/:id", users.updateUserById);
+router.get("/getUser/:_id", users.getUser);
+router.put("/updateuser/:_id", users.updateUserById);
 
-router.post('/addFunds',users.addFunds)
+router.put("/addFunds", users.addFunds);
 
 module.exports = router;

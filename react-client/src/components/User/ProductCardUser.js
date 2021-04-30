@@ -56,12 +56,16 @@ const ProductCardUser = ({
             className={css(styles.addToCartBtn)}
             type="primary"
             onClick={() => {
-              message.success(`${product.name} added to cart`);
               setCart((prevState) => {
-                product.quantity = 1;
-                return [...prevState, product];
+                if (prevState.find((obj) => obj._id == product._id)) {
+                  message.error(`${product.name} is already in cart`);
+                  return prevState;
+                } else {
+                  product.quantity = 1;
+                  message.success(`${product.name} added to cart`);
+                  return [...prevState, product];
+                }
               });
-              //   toggleCartSiderVisible(true);
             }}
           >
             Add To Cart

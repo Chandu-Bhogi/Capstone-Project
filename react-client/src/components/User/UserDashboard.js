@@ -61,34 +61,18 @@ const UserDashboard = ({ userType, user }) => {
       .get("/products/getall")
       .then((res) => setProductArr(res.data.data))
       .catch((err) => message.error(err));
+
+    axios
+      .get(`/cart/getusercart?_id=${user.user._id}`)
+      .then((res) => {
+        let incomingCart = res.data.data ? res.data.data[0].cart : [];
+        setCart(incomingCart);
+      })
+      .catch((err) => message.error(err));
   }, []);
 
-  //   const [cartQuantiyMap, setCartQuantiyMap] = useStateWithSessionStorage(
-  //     "cartQuantityMap",
-  //     {}
-  //   );
-  useEffect(() => {
-    console.log("INSIDE THE EFFECT");
-    console.log(cart);
+  // useEffect(() => {}, []);
 
-    axios.get(`/cart/getusercart?_id=${user.user._id}`).then((res) => {
-      let incomingCart = res.data.data ? res.data.data[0].cart : [];
-      setCart(incomingCart);
-      //   if (incomingCart.length > cart) {
-      //     setCart(incomingCart);
-      //   } else {
-      //     axios
-      //       .post(`/cart/createCart/${user.user._id}`, {
-      //         cart: cart,
-      //         cart_total: total,
-      //       })
-      //       .then((res) => console.log("added"))
-      //       .catch((err) => message.error(err));
-      //   }
-    });
-  }, []);
-
-  console.log("CART", cart);
   return (
     <UserMenuLayout>
       <div className={css(styles.body)}>

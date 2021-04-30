@@ -7,12 +7,14 @@ const OrderSchema = new Schema({
   status: String,
   list: [
     {
+      _id: String,
       name: String,
       price: Number,
       quantity: Number,
     },
   ],
   total_bill: Number,
+  timestamp: Date,
 });
 
 module.exports = mongoose.model("Orders", OrderSchema);

@@ -38,31 +38,24 @@ const deleteObjectFromDB = (model) => async (req, res, next)  => {
 }
 
 const insertObjectInDB = (model) => async (req, res, next) => {
+  console.log("BODY----------",req.body)
 
   const { _id } = req.body;
-  // const { _id } = req.user;
-  
-  let [check] = await model.find({_id: _id});
-  if (check && check._id == _id) {
-    res.status(422).json({ status: false, message: `Duplicate _id!! _id:${_id} already exists`});
-  }
-  else{
-    let [resouce] = await model.insertMany([req.body]);
+ 
+  let [resouce] = await model.insertMany([req.body]);
 
-    if (resouce && resouce._id) {
-      res.status(200).json({ status: true, data: resouce , message: `Resource is added in database with _id: ${resouce._id}.` });
-    } else {
-      res.status(422).json({ status: false, message: "There was a problem while inserting in DB, please try again." });
-    }
+  console.log("RESOURCE------",resouce)
+  console.log("------------------------------------------------------------")
+  if (resouce && resouce._id) {
+    res.status(200).json({ status: true, data: resouce , message: `Resource is added in database with _id: ${resouce._id}.` });
+  } else {
+    res.status(422).json({ status: false, message: "There was a problem while inserting in DB, please try again." });
   }
 }
 
 const updateObjectInDB = (model) => async (req, res, next) => {
 
     const _id = req.params._id;
-    let [check] = await model.find({_id});
-
-    if (!check) return res.status(404).json({ status: false, message: `_ID: ${_id} is not available in DB`})
 
     model.findOneAndUpdate({_id: _id}, { $set: req.body }, { new: true })
     .then((data) =>
