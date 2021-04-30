@@ -9,6 +9,10 @@ router.get("/getallorders", Orders.getAllOrders);
 router.get("/getorder", Orders.getOrder);
 router.get("/getOrderByUser/:username",Orders.getOrderByUser)
 router.get("/getOrdersByStatus/:status",Orders.getOrdersByStatus)
+router.get("/getWeeklyReports", Orders.getWeeklyReports);
+router.get("/getDailyReports", Orders.getDailyReports);
+router.get("/getMonthlyReports", Orders.getMonthlyReports);
+
 
 router.post("/createorder", Orders.createOrder);
 
