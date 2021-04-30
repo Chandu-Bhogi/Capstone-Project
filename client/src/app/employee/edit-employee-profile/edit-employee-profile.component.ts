@@ -32,7 +32,7 @@ export class EditEmployeeProfileComponent implements OnInit {
     // We need to retrieve the employee password
     let resp = this.employee_service.getEmployeeById({"id":emp_id})
     resp.subscribe((response:any)=>{
-      let employee_details = response['emp'][0]
+      let employee_details = response['data'][0]
       console.log("here are the details")
       console.log(employee_details)
 

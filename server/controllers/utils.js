@@ -47,7 +47,7 @@ const insertObjectInDB = (model) => (inputState = null) => async (req, res, next
     res.status(200).json({ status: false, message: `Duplicate ID!! ID:${id} already exists`});
   }
   else{
-    let [check] = await model.insertMany(inputState);
+    let [check] = await model.insertMany(req.body);
 
     if (check && check.id) {
       res.status(200).json({ status: true, message: `Resource is added in database with ID: ${check.id}.` });

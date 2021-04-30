@@ -82,17 +82,19 @@ export class AdminComponent implements OnInit {
   }
 
   deleteEmployee(employeeID:any) {
-    this.admin_service.deleteEmployee(employeeID)
-    .subscribe(res=> {
-      if (res.status) {
-        alert(res.message)
+    if (confirm(`Do you want to delete ${employeeID}?`)) {
+      this.admin_service.deleteEmployee(employeeID)
+      .subscribe(res=> {
+        if (res.status) {
+          alert(res.message)
+        } else {
+          alert(res.message)
+        }
         this.admin_service.getAllEmployee().subscribe(result => {
           this.employees = result
         })
-      } else {
-        alert(res.message)
-      }
-    })
+      })
+    }
   }
   
   customize(custom:any) {
@@ -226,13 +228,15 @@ export class AdminComponent implements OnInit {
   }
 
   removeProduct(id:any) {
-    this.productService.deleteProducts(id).subscribe(result => {
-      this.userService.getProducts().subscribe(result=> {
-        this.items = result.data
-        console.log(result.data);
-        console.log(this.items);
+    if (confirm(`Do you want to delete ${id}?`)) {
+      this.productService.deleteProducts(id).subscribe(result => {
+        this.userService.getProducts().subscribe(result=> {
+          this.items = result.data
+          console.log(result.data);
+          console.log(this.items);
+        })
       })
-    })
+    }
   }
 
   updateProduct(id:any, quantity:any) {

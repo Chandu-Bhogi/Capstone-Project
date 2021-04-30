@@ -80,7 +80,6 @@
 </div>
 
 <div class="row align-items-center" *ngIf="showEdit">
-    <div class="col"> </div>
     <div class="col">
       <div class="container-md">
         <form #employee="ngForm" (ngSubmit)="addEmployee(employee.value)">
@@ -103,20 +102,21 @@
 
         </form>
     </div>
-    </div>
-    <div class="col"></div>
-    <div class="name" *ngFor= "let employee of employees.data">
-      <div class="row">
-        <div class="container-fluid">ID: <strong>{{employee.id}}</strong></div>
-        <br/>
-        <div class="container-fluid" *ngIf="!employee.changedPassword">Password: {{employee.password}}</div>
-        <div class="container-fluid" *ngIf="employee.changedPassword">Password: <strong>Employee has changed their password</strong></div>
-        <div class="container-fluid">
-          <button class="btn btn-outline-danger" type="button" (click)="deleteEmployee(employee.id)">Delete</button>
-        </div> 
-      <hr>
+   </div>
+    <div class="col">
+      <div class="name" *ngFor= "let employee of employees.data">
+        <div class="row">
+          <div class="container-fluid">ID: <strong>{{employee.id}}</strong></div>
+          <br/>
+          <div class="container-fluid" *ngIf="!employee.changedPassword">Password: {{employee.password}}</div>
+          <div class="container-fluid" *ngIf="employee.changedPassword">Password: <strong>*Employee has changed their password*</strong></div>
+          <div class="container-fluid">
+            <button class="btn btn-outline-danger" type="button" (click)="deleteEmployee(employee.id)">Delete</button>
+          </div> 
+        <hr>
+        </div>
+       
       </div>
-     
     </div>
   </div>
 

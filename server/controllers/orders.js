@@ -43,10 +43,6 @@ exports.updateStatus = asyncHandler(async (req,res,next)=>{
   Orders.findOneAndUpdate({id:id},{$set:{status:status}},{new:true})
   .then((order)=>res.status(200).json({status:true,order,message:"Found & Updated the following order"}))
   .catch((err)=>res.status(422).json({status:false,message:"Issue with finding/updating the order"}))
-
-  // Orders.find({status:status})
-  // .then((order)=>res.status(200).json({status:true,order,message:"Found the following orders"}))
-  // .catch((err)=>res.status(422).json({status:false,message:"Issue with finding orders"}))
 })
 
 

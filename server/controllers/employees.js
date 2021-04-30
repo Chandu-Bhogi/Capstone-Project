@@ -66,6 +66,7 @@ exports.addEmployee = asyncHandler(async (req, res, next) => {
         }
     }
     req.body.id = id
+    req.body.password = password
     let DBstate = {id, firstName, lastName, email, password}
     insertObjectInDB(DBstate)(req, res, next);
 });
