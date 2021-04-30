@@ -6,7 +6,7 @@
 
         <div class="col">
             
-            <div class="CurrentUserInfo">
+            <div class="CurrentUserInfo" >
                 <div class="row">
                     <div class="col">
                         <div class="row">
@@ -41,7 +41,7 @@
 
 
         <div class="col">
-            <div class="editProfileContent">
+            <div class="editProfileContent" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);">
                 <form #editProfileRef="ngForm" (ngSubmit)="submitEdits(editProfileRef.value)">
                     <div class='row'>
                         <div class="col">
@@ -102,8 +102,9 @@
 
     <hr>
     <h3>Forgot your password? Change it here!</h3>
+    <br>
 
-    <div class="updatePasswordContent">
+    <div class="updatePasswordContent" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);">
         <form #updatePasswordRef="ngForm" (ngSubmit)="submitNewPassword(updatePasswordRef.value)">
             <div class="row">
                 <div class="col">

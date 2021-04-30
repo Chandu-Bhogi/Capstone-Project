@@ -1,7 +1,7 @@
-.fundTableArea{
+/* .fundTableArea{
     border: 2px solid black;
     border-radius: 10px;
-}
+} */
 
 .addFundsArea{
     margin: auto;
@@ -17,4 +17,7 @@
 .fundsBtn{
     margin:auto;
     text-align: center;
+}
+h2{
+    font-family: 'Archivo', sans-serif;
 }
