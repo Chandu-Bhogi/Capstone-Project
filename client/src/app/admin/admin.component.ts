@@ -19,6 +19,7 @@ export class AdminComponent implements OnInit {
   reports:Data[] = []
   reportShow:Data[] = []
   items?:any = []
+  employees?:any = []
 
   showReport =  true
   showEdit = false
@@ -42,6 +43,9 @@ export class AdminComponent implements OnInit {
       this.items = result.data
       console.log(result.data);
       console.log(this.items);
+    })
+    admin_service.getAllEmployee().subscribe(result => {
+      this.employees = result
     })
   }
 
@@ -67,6 +71,9 @@ export class AdminComponent implements OnInit {
       .subscribe(res=>{
         if (res.status) {
           alert(res.message)
+          this.admin_service.getAllEmployee().subscribe(result => {
+            this.employees = result
+          })
         } else {
           alert(res.message)
         }
@@ -77,14 +84,19 @@ export class AdminComponent implements OnInit {
   }
 
   deleteEmployee(employeeID:any) {
-    this.admin_service.deleteEmployee(employeeID.id)
-    .subscribe(res=> {
-      if (res.status) {
-        alert(res.message)
-      } else {
-        alert(res.message)
-      }
-    })
+    if (confirm(`Do you want to delete ${employeeID}?`)) {
+      this.admin_service.deleteEmployee(employeeID)
+      .subscribe(res=> {
+        if (res.status) {
+          alert(res.message)
+        } else {
+          alert(res.message)
+        }
+        this.admin_service.getAllEmployee().subscribe(result => {
+          this.employees = result
+        })
+      })
+    }
   }
   
   customize(custom:any) {
@@ -204,13 +216,15 @@ export class AdminComponent implements OnInit {
   }
 
   removeProduct(id:any) {
-    this.productService.deleteProducts(id).subscribe(result => {
-      this.userService.getProducts().subscribe(result=> {
-        this.items = result.data
-        console.log(result.data);
-        console.log(this.items);
+    if (confirm(`Do you want to delete ${id}?`)) {
+      this.productService.deleteProducts(id).subscribe(result => {
+        this.userService.getProducts().subscribe(result=> {
+          this.items = result.data
+          console.log(result.data);
+          console.log(this.items);
+        })
       })
-    })
+    }
   }
 
   updateProduct(id:any, quantity:any) {

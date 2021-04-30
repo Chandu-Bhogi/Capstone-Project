@@ -20,6 +20,7 @@ export class ProductRequestService {
 
   makeAddRequest(product_info:any):Observable<ServerResponse>{
     let URL:string
+    console.log(product_info)
     if(this.config['deployed']){
       URL = this.config['URL2']+'/v1/productrequest/addRequest'
     }else{

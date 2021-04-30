@@ -28,9 +28,14 @@ exports.login = asyncHandler(async (req,res,next)=>{
 })
 
 exports.getEmployeeById = asyncHandler(async (req, res, next) => {
-    let emp_id = req.params.id
-    Employee.find({id:emp_id})
-    .then(emp=>res.status(200).json({status:true,emp,message:"Found Employee!"}))
+    // let username = req.params.userName
+    // User.find({userName:username})
+    // .then(user=>res.status(200).json({status:true,user,message:"Found User"}))
+    // .catch(err=>res.status(422).json({status:false,message:`There was an error! => ${err}`}))
+    let id = req.params.id
+    console.log(id)
+    Employee.find({id:id})
+    .then(data=>res.status(200).json({status:true,data,message:"Found Employee!"}))
     .catch(err=>res.status(422).json({status:false,message:`Issue finding employee => ${err}`}))
 })
 
@@ -61,6 +66,7 @@ exports.addEmployee = asyncHandler(async (req, res, next) => {
         }
     }
     req.body.id = id
+    req.body.password = password
     let DBstate = {id, firstName, lastName, email, password}
     insertObjectInDB(DBstate)(req, res, next);
 });

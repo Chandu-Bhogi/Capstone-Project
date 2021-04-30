@@ -44,15 +44,15 @@ const insertObjectInDB = (model) => (inputState = null) => async (req, res, next
 
   let [check] = await model.find({id});
   if (check && check.id == id) {
-    res.status(422).json({ status: false, message: `Duplicate ID!! ID:${id} already exists`});
+    res.status(200).json({ status: false, message: `Duplicate ID!! ID:${id} already exists`});
   }
   else{
-    let [check] = await model.insertMany(inputState);
+    let [check] = await model.insertMany(req.body);
 
     if (check && check.id) {
       res.status(200).json({ status: true, message: `Resource is added in database with ID: ${check.id}.` });
     } else {
-      res.status(422).json({ status: false, message: "There was a problem while inserting in DB, please try again." });
+      res.status(200).json({ status: false, message: "There was a problem while inserting in DB, please try again." });
     }
   }
 }

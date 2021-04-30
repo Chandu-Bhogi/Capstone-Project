@@ -81,42 +81,42 @@
 
 <div class="row align-items-center" *ngIf="showEdit">
     <div class="col">
-        <div class="container-md">
-            <form #employee="ngForm" (ngSubmit)="addEmployee(employee.value)">
-                <div class="mb-3">
-                  <label class="form-label">First Name</label>
-                  <input type="text" class="form-control" name="firstName" ngModel>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Last Name</label>
-                    <input type="text" class="form-control" name="lastName" ngModel>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-control" name="email" ngModel>
-                </div>
-                <div class="d-grid gap-2">
-                  <button type="submit" class="btn btn-success" id="addEmployee">Add Employee</button>
-                  <button type="reset" class="btn btn-link" id="reset">Reset</button>
-                </div>
+      <div class="container-md">
+        <form #employee="ngForm" (ngSubmit)="addEmployee(employee.value)">
+            <div class="mb-3">
+              <label class="form-label">First Name</label>
+              <input type="text" class="form-control" name="firstName" ngModel>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Last Name</label>
+                <input type="text" class="form-control" name="lastName" ngModel>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" ngModel>
+            </div>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-success" id="addEmployee">Add Employee</button>
+              <button type="reset" class="btn btn-link" id="reset">Reset</button>
+            </div>
 
-            </form>
-        </div>
+        </form>
     </div>
-    <div class="col"></div>
+   </div>
     <div class="col">
-        <div class="container-md">
-            <form #employeeID="ngForm" (ngSubmit)="deleteEmployee(employeeID.value)">
-                <div class="mb-3">
-                  <label class="form-label">Employee ID</label>
-                  <input type="text" class="form-control" name="id" ngModel>
-                </div>
-                <div class="d-grid gap-2">
-                  <button type="submit" class="btn btn-warning" id="deleteEmployee">Delete Employee</button>
-                </div>
-                
-            </form>
+      <div class="name" *ngFor= "let employee of employees.data">
+        <div class="row">
+          <div class="container-fluid">ID: <strong>{{employee.id}}</strong></div>
+          <br/>
+          <div class="container-fluid" *ngIf="!employee.changedPassword">Password: {{employee.password}}</div>
+          <div class="container-fluid" *ngIf="employee.changedPassword">Password: <strong>*Employee has changed their password*</strong></div>
+          <div class="container-fluid">
+            <button class="btn btn-outline-danger" type="button" (click)="deleteEmployee(employee.id)">Delete</button>
+          </div> 
+        <hr>
         </div>
+       
+      </div>
     </div>
   </div>
 
