@@ -59,6 +59,39 @@ export class OrdersService {
     return this.http.get<ServerResponse>(URL)
   }
 
+  getDailyOrderReports():Observable<ServerResponse>{
+    let URL:string
+    if(this.config['deployed']){
+      URL = this.config['URL2']+'/v1/orders/getDailyReports/'
+    }else{
+      URL = this.config['URL']+this.config['PORT']+'/v1/orders/getDailyReports/'
+    }
+    console.log(`Traveling to: ${URL}`)
+    return this.http.get<ServerResponse>(URL)
+  }
+
+  getWeeklyOrderReports():Observable<ServerResponse>{
+    let URL:string
+    if(this.config['deployed']){
+      URL = this.config['URL2']+'/v1/orders/getWeeklyReports/'
+    }else{
+      URL = this.config['URL']+this.config['PORT']+'/v1/orders/getWeeklyReports/'
+    }
+    console.log(`Traveling to: ${URL}`)
+    return this.http.get<ServerResponse>(URL)
+  }
+
+  getMonthlyOrderReports():Observable<ServerResponse>{
+    let URL:string
+    if(this.config['deployed']){
+      URL = this.config['URL2']+'/v1/orders/getMonthlyReports/'
+    }else{
+      URL = this.config['URL']+this.config['PORT']+'/v1/orders/getMonthlyReports/'
+    }
+    console.log(`Traveling to: ${URL}`)
+    return this.http.get<ServerResponse>(URL)
+  }
+
   updateOrderStatus(order_details:any):Observable<ServerResponse>{
     let id = order_details['id']
     let URL:string

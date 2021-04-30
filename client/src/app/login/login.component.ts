@@ -67,41 +67,45 @@ export class LoginComponent implements OnInit {
     resp.subscribe( (response:any) =>{
       let user_details = response['user'][0]
       console.log(user_details)
-      this.lockedUser = user_details['locked']
-      console.log(this.lockedUser)
-      if(!this.lockedUser) {
-        this.userService.signInUser(userInfo).subscribe(result=>{
-          console.log(result)
-          if (result.status) {
-            sessionStorage.setItem("userName", userInfo.userName)
-            this.router.navigate(["user"])
-          } else {
-            if (result.message == "Password") {
-              if (this.userMap.has(userInfo.userName)) {
-                if (this.userMap.get(userInfo.userName) == 3) {
-                  let obj = {
-                    userName: userInfo.userName,
-                    locked: true
+      if(user_details == undefined){
+        alert("Account wasn't found! Try again")
+      }else{
+        this.lockedUser = user_details['locked']
+        console.log(this.lockedUser)
+        if(!this.lockedUser) {
+          this.userService.signInUser(userInfo).subscribe(result=>{
+            console.log(result)
+            if (result.status) {
+              sessionStorage.setItem("userName", userInfo.userName)
+              this.router.navigate(["user"])
+            } else {
+              if (result.message == "Password") {
+                if (this.userMap.has(userInfo.userName)) {
+                  if (this.userMap.get(userInfo.userName) == 3) {
+                    let obj = {
+                      userName: userInfo.userName,
+                      locked: true
+                    }
+                    this.userService.updateProfile(obj)
+                    alert("Your accout has been locked!")
+                  } else {
+                    this.userMap.set(userInfo.userName, this.userMap.get(userInfo.userName) + 1)
+                    this.attempts--
+                    alert(`Wrong password, ${this.attempts} attempt(s) left`)
                   }
-                  this.userService.updateProfile(obj)
-                  alert("Your accout has been locked!")
                 } else {
-                  this.userMap.set(userInfo.userName, this.userMap.get(userInfo.userName) + 1)
-                  this.attempts--
+                  this.attempts = 2
+                  this.userMap.set(userInfo.userName, 1)
                   alert(`Wrong password, ${this.attempts} attempt(s) left`)
                 }
               } else {
-                this.attempts = 2
-                this.userMap.set(userInfo.userName, 1)
-                alert(`Wrong password, ${this.attempts} attempt(s) left`)
+                alert(result.message)
               }
-            } else {
-              alert(result.message)
             }
-          }
-        });
-      } else {
-        alert("Your account is locked")
+          });
+        } else {
+          alert("Your account is locked")
+        }
       }
     })
   }

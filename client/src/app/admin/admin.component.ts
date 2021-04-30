@@ -6,6 +6,7 @@ import { AdminService } from '../admin.service';
 import { UserService } from '../user.service';
 import { Data } from '../model.order';
 import { ProductService } from '../product.service';
+import { OrdersService } from '../orders.service';
 
 @Component({
   selector: 'app-admin',
@@ -30,7 +31,8 @@ export class AdminComponent implements OnInit {
     public router: Router,
     public admin_service:AdminService, 
     public userService:UserService,
-    public productService:ProductService) { 
+    public productService:ProductService,
+    public orderService:OrdersService) { 
     this.preventBackButton()
     userService.getAllOrders().subscribe(result => {
       console.log(result)
@@ -145,41 +147,27 @@ export class AdminComponent implements OnInit {
   }
 
   daily() {
-    let today = new Date()
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0');
-    this.reportShow = []
-
-    for(let i = 0; i < this.reports.length; i++) {
-      if(dd == this.reports[i].date.split("/")[1] && mm == this.reports[i].date.split("/")[0]) {
-        this.reportShow.push(this.reports[i])
-      }
-    }
+    this.orderService.getDailyOrderReports()
+    .subscribe((res:any)=>{
+      console.log(res.data)
+      this.reportShow = res.data
+    })    
   }
 
   weekly() {
-    let today = new Date()
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0');
-    this.reportShow = []
-
-    for(let i = 0; i < this.reports.length; i++) {
-      if(dd == this.reports[i].date.split("/")[1] && mm == this.reports[i].date.split("/")[0]) {
-        this.reportShow.push(this.reports[i])
-      }
-    }
+    this.orderService.getWeeklyOrderReports()
+    .subscribe((res:any)=>{
+      console.log(res.data)
+      this.reportShow = res.data
+    })
   }
 
   monthly() {
-    let today = new Date()
-    let mm = String(today.getMonth() + 1).padStart(2, '0');
-    this.reportShow = []
-
-    for(let i = 0; i < this.reports.length; i++) {
-      if( mm == this.reports[i].date.split("/")[0]) {
-        this.reportShow.push(this.reports[i])
-      }
-    }
+    this.orderService.getMonthlyOrderReports()
+    .subscribe((res:any)=>{
+      console.log(res.data)
+      this.reportShow = res.data
+    })
   }
 
   showReportBtn() {
