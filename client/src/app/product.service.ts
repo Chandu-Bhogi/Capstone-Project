@@ -12,14 +12,21 @@ import { Ticket } from './model.ticket'
 
   export class ProductService{
     config:any = {
-        URL:'http://localhost:',
-        PORT:'4100'
+      deployed:false,
+      URL:'http://localhost:',
+      PORT:'4100',
+      URL2:'/api'
     }
     
     constructor(public http:HttpClient) { }
       
     getProducts():Observable<Product> {
-      let URL:string = this.config['URL']+this.config['PORT']+'/v1/products/getallproducts'
+      let URL:string
+      if(this.config['deployed']){
+        URL = this.config['URL2']+'/v1/products/getallproducts'
+      }else{
+        URL = this.config['URL']+this.config['PORT']+'/v1/products/getallproducts'
+      }
       console.log(`Traveling to: ${URL}`)
       return this.http.get<Product>(URL)
     }

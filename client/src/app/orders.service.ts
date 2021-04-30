@@ -9,8 +9,10 @@ import { ServerResponse } from './model.serverResponse'
 export class OrdersService {
 
   config:any = {
+    deployed:false,
     URL:'http://localhost:',
-    PORT:'4100'
+    PORT:'4100',
+    URL2:'/api'
   }
 
   // Temp arr of orders for testing purposes
@@ -34,7 +36,12 @@ export class OrdersService {
 
   getUserOrders(user_details:any):Observable<ServerResponse>{
     let username = user_details['id']
-    let URL:string = this.config['URL']+this.config['PORT']+'/v1/orders/getOrderByUser/'+username
+    let URL:string
+    if(this.config['deployed']){
+      URL = this.config['URL2']+'/v1/orders/getOrderByUser/'+username
+    }else{
+      URL = this.config['URL']+this.config['PORT']+'/v1/orders/getOrderByUser/'+username
+    }
     console.log(`Traveling to: ${URL}`)
     return this.http.get<ServerResponse>(URL)
 
@@ -42,14 +49,24 @@ export class OrdersService {
 
   getOrderByStatus(order_details:any):Observable<ServerResponse>{
     let status = order_details['status']
-    let URL:string = this.config['URL']+this.config['PORT']+'/v1/orders/getOrdersByStatus/'+status
+    let URL:string
+    if(this.config['deployed']){
+      URL = this.config['URL2']+'/v1/orders/getOrdersByStatus/'+status
+    }else{
+      URL = this.config['URL']+this.config['PORT']+'/v1/orders/getOrdersByStatus/'+status
+    }
     console.log(`Traveling to: ${URL}`)
     return this.http.get<ServerResponse>(URL)
   }
 
   updateOrderStatus(order_details:any):Observable<ServerResponse>{
     let id = order_details['id']
-    let URL:string = this.config['URL']+this.config['PORT']+'/v1/orders/updateStatus/'+id
+    let URL:string
+    if(this.config['deployed']){
+      URL = this.config['URL2']+'/v1/orders/updateStatus/'+id
+    }else{
+      URL = this.config['URL']+this.config['PORT']+'/v1/orders/updateStatus/'+id
+    } 
     console.log(`Traveling to: ${URL}`)
     return this.http.put<ServerResponse>(URL,order_details)
   }
